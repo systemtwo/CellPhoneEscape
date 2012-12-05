@@ -9,10 +9,8 @@
 class TitleState: public State {
 	private: 
 		sf::Sprite titleSprite;
-		sf::Sprite pointerSprite;
 		const sf::Input & Input;
 		Engine eng;
-		DrawObj * tmp;
 		DrawObj * mouse;
 	public:
 		TitleState(const sf::Input &);

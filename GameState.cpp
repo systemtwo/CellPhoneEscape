@@ -26,20 +26,6 @@ void GameState::update(float dt) {
 	double centery = 200;
 	int orbitspeed = 2;
 	
-	//player1 (400,400,200);
-	
-	//Get input
-	/*
-	if (Input.IsKeyDown(sf::Key::Left)) {
-		std::cout << left;	
-	} else if (Input.IsKeyDown(sf::Key::Right)) {
-		std::cout << right;
-	} else if (Input.IsKeyDown(sf::Key::Up)) {
-		std::cout << up;
-	} else if (Input.IsKeyDown(sf::Key::Down)) {
-		std::cout << down;
-	}*/
-	
 	if (Input.IsKeyDown(sf::Key::Up)) {
 		player.turnOnEngine();
 	} else if (!Input.IsKeyDown(sf::Key::Up)) {

@@ -8,7 +8,6 @@ TitleState::TitleState(const sf::Input & _input) : Input(_input) {
 void TitleState::init() {
 	try {
 		titleSprite.SetImage(*RMPointer->getImage("title"));
-		pointerSprite.SetImage(*RMPointer->getImage("pointer"));
 	} catch (int e) {
 		std::cout << "Could not find image" << std::endl;
 	}	
@@ -19,11 +18,11 @@ void TitleState::init() {
 }
 
 void TitleState::update(float dt) {
-	mouse->sprite->SetX(Input.GetMouseX());
-	mouse->sprite->SetY(Input.GetMouseY());
+	int mouseXShift = mouse->sprite->GetSize().x;
+	int mouseYShift = mouse->sprite->GetSize().y;
+	mouse->sprite->SetX(Input.GetMouseX()-(mouseXShift/2));
+	mouse->sprite->SetY(Input.GetMouseY()-(mouseYShift/2));
 	std::cout << dt << std::endl;
-	pointerSprite.SetX(Input.GetMouseX());
-	pointerSprite.SetY(Input.GetMouseY());
 	if (Input.IsMouseButtonDown(sf::Mouse::Left)) {
 		switchName = "Game";
 	}

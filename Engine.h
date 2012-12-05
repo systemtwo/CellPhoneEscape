@@ -9,6 +9,7 @@ struct DrawObj {
 	sf::Sprite * sprite;
 	int zorder;
 	bool destroy; //Set to true for Engine to destroy
+	//string name;
 };
 
 bool compareDrawObjZOrder(DrawObj * i, DrawObj * j);

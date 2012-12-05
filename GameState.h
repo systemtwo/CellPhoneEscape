@@ -3,6 +3,7 @@
 #include <cmath>
 #include "StateManager.h"
 #include "PlayerClass.h"
+#include "Engine.h"
 
 #define PI 3.14159265
 
@@ -16,6 +17,7 @@ class GameState: public State {
 		
 		double time;
 		Player player;
+		Engine eng;
 	public:
 		GameState(const sf::Input &);
 		void init();

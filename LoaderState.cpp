@@ -5,8 +5,6 @@ LoaderState::LoaderState(const sf::Input & _input) : Input(_input) {
 }
 
 void LoaderState::init() {
-	//std::cout << "RMPointer Address at TS: " << RMPointer << std::endl;
-	//RMPointer->testFunction();
 	sf::Image * i1 = new sf::Image;
 	sf::Image * i2 = new sf::Image;
 	sf::Image * i3 = new sf::Image;
@@ -21,16 +19,6 @@ void LoaderState::init() {
 	RMPointer->storeImage(i1, "title");
 	RMPointer->storeImage(i3, "rubix");
 	RMPointer->storeImage(i4, "sat1");
-	
-	
-	
-	/*
-	try {
-		loaderSprite.SetImage(*RMPointer->getImage("loading"));
-	} catch (int e) {
-		std::cout << "Could not find image" << std::endl;
-	}	
-	*/
 }
 
 void LoaderState::update() {

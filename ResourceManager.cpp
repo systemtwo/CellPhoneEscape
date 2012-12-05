@@ -8,9 +8,7 @@ ResourceManager::ResourceManager() {
 
 sf::Image * ResourceManager::getImage(std::string _name) {
 	//Retrieves a sf::Sprite from storage
-	std::cout << "Grabbing your image..." << std::endl;
 	int i = 0;
-	//_name = "title";
 	for (i = 0; i < storage.size(); i++) {
 		//std::cout << "I'm in loop at" << i << std::endl;
 		//std::cout << "Address: " << &storage << std::endl;
@@ -18,8 +16,6 @@ sf::Image * ResourceManager::getImage(std::string _name) {
 		
 		if ((storage[i]->name).compare(_name) == 0) {
 			//Strings are the same
-			std::cout << "Found the resource" << _name << std::endl;
-			//std::cout << (storage[i]->name).compare(_name) << std::endl;
 			return storage[i]->image;
 		}
 		
