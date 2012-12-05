@@ -20,6 +20,6 @@ class GameState: public State {
 		GameState(const sf::Input &);
 		void init();
 		void draw();
-		void update();
+		void update(float dt);
 		directions dirs;
 };

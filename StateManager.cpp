@@ -33,8 +33,13 @@ void StateManager::checkSwitchState() {
 	//Check current state to see if it is requesting a state change
 	if (!states[currState]->switchName.empty()) {
 		std::cout << "Request to change to: " << states[currState]->switchName << std::endl;
-		//Should have a try catch here
-		switchState(states[currState]->switchName);
+		try {
+			switchState(states[currState]->switchName);
+		} catch (int e) {
+			std::cout << "State not found!" << std::endl;
+			system("pause");
+			exit(1);
+		}	
 	}
 	return;
 }

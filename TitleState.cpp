@@ -30,9 +30,6 @@ void TitleState::update(float dt) {
 }
 
 void TitleState::draw() {
-	//AppPointer->Draw(titleSprite);
-	//AppPointer->Draw(pointerSprite);
-	AppPointer->Clear();
 	eng.drawAll();
 	return;
 }

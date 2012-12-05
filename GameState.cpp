@@ -18,7 +18,7 @@ void GameState::init() {
 	time = 0;
 }
 
-void GameState::update() {
+void GameState::update(float dt) {
 	double rad;
 	double x = 0, y = 0;
 	double orbitradius = 100;
