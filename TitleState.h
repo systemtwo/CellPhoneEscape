@@ -12,6 +12,8 @@ class TitleState: public State {
 		sf::Sprite pointerSprite;
 		const sf::Input & Input;
 		Engine eng;
+		DrawObj * tmp;
+		DrawObj * mouse;
 	public:
 		TitleState(const sf::Input &);
 		void init();

@@ -27,6 +27,8 @@ DrawObj * Engine::makeAndAddObj(sf::Sprite * _sprite, int _zorder) {
 }
 
 void Engine::drawAll() {
+	cout << "Tracking " << objList.size() << endl;
+	cleanObjList();
 	sortZOrder();
 	for (int i = 0; i < objList.size(); i++) {
 		typeid(objList[i]->sprite).name();

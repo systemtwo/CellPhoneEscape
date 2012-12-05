@@ -13,36 +13,26 @@ void TitleState::init() {
 		std::cout << "Could not find image" << std::endl;
 	}	
 	eng.setAppPointer(AppPointer);
+	sf::Sprite * tmp = new sf::Sprite;
+	tmp->SetImage(*RMPointer->getImage("pointer"));
+	mouse = eng.makeAndAddObj(tmp, 20);
 }
 
 void TitleState::update(float dt) {
-	DrawObj * temp = new DrawObj;
-	sf::Sprite *tempsp = new sf::Sprite;
-	tempsp->SetImage(*RMPointer->getImage("sat1"));
-	temp->sprite = tempsp;
-	temp->zorder = 10;
-	temp->destroy = false;
-	
+	mouse->sprite->SetX(Input.GetMouseX());
+	mouse->sprite->SetY(Input.GetMouseY());
 	std::cout << dt << std::endl;
 	pointerSprite.SetX(Input.GetMouseX());
 	pointerSprite.SetY(Input.GetMouseY());
 	if (Input.IsMouseButtonDown(sf::Mouse::Left)) {
 		switchName = "Game";
 	}
-	if (Input.IsKeyDown(sf::Key::Space)) {
-		eng.addDrawObj(temp);
-	}
-	
-	if (Input.IsKeyDown(sf::Key::Escape)) {
-		sf::Sprite *tempsp = new sf::Sprite;
-		tempsp->SetImage(*RMPointer->getImage("title"));
-		eng.makeAndAddObj(tempsp, 9);
-	}
 }
 
 void TitleState::draw() {
 	//AppPointer->Draw(titleSprite);
 	//AppPointer->Draw(pointerSprite);
+	AppPointer->Clear();
 	eng.drawAll();
 	return;
 }
