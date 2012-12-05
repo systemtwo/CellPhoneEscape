@@ -32,6 +32,12 @@ void TitleState::update(float dt) {
 	if (Input.IsKeyDown(sf::Key::Space)) {
 		eng.addDrawObj(temp);
 	}
+	
+	if (Input.IsKeyDown(sf::Key::Escape)) {
+		sf::Sprite *tempsp = new sf::Sprite;
+		tempsp->SetImage(*RMPointer->getImage("title"));
+		eng.makeAndAddObj(tempsp, 9);
+	}
 }
 
 void TitleState::draw() {
