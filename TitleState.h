@@ -4,12 +4,14 @@
 #include <iostream>
 #include <SFML/graphics.hpp>
 #include "StateManager.h"
+#include "Engine.h"
 
 class TitleState: public State {
 	private: 
 		sf::Sprite titleSprite;
 		sf::Sprite pointerSprite;
 		const sf::Input & Input;
+		Engine eng;
 	public:
 		TitleState(const sf::Input &);
 		void init();
