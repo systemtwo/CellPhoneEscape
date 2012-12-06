@@ -30,6 +30,10 @@ void GenericObj::update(float dt) {
 	return;
 }
 
+void GenericObj::onMousemove(int x, int y) {
+	return;
+}
+
 bool compareGenObjZOrder(GenericObj * i, GenericObj * j) {
 	return (i->zorder) < (j->zorder);
 }

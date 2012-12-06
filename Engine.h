@@ -18,12 +18,27 @@ class GenericObj {
 		void setZOrder(int _z);
 		virtual void draw(sf::RenderWindow * _AP);
 		virtual void update(float dt);
+		virtual void onMousemove(int x, int y);
 		void selfDestruct();
 		
 		int zorder;
 		bool destroy;
 	private:
-		
+};
+
+class BoundingContainer {
+	public: 
+		int x, y;
+};
+
+class BoundingBox: public BoundingContainer {
+	public: 
+		int w, h;
+};
+
+class BoundingCircle: public BoundingContainer {
+	public:
+		int r;
 };
 
 bool compareDrawObjZOrder(DrawObj * i, DrawObj * j);
