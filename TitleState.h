@@ -29,7 +29,7 @@ class TitleState: public State {
 		DrawObj * mouse;
 		//ScrollingBin sb;
 	public:
-		TitleState(const sf::Input &);
+		TitleState(sf::RenderWindow *);
 		void init();
 		void draw();
 		void update(float dt);

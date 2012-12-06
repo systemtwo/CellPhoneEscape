@@ -30,12 +30,12 @@ int main(void) {
 	//Then calls switchstate to title
 	//This doesn't even need to have a display, just make sure it is initialized 
 	//	The init() function will load everything
-	LoaderState LS(Input); //This should pass AppPointer instead of input, as input can be found with AppPointer
+	LoaderState LS; 
 	SM.storeState(&LS);
 	
 	//TitleStateTesting
 	//Make TitleState
-	TitleState TS(Input);
+	TitleState TS(AppPointer); //This should passed AppPointer instead of input, as input can be found with AppPointer
 	SM.storeState(&TS);
 	
 	//Make GameState

@@ -26,8 +26,9 @@ void ScrollingBin::draw(sf::RenderWindow * AppPointer) {
 	return;
 }
 
-TitleState::TitleState(const sf::Input & _input) : Input(_input) {
+TitleState::TitleState(sf::RenderWindow * _ap) : Input(_ap->GetInput()) {
 	//RMPointer has not been set yet at this point!
+	AppPointer = _ap;
 	name = "Title";
 	return;
 }

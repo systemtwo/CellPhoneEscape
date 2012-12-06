@@ -1,5 +1,5 @@
 #include "LoaderState.h"
-LoaderState::LoaderState(const sf::Input & _input) : Input(_input) {
+LoaderState::LoaderState() {
 	//RMPointer has not been set yet at this point!
 	name = "Loader";
 }
@@ -27,6 +27,7 @@ void LoaderState::init() {
 
 void LoaderState::update() {
 	//This state does nothing but load resources and display a screen that says "Loading"
+	return;
 }
 
 void LoaderState::draw() {

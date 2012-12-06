@@ -5,9 +5,9 @@
 class LoaderState: public State {
 	private: 
 		sf::Sprite loaderSprite;
-		const sf::Input & Input;
+		//const sf::Input & Input;
 	public:
-		LoaderState(const sf::Input &);
+		LoaderState();
 		void init();
 		void draw();
 		void update();
