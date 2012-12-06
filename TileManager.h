@@ -13,6 +13,7 @@ class Tile : public GenericObj {
 		void draw(sf::RenderWindow * _ap);
 		
 		BoundingBox bounds;
+		int zorder = 40;
 	private:
 		sf::Sprite sprite;
 		const static int SIZE = 32;

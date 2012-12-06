@@ -14,7 +14,7 @@ int main(void) {
 	
 	//Setup game objs
 	sf::RenderWindow App(sf::VideoMode(800,600,32), "Satellite Game"); //Make the window
-	App.ShowMouseCursor(false); //Hide the cursor 
+	//App.ShowMouseCursor(false); //Hide the cursor 
 	ResourceManager RM; //Make RM
 	
 	//Make a pointer to the window and RM to pass to StateManager

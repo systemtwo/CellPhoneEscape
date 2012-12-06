@@ -11,14 +11,15 @@ Tile::Tile(int x, int y, ResourceManager * _rm) {
 }
 
 void Tile::update(float dt) {
-	sprite.SetX(bounds.x+ 100);
-	sprite.SetY(bounds.y+ 100);
+	bounds.x += dt*20;
+	bounds.y += dt*20;
 	
+	sprite.SetX((int)bounds.x);
+	sprite.SetY((int)bounds.y);
 	return;
 }
 
 void Tile::draw(sf::RenderWindow * _ap) {
-	std::cout << "I am called?" << std::endl;
 	_ap->Draw(sprite);
 	return;
 }

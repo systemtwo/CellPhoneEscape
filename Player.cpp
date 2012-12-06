@@ -1,4 +1,4 @@
-#include "playerClass.h"
+#include "Player.h"
 
 #define CENTER 400;
 #define PI 3.14159265

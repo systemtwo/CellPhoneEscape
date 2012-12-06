@@ -4,7 +4,7 @@
 #include <SFML/graphics.hpp>
 #include <cmath>
 #include "StateManager.h"
-#include "PlayerClass.h"
+#include "Player.h"
 #include "Engine.h"
 #include "ResourceManager.h"
 #include "TileManager.h"

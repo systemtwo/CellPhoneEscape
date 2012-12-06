@@ -47,17 +47,17 @@ class FPSDisplay : public GenericObj {
 
 class BoundingContainer {
 	public: 
-		int x, y;
+		float x, y;
 };
 
 class BoundingBox: public BoundingContainer {
 	public: 
-		int w, h;
+		float w, h;
 };
 
 class BoundingCircle: public BoundingContainer {
 	public:
-		int r;
+		float r;
 };
 
 bool compareDrawObjZOrder(DrawObj * i, DrawObj * j);
