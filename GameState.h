@@ -6,6 +6,8 @@
 #include "StateManager.h"
 #include "PlayerClass.h"
 #include "Engine.h"
+#include "ResourceManager.h"
+#include "TileManager.h"
 
 #define PI 3.14159265
 
@@ -14,8 +16,9 @@ class GameState: public State {
 		const sf::Input & Input;
 
 		Engine eng;
+		TileManager tm;
 	public:
-		GameState(sf::RenderWindow *);
+		GameState(sf::RenderWindow *, ResourceManager *);
 		void init();
 		void draw();
 		void update(float dt);

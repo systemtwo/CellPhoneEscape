@@ -39,7 +39,7 @@ int main(void) {
 	SM.storeState(&TS);
 	
 	//Make GameState
-	GameState GS(AppPointer);
+	GameState GS(AppPointer, RMPointer);
 	SM.storeState(&GS);
 	
 	try {

@@ -23,6 +23,10 @@ void LoaderState::init() {
 	sf::Image * i5 = new sf::Image;
 	i5->LoadFromFile("images/binary.png");
 	RMPointer->storeImage(i5, "binary");
+	
+	sf::Image * i6 = new sf::Image;
+	i6->LoadFromFile("images/tile.png");
+	RMPointer->storeImage(i6, "tile");
 }
 
 void LoaderState::update() {
