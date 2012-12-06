@@ -1,8 +1,7 @@
-#ifndef SM_H
-#define SM_H
-
 #include <iostream>
 #include <string>
+#ifndef SM_H
+#define SM_H
 #include <vector>
 #include <SFML/graphics.hpp>
 #include "ResourceManager.h"

@@ -3,8 +3,23 @@
 
 #include <iostream>
 #include <SFML/graphics.hpp>
+#include <vector>
 #include "StateManager.h"
 #include "Engine.h"
+#include "ResourceManager.h"
+
+
+
+class ScrollingBin : public GenericObj {
+	public:
+		ScrollingBin(ResourceManager * _rm);
+		sf::Sprite sprite;
+		void update(float dt);
+		void draw(sf::RenderWindow * AppPointer);
+		float x, y;
+	private:
+		
+};
 
 class TitleState: public State {
 	private: 
@@ -12,6 +27,7 @@ class TitleState: public State {
 		const sf::Input & Input;
 		Engine eng;
 		DrawObj * mouse;
+		//ScrollingBin sb;
 	public:
 		TitleState(const sf::Input &);
 		void init();

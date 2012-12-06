@@ -7,6 +7,35 @@
 
 using namespace std;
 
+GenericObj::GenericObj() {
+	destroy = false;
+	return;
+}
+
+void GenericObj::setZOrder(int _z) {
+	zorder = _z;
+	return;
+}
+
+void GenericObj::selfDestruct() {
+	destroy = true;
+	return;
+}
+
+void GenericObj::draw(sf::RenderWindow * _ap) {
+	return;
+}
+
+void GenericObj::update(float dt) {
+	return;
+}
+
+bool compareGenObjZOrder(GenericObj * i, GenericObj * j) {
+	return (i->zorder) < (j->zorder);
+}
+
+
+
 bool compareDrawObjZOrder(DrawObj * i, DrawObj * j) {
 	return (i->zorder) < (j->zorder);
 }
@@ -53,5 +82,26 @@ void Engine::cleanObjList() {
 
 void Engine::setAppPointer(sf::RenderWindow * _ap) {
 	AppPointer = _ap;
+	return;
+}
+
+void Engine::addGenObj(GenericObj * genobj) { 
+	genObjList.push_back(genobj);
+	return;
+	
+}
+
+void Engine::drawAllGenObj() {
+	for (int i = 0; i < genObjList.size(); i++) {
+		genObjList[i]->draw(AppPointer);
+	}
+	return;
+}
+
+void Engine::updateAllGenObj(float dt) {
+	cout << "Tracking GenObj: " << genObjList.size() << endl;
+	for (int i = 0; i < genObjList.size(); i++) {
+		genObjList[i]->update(dt);
+	}
 	return;
 }

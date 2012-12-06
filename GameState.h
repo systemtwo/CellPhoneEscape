@@ -1,3 +1,5 @@
+#ifndef GS_H
+#define GS_H
 #include <iostream>
 #include <SFML/graphics.hpp>
 #include <cmath>
@@ -17,7 +19,7 @@ class GameState: public State {
 		
 		double time;
 		Player player;
-		Engine eng;
+		//Engine eng;
 	public:
 		GameState(const sf::Input &);
 		void init();
@@ -25,3 +27,5 @@ class GameState: public State {
 		void update(float dt);
 		directions dirs;
 };
+
+#endif

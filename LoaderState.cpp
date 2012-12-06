@@ -19,6 +19,10 @@ void LoaderState::init() {
 	RMPointer->storeImage(i1, "title");
 	RMPointer->storeImage(i3, "rubix");
 	RMPointer->storeImage(i4, "sat1");
+	
+	sf::Image * i5 = new sf::Image;
+	i5->LoadFromFile("images/binary.png");
+	RMPointer->storeImage(i5, "binary");
 }
 
 void LoaderState::update() {

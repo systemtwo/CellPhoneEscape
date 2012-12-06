@@ -1,3 +1,5 @@
+#ifndef PC_H
+#define PC_H
 #include <iostream>
 #include <SFML/graphics.hpp>
 #include <cmath>
@@ -45,3 +47,5 @@ class Player {
 		void updatePosition();
 		void setPlayer(int);
 };
+
+#endif
