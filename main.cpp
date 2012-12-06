@@ -24,7 +24,7 @@ int main(void) {
 	const sf::Input & Input = App.GetInput(); //Make Input 
 	StateManager SM(AppPointer, RMPointer, Input);  //Make StateManager
 
-	App.SetFramerateLimit(60); //Limit Framerate to standard refresh rate
+	App.SetFramerateLimit(30); //Limit Framerate to standard refresh rate
 	
 	//Should probably make a loader state for loading resources at beginning
 	//Then calls switchstate to title
@@ -39,7 +39,7 @@ int main(void) {
 	SM.storeState(&TS);
 	
 	//Make GameState
-	GameState GS(Input);
+	GameState GS(AppPointer);
 	SM.storeState(&GS);
 	
 	try {

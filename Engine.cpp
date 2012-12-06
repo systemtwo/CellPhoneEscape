@@ -7,6 +7,34 @@
 
 using namespace std;
 
+FPSDisplay::FPSDisplay() {
+	font.LoadFromFile("snr.ttf");
+	text.SetFont(font);
+	text.SetSize(50);
+	counter = 0;
+	return;
+}
+
+void FPSDisplay::update(float dt) {
+	fps = 1/dt;
+	char buffer [1000];
+	itoa(fps, buffer, 10);
+	if (counter % 10 == 0) {
+		text.SetText(buffer);
+		counter = 1;
+	}
+	
+	counter ++;
+	
+	return;
+}
+
+void FPSDisplay::draw(sf::RenderWindow * _ap) {
+	_ap->Draw(text);
+	return;
+}
+
+
 GenericObj::GenericObj() {
 	destroy = false;
 	return;

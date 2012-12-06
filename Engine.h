@@ -5,6 +5,9 @@
 #include <SFML/graphics.hpp>
 
 
+
+
+
 struct DrawObj {
 	sf::Sprite * sprite;
 	int zorder;
@@ -26,6 +29,20 @@ class GenericObj {
 		bool destroy;
 		bool subscribeInput; //If the object want inputs called
 	private:
+};
+
+class FPSDisplay : public GenericObj {
+	public:
+		FPSDisplay();
+		void update(float dt);
+		void draw(sf::RenderWindow * _ap);
+		
+		
+	private:
+		int fps;
+		sf::Font font;
+		sf::String text;
+		int counter;
 };
 
 class BoundingContainer {

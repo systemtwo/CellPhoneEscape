@@ -21,7 +21,7 @@ class GameState: public State {
 		Player player;
 		//Engine eng;
 	public:
-		GameState(const sf::Input &);
+		GameState(sf::RenderWindow *);
 		void init();
 		void draw();
 		void update(float dt);

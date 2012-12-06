@@ -40,19 +40,20 @@ void TitleState::init() {
 		std::cout << "Could not find image" << std::endl;
 	}	
 	eng.setAppPointer(AppPointer);
-	sf::Sprite * tmp = new sf::Sprite;
-	tmp->SetImage(*RMPointer->getImage("pointer"));
-	mouse = eng.makeAndAddObj(tmp, 20);
+	//sf::Sprite * tmp = new sf::Sprite;
+	//tmp->SetImage(*RMPointer->getImage("pointer"));
+	//mouse = eng.makeAndAddObj(tmp, 20);
 	eng.addGenObj(new ScrollingBin(RMPointer));
-	//sb.sprite.SetImage(*RMPointer->getImage("binary"));
-	//eng.makeAndAddObj(&sb.sprite, 1);
+	eng.addGenObj(new FPSDisplay);
 }
 
 void TitleState::update(float dt) {
+	/* Mouse is removed for this game
 	int mouseXShift = mouse->sprite->GetSize().x;
 	int mouseYShift = mouse->sprite->GetSize().y;
 	mouse->sprite->SetX(Input.GetMouseX()-(mouseXShift/2));
 	mouse->sprite->SetY(Input.GetMouseY()-(mouseYShift/2));
+	*/
 	std::cout <<"FPS: " << 1/dt << std::endl;
 	if (Input.IsMouseButtonDown(sf::Mouse::Left)) {
 		switchName = "Game";
