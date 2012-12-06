@@ -30,6 +30,8 @@ void ResourceManager::storeImage(sf::Image * _image, std::string _name) {
 	Resource * r = new Resource;
 	r->image = _image;
 	r->name = _name;
+	
+	r->image->SetSmooth(false);
 	storage.push_back(r);
 }
 

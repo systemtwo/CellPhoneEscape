@@ -10,7 +10,7 @@ void LoaderState::init() {
 	sf::Image * i3 = new sf::Image;
 	sf::Image * i4 = new sf::Image;
 	
-	i1->LoadFromFile("images/title.png");
+	i1->LoadFromFile("images/newtitle.png");
 	i2->LoadFromFile("images/ch.png");
 	i3->LoadFromFile("images/a.jpg");
 	i4->LoadFromFile("images/sat1.png"); //Don't reuse these to load other images (they are the actual image resource sprites link to)

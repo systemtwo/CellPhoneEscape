@@ -19,10 +19,12 @@ class GenericObj {
 		virtual void draw(sf::RenderWindow * _AP);
 		virtual void update(float dt);
 		virtual void onMousemove(int x, int y);
+		virtual void onKeypress(char);
 		void selfDestruct();
 		
 		int zorder;
 		bool destroy;
+		bool subscribeInput; //If the object want inputs called
 	private:
 };
 

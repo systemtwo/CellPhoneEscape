@@ -11,6 +11,9 @@ ScrollingBin::ScrollingBin(ResourceManager * _rm) : GenericObj() {
 void ScrollingBin::update(float dt) {
 	sprite.SetX(floor(x));
 	x += dt* 30;
+	if (x > 300) {
+		selfDestruct();
+	}
 	//sprite.Move (floor(dt*10), 0);
 	return;
 }
@@ -52,12 +55,16 @@ void TitleState::update(float dt) {
 	std::cout <<"FPS: " << 1/dt << std::endl;
 	if (Input.IsMouseButtonDown(sf::Mouse::Left)) {
 		switchName = "Game";
+	} 
+	if (Input.IsKeyDown(sf::Key::Space)) {
+		switchName = "Game";
 	}
 	//sb.update(dt);
 	eng.updateAllGenObj(dt);
 }
 
 void TitleState::draw() {
+	AppPointer->Draw(titleSprite);
 	eng.drawAll();
 	eng.drawAllGenObj();
 	return;

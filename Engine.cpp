@@ -34,6 +34,10 @@ void GenericObj::onMousemove(int x, int y) {
 	return;
 }
 
+void GenericObj::onKeypress(char e) {
+	return;
+}
+
 bool compareGenObjZOrder(GenericObj * i, GenericObj * j) {
 	return (i->zorder) < (j->zorder);
 }
@@ -103,6 +107,19 @@ void Engine::drawAllGenObj() {
 }
 
 void Engine::updateAllGenObj(float dt) {
+	
+	//Clean destroyed items
+	for (int i = 0; i < genObjList.size(); i++) {
+		if (genObjList[i]->destroy == true) {
+			delete genObjList[i];
+			genObjList.erase(genObjList.begin() + i);
+		}
+	}
+
+	sort(genObjList.begin(), genObjList.end(), compareGenObjZOrder); //Sort z orders
+	
+
+	
 	cout << "Tracking GenObj: " << genObjList.size() << endl;
 	for (int i = 0; i < genObjList.size(); i++) {
 		genObjList[i]->update(dt);
