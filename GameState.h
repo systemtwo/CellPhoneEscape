@@ -11,15 +11,9 @@
 
 class GameState: public State {
 	private: 
-		sf::Sprite backgroundSprite;
-		sf::Sprite pointerSprite;
-		sf::Sprite sat1Sprite;
-		sf::Sprite sat2Sprite;
 		const sf::Input & Input;
-		
-		double time;
-		Player player;
-		//Engine eng;
+
+		Engine eng;
 	public:
 		GameState(sf::RenderWindow *);
 		void init();

@@ -19,9 +19,6 @@ void ScrollingBin::update(float dt) {
 }
 
 void ScrollingBin::draw(sf::RenderWindow * AppPointer) {
-	//sprite.SetX(100);
-	//sprite.SetY (100);
-	std::cout << "I am being called" << std::endl;
 	AppPointer->Draw(sprite);
 	return;
 }
@@ -54,7 +51,6 @@ void TitleState::update(float dt) {
 	mouse->sprite->SetX(Input.GetMouseX()-(mouseXShift/2));
 	mouse->sprite->SetY(Input.GetMouseY()-(mouseYShift/2));
 	*/
-	std::cout <<"FPS: " << 1/dt << std::endl;
 	if (Input.IsMouseButtonDown(sf::Mouse::Left)) {
 		switchName = "Game";
 	} 
