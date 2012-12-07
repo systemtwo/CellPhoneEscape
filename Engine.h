@@ -37,7 +37,6 @@ class FPSDisplay : public GenericObj {
 		FPSDisplay();
 		void update(float dt);
 		void draw(sf::RenderWindow * _ap);
-		const static int zorder = 1;
 		
 	private:
 		int fps;

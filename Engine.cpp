@@ -12,6 +12,8 @@ FPSDisplay::FPSDisplay() {
 	text.SetFont(font);
 	text.SetSize(50);
 	counter = 0;
+	
+	setZOrder(1);
 	return;
 }
 
@@ -141,7 +143,7 @@ void Engine::setAppPointer(sf::RenderWindow * _ap) {
 
 void Engine::addGenObj(GenericObj * genobj) { 
 	genObjList.push_back(genobj);
-	std::cout << genobj->zorder << std::endl;
+	//std::cout << genobj->zorder << std::endl;
 	return;
 	
 }
@@ -173,7 +175,7 @@ void Engine::updateAllGenObj(float dt) {
 		}
 	}
 
-	sort(genObjList.begin(), genObjList.end(), compareGenObjZOrder); //Sort z orders
+	stable_sort(genObjList.begin(), genObjList.end(), compareGenObjZOrder); //Sort z orders
 	
 
 	
