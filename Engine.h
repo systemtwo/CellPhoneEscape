@@ -19,6 +19,7 @@ class GenericObj {
 	public:
 		GenericObj();
 		void setZOrder(int _z);
+		int getZOrder();
 		virtual void draw(sf::RenderWindow * _AP);
 		virtual void update(float dt);
 		virtual void onMousemove(int x, int y);

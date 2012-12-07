@@ -47,7 +47,7 @@ void MemTester::update(float dt) {
 	return;
 }
 
-/////
+/////MEMTESTER End
 
 GenericObj::GenericObj() {
 	destroy = false;
@@ -57,6 +57,10 @@ GenericObj::GenericObj() {
 void GenericObj::setZOrder(int _z) {
 	zorder = _z;
 	return;
+}
+
+int GenericObj::getZOrder() {
+	return zorder;
 }
 
 void GenericObj::selfDestruct() {
@@ -81,7 +85,7 @@ void GenericObj::onKeypress(char e) {
 }
 
 bool compareGenObjZOrder(GenericObj * i, GenericObj * j) {
-	return (i->zorder) < (j->zorder);
+	return (i->getZOrder()) < (j->getZOrder());
 }
 
 
@@ -137,6 +141,7 @@ void Engine::setAppPointer(sf::RenderWindow * _ap) {
 
 void Engine::addGenObj(GenericObj * genobj) { 
 	genObjList.push_back(genobj);
+	std::cout << genobj->zorder << std::endl;
 	return;
 	
 }
@@ -149,6 +154,16 @@ void Engine::drawAllGenObj() {
 }
 
 void Engine::updateAllGenObj(float dt) {
+	
+	//Debug
+	/*
+	if (genObjList.size()% 100 == 0) {
+		for (int i = 0; i < genObjList.size(); i++) {
+			std::cout << genObjList[i]->zorder << " ";
+		}
+		std::cout << std::endl;
+		system("pause");
+	}*/
 	
 	//Clean destroyed items
 	for (int i = 0; i < genObjList.size(); i++) {

@@ -18,7 +18,18 @@ class ScrollingBin : public GenericObj {
 		void draw(sf::RenderWindow * AppPointer);
 		float x, y;
 	private:
-		
+};
+
+class UserPrompt : public GenericObj {
+	public:
+		UserPrompt(ResourceManager * _rm);
+		void update(float dt);
+		void draw(sf::RenderWindow * AppPointer);
+	private:
+		sf::Font font;
+		sf::String text;
+		float alpha;
+		bool alphainc; //Is alpha increasing?
 };
 
 class TitleState: public State {

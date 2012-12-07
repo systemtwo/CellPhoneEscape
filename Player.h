@@ -15,7 +15,8 @@ class Player : public GenericObj {
 		void update(float dt);
 		void draw(sf::RenderWindow * _ap);
 		
-		const static int zorder = 10;
+		BoundingBox bounds;
+		//int zorder;
 	private:
 		sf::RenderWindow * AppPointer;
 		const sf::Input & input;

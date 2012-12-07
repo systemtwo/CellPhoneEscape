@@ -16,10 +16,10 @@ void GameState::init() {
 }
 
 void GameState::update(float dt) {
-	eng.updateAllGenObj(dt);
 	if (Input.IsKeyDown(sf::Key::Space)) {
 		eng.addGenObj(tm.makeATile());
 	}
+	eng.updateAllGenObj(dt);
 	return;
 }
 

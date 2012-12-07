@@ -23,6 +23,43 @@ void ScrollingBin::draw(sf::RenderWindow * AppPointer) {
 	return;
 }
 
+UserPrompt::UserPrompt(ResourceManager * _rm) {
+	font.LoadFromFile("snr.ttf");
+	text.SetFont(font);
+	text.SetSize(20);
+	text.SetText("Press Space to begin");
+	
+	text.SetX(300);
+	text.SetY(400);
+}
+
+void UserPrompt::update(float dt) {
+	if (alpha >= 255) {
+		alphainc = false;
+	} else if (alpha <= 0) {
+		alphainc = true;
+	}
+	if (alphainc) {
+		alpha += 40* dt;
+	} else {
+		alpha -= 40* dt;
+	}
+	
+	//Check for overshoot of alpha
+	if (alphainc && alpha > 255) {
+		alpha = 255;
+	} else if ((!alphainc) && alpha < 0) {
+		alpha = 0;
+	}
+	text.SetColor(sf::Color(255, 255, 255, alpha));
+}
+
+void UserPrompt::draw(sf::RenderWindow * _ap) {
+	_ap->Draw(text);
+	return;
+}
+
+
 TitleState::TitleState(sf::RenderWindow * _ap) : Input(_ap->GetInput()) {
 	//RMPointer has not been set yet at this point!
 	AppPointer = _ap;
@@ -41,6 +78,7 @@ void TitleState::init() {
 	//tmp->SetImage(*RMPointer->getImage("pointer"));
 	//mouse = eng.makeAndAddObj(tmp, 20);
 	eng.addGenObj(new ScrollingBin(RMPointer));
+	eng.addGenObj(new UserPrompt(RMPointer));
 	eng.addGenObj(new FPSDisplay);
 }
 

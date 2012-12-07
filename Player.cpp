@@ -5,6 +5,8 @@ Player::Player(sf::RenderWindow * _ap, ResourceManager * _rm) : input(_ap->GetIn
 	sprite.SetImage(*_rm->getImage("player"));
 	sprite.SetX(0);
 	sprite.SetY(0);
+	
+	setZOrder(10);
 	return;
 }
 

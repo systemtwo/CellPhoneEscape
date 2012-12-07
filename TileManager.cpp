@@ -6,6 +6,8 @@ Tile::Tile(int x, int y, ResourceManager * _rm) {
 	bounds.h = SIZE;
 	bounds.w = SIZE;
 	
+	setZOrder(40);
+	
 	sprite.SetImage(*_rm->getImage("tile"));
 	return;
 }
