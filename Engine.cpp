@@ -35,6 +35,20 @@ void FPSDisplay::draw(sf::RenderWindow * _ap) {
 }
 
 
+///MEMTESTER
+void MemTester::draw(sf::RenderWindow * _ap) {
+	if (_ap->GetInput().IsKeyDown(sf::Key::Return)) {
+		selfDestruct();
+	}
+	return;
+}
+
+void MemTester::update(float dt) {
+	return;
+}
+
+/////
+
 GenericObj::GenericObj() {
 	destroy = false;
 	return;

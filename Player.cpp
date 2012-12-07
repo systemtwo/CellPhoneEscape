@@ -1,109 +1,31 @@
 #include "Player.h"
 
-#define CENTER 400;
-#define PI 3.14159265
-
-Player::Player(double _cenx, double _ceny, double _radius) {
-	centerx = _cenx;
-	centery = _ceny;
-	radius = _radius;
-	arcspeed = 0;
-	angle = 45;
-	radiusspeed = 0;
-	rotangle = 0;
-	
+Player::Player(sf::RenderWindow * _ap, ResourceManager * _rm) : input(_ap->GetInput()) {
+	AppPointer = _ap;
+	sprite.SetImage(*_rm->getImage("player"));
+	sprite.SetX(0);
+	sprite.SetY(0);
 	return;
 }
 
-double Player::degToRad(double deg) {
-	return deg*(PI/180);
-}
-
-void Player::turnOnEngine() {
-	//Turn on thrust
-	std::cout << "Engine on\n";
-	engineOn = true;
-}
-
-void Player::turnOffEngine() {
-	std::cout << "Engine off\n";
-	engineOn = false;
-}
-
-void Player::calcForces() {
-	//Calculate the sum of the forces
-	//Reset forces for each frame
-	fh = 0;
-	fv = 0;
-	
-	//Calculate the horizonal arc force (+ = counter clockwise)
-	//From the thrusters
-	double forceang; //Angle of engine forces
-	forceang = 90+(angle-rotangle);
-	if (engineOn) {	
-		fh += sin(degToRad(forceang)) * THRUST;
+void Player::update(float dt) {
+	int speed = 40;
+	if (input.IsKeyDown(sf::Key::Left)) {
+		sprite.Move(-dt*speed, 0);
 	}
-	
-	//Calculate the vertical forces (+ = away from center of star/planet)
-	//From the Thrusters (uses forceang from above)
-	if (engineOn) {
-		fv += cos(degToRad(forceang)) * THRUST;
+	if (input.IsKeyDown(sf::Key::Right)) {
+		sprite.Move(dt*speed, 0);
 	}
-	//From gravity
-	fv -= 9.81 * MASS;
-	
-	//From centrifugal force
-	fv += (MASS * arcspeed * arcspeed)/radius;	
-	std::cout << "fh=" << fh << " fv=" << fv << std::endl;
-}
-
-void Player::rotateSatellite(int dirchoice) {
-	if (dirchoice == left) {
-		rotspeed += ROT_FORCE;
-	} else if (dirchoice == right) {
-		rotspeed -= ROT_FORCE;
+	if (input.IsKeyDown(sf::Key::Up)) {
+		sprite.Move(0, -dt*speed);
 	}
-}
-
-void Player::calcSpeeds() {
-	//Calculate the speed of the sat from forces
-	double arcaccel = fh/MASS; //Accelleration in arc direction
-	arcspeed += arcaccel;
-	
-	//Calculate velosity of sat in terms of angle/frame
-	angspeed = arcspeed/radius;
-	
-	double radaccel = fv/MASS; //Accelleration in radius direction
-	radiusspeed += radaccel;	
-	std::cout << "arcs=" << arcspeed << " rads=" << radiusspeed << std::endl;
-	
-	std::cout << "rotspeed=" << rotspeed << std::endl;
-	std::cout << "rotangle=" << rotangle << std::endl;
+	if (input.IsKeyDown(sf::Key::Down)) {
+		sprite.Move(0, dt*speed);
+	}
 	return;
 }
 
-void Player::updateSatelliteRotation() {
-	//Updates the rotation of the satellite
-	rotangle += rotspeed;
+void Player::draw(sf::RenderWindow * _ap) {
+	_ap->Draw(sprite);
 	return;
-}
-
-void Player::updatePosition() {
-	double rad = angle*PI/180;
-	satSprite.SetX((cos(rad) * radius) + centerx);
-	satSprite.SetY((sin(rad) * radius) + centery);
-	angle+=angspeed; //Rename to orbitspeed?
-	
-	std::cout 	<< "x=" << (cos(rad) * radius) + centerx
-				<< " y="<< (sin(rad) * radius) + centery << std::endl
-				<< " angle=" <<angle << std::endl;
-	return;
-}
-
-sf::Sprite * Player::getSprite() {
-	return &satSprite;
-}
-
-void Player::setPlayer(int num) {
-	//Set player 1, 2, 3 or 4?
 }

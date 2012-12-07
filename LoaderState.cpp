@@ -6,19 +6,13 @@ LoaderState::LoaderState() {
 
 void LoaderState::init() {
 	sf::Image * i1 = new sf::Image;
-	sf::Image * i2 = new sf::Image;
-	sf::Image * i3 = new sf::Image;
-	sf::Image * i4 = new sf::Image;
-	
+	//Don't reuse these to load other images (they are the actual image resource sprites link to)
 	i1->LoadFromFile("images/newtitle.png");
-	i2->LoadFromFile("images/ch.png");
-	i3->LoadFromFile("images/a.jpg");
-	i4->LoadFromFile("images/sat1.png"); //Don't reuse these to load other images (they are the actual image resource sprites link to)
-	
-	RMPointer->storeImage(i2, "pointer");
 	RMPointer->storeImage(i1, "title");
-	RMPointer->storeImage(i3, "rubix");
-	RMPointer->storeImage(i4, "sat1");
+
+	sf::Image * i2 = new sf::Image;
+	i2->LoadFromFile("images/player.jpg");
+	RMPointer->storeImage(i2, "player");
 	
 	sf::Image * i5 = new sf::Image;
 	i5->LoadFromFile("images/binary.png");
