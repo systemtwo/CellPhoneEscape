@@ -12,7 +12,7 @@ StateManager::StateManager(sf::RenderWindow * _app, ResourceManager * _RM, const
 void StateManager::storeState(State * _state) {
 	_state->setWindowPointer(AppPointer); //Sets reference to App window. Now as backup
 	_state->setRMPointer(RMPointer); //Sets reference to RM so programmer does not have to do this often
-	_state->init();
+	_state->init(); //this should probably be called once the state is switched to
 	std::cout << "RMPointer Address at storestate: " << RMPointer << std::endl;
 	states.push_back(_state);
 }
