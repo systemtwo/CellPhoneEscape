@@ -26,10 +26,11 @@ class GenericObj {
 		virtual void onKeypress(char);
 		void selfDestruct();
 		
-		int zorder;
+		
 		bool destroy;
 		bool subscribeInput; //If the object want inputs called
 	private:
+		int zorder;
 };
 
 class FPSDisplay : public GenericObj {

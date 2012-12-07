@@ -11,13 +11,14 @@ GameState::GameState(sf::RenderWindow * _ap, ResourceManager * _rm) : Input(_ap-
 }
 
 void GameState::init() {
-	
+	//tm.generateTiles(&eng);
 	return;
 }
 
 void GameState::update(float dt) {
 	if (Input.IsKeyDown(sf::Key::Space)) {
-		eng.addGenObj(tm.makeATile());
+		tm.generateTiles(&eng);
+		//eng.addGenObj(tm.makeATile(2, 2));
 	}
 	eng.updateAllGenObj(dt);
 	return;

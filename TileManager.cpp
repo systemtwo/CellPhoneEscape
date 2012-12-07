@@ -1,6 +1,11 @@
 #include "TileManager.h"
+#include <fstream>
+#include <iostream>
+
+using namespace std;
 
 Tile::Tile(int x, int y, ResourceManager * _rm) {
+	//Note x, y are grid coordinates NOT Global game screen coords
 	bounds.x = x;
 	bounds.y = y;
 	bounds.h = SIZE;
@@ -8,16 +13,13 @@ Tile::Tile(int x, int y, ResourceManager * _rm) {
 	
 	setZOrder(40);
 	
-	sprite.SetImage(*_rm->getImage("tile"));
+	sprite.SetImage(*_rm->getImage("tile")); //Tile manager shuold handle this
+	sprite.SetX((int)bounds.x*SIZE);
+	sprite.SetY((int)bounds.y*SIZE);
 	return;
 }
 
 void Tile::update(float dt) {
-	bounds.x += dt*20;
-	bounds.y += dt*20;
-	
-	sprite.SetX((int)bounds.x);
-	sprite.SetY((int)bounds.y);
 	return;
 }
 
@@ -33,12 +35,30 @@ TileManager::TileManager(sf::RenderWindow * _ap, ResourceManager * _rm) {
 	return;
 }
 
-void TileManager::generateTiles() {
+void TileManager::generateTiles(Engine * eng) {
+	ifstream in;
+	int height = 0;
+	int width  = 0;
+	int tileType = 0;
+	
+	in.open("leveldata/lv1.txt");
+	in >> width >> height;
+	for (int i = 0; i < height; i++) {
+		for (int j = 0; j < width; j++) {
+			in >> tileType;
+			//cout << tileType;
+			if (tileType != 0) {
+				eng->addGenObj(new Tile(j,i,RMPointer));
+			}
+		}
+	}
+	
+	
 	return;
 }
 
-Tile * TileManager::makeATile() {
-	return new Tile(0,0, RMPointer);
+Tile * TileManager::makeATile(int i, int j) {
+	return new Tile(i,j, RMPointer);
 }
 
 

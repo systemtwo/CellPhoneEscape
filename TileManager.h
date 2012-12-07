@@ -23,8 +23,8 @@ class Tile : public GenericObj {
 class TileManager {
 	public:
 		TileManager(sf::RenderWindow * _ap, ResourceManager * _rm);
-		void generateTiles();
-		Tile * makeATile();
+		void generateTiles(Engine * eng);
+		Tile * makeATile(int i, int j);
 	private:
 		sf::RenderWindow * AppPointer;
 		ResourceManager * RMPointer;

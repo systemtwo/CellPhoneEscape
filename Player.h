@@ -1,8 +1,8 @@
 #ifndef PC_H
 #define PC_H
-#include <iostream>
+
 #include <SFML/graphics.hpp>
-#include <cmath>
+
 #include "Engine.h"
 #include "ResourceManager.h"
 

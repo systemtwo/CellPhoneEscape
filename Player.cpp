@@ -1,4 +1,6 @@
 #include "Player.h"
+#include <cmath>
+#include <iostream>
 
 Player::Player(sf::RenderWindow * _ap, ResourceManager * _rm) : input(_ap->GetInput()) {
 	AppPointer = _ap;
