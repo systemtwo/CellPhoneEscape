@@ -43,7 +43,7 @@ void Player::update(float dt) {
 	
 	if (input.IsKeyDown(sf::Key::Up)) {
 		if (co.collType != TOP) {
-			bounds.y -= dt*speed;
+			bounds.y -= 100;
 		}
 		//sprite.Move(0, -dt*speed);
 	}

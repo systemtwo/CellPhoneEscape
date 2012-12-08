@@ -222,7 +222,7 @@ CollisionObj Engine::detectCollisions(BoundingBox bb, GenericObj * _origin) {
 		}
 		if (((bb.y+bb.h) > aa.y) && (bb.y < aa.y) && (bb.x < (aa.x+aa.w)) && ((bb.x+bb.w)> (aa.x))) {
 			return CollisionObj(BOTTOM, aa);
-		} else if (((bb.y) < (aa.y+aa.h)) && (bb.x < (aa.x+aa.w)) && ((bb.x+bb.w)> (aa.x))) {
+		} else if (((bb.y) < (aa.y+aa.h)) && ((bb.y+bb.h) > aa.y) && (bb.x < (aa.x+aa.w)) && ((bb.x+bb.w)> (aa.x))) {
 			return CollisionObj(TOP, aa);
 		} 
 	}
