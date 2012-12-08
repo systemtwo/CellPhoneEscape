@@ -48,6 +48,7 @@ void TileManager::generateTiles(Engine * eng) {
 			in >> tileType;
 			if (tileType != 0) {
 				eng->addGenObj(new Tile(j,i,RMPointer));
+				cout << "MADE" << endl;
 			}
 		}
 	}
