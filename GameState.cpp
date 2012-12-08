@@ -7,7 +7,7 @@ GameState::GameState(sf::RenderWindow * _ap, ResourceManager * _rm) : Input(_ap-
 	name = "Game";
 	
 	eng.addGenObj(new FPSDisplay);
-	eng.addGenObj(new Player(AppPointer, _rm));
+	eng.addGenObj(new Player(AppPointer, _rm, &eng));
 }
 
 void GameState::init() {

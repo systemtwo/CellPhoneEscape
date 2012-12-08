@@ -6,12 +6,12 @@
 #include "Engine.h"
 #include "ResourceManager.h"
 
-enum directions {up, down, left, right};
+
 
 
 class Player : public GenericObj {
 	public:
-		Player(sf::RenderWindow * _ap, ResourceManager * _rm);
+		Player(sf::RenderWindow * _ap, ResourceManager * _rm, Engine * _eng);
 		void update(float dt);
 		void draw(sf::RenderWindow * _ap);
 		
@@ -21,6 +21,7 @@ class Player : public GenericObj {
 		sf::RenderWindow * AppPointer;
 		const sf::Input & input;
 		sf::Sprite sprite;
+		Engine * eng;
 };
 
 #endif

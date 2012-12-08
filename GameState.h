@@ -22,7 +22,7 @@ class GameState: public State {
 		void init();
 		void draw();
 		void update(float dt);
-		directions dirs;
+		//directions dirs;
 };
 
 #endif

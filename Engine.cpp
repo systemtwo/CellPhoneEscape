@@ -7,6 +7,21 @@
 
 using namespace std;
 
+CollisionObj::CollisionObj(int _ctype, BoundingBox b = BoundingBox()) {
+	collType = _ctype;
+	bounds = b;
+	return;
+}
+
+BoundingBox::BoundingBox() {
+	x = 0;
+	y = 0;
+	h = 0;
+	w = 0;
+	
+	return;
+}
+
 FPSDisplay::FPSDisplay() {
 	font.LoadFromFile("snr.ttf");
 	text.SetFont(font);
@@ -19,6 +34,7 @@ FPSDisplay::FPSDisplay() {
 
 void FPSDisplay::update(float dt) {
 	fps = 1/dt;
+	cout << "FPS" << fps  << "  dt: " << dt << endl;;
 	char buffer [1000];
 	itoa(fps, buffer, 10);
 	if (counter % 10 == 0) {
@@ -78,12 +94,8 @@ void GenericObj::update(float dt) {
 	return;
 }
 
-void GenericObj::onMousemove(int x, int y) {
-	return;
-}
-
-void GenericObj::onKeypress(char e) {
-	return;
+BoundingBox GenericObj::getBounds() {
+	return bounds;
 }
 
 bool compareGenObjZOrder(GenericObj * i, GenericObj * j) {
@@ -186,7 +198,33 @@ void Engine::updateAllGenObj(float dt) {
 	return;
 }
 
-int Engine::detectCollisions(BoundingBox bb) {
-	//Returns 1-4 for each side
-	return 0;
+CollisionObj Engine::detectCollisions(BoundingBox bb, GenericObj * _origin) {
+	//Returns 1-4 for each side(enum-ed)
+	
+	/*
+	cout << "1 (" << bb.x << ", " << bb.y << endl
+	     << "2 (" << bb.x+bb.w << ", " << bb.y << endl
+		 << "3 (" << bb.x << ", " << bb.y+bb.h << endl
+		 << "4 (" << bb.x+bb.w << ", " << bb.y+bb.h << endl;
+		 */
+	BoundingBox aa; //Temp storage for the items in list
+	for (int i = 0; i < genObjList.size(); i++) {
+		if (_origin == genObjList[i]) {
+			//Object is being compared with itself
+			cout << "Self hit" << endl;
+			continue;
+		}
+		aa = genObjList[i]->getBounds();
+		
+		if(aa.h == 0 && aa.w == 0) {
+			cout << "Passing" << endl;
+			continue;
+		}
+		if (((bb.y+bb.h) > aa.y) && (bb.y < aa.y) && (bb.x < (aa.x+aa.w)) && ((bb.x+bb.w)> (aa.x))) {
+			return CollisionObj(BOTTOM, aa);
+		} else if (((bb.y) < (aa.y+aa.h)) && (bb.x < (aa.x+aa.w)) && ((bb.x+bb.w)> (aa.x))) {
+			return CollisionObj(TOP, aa);
+		} 
+	}
+	return CollisionObj(NONE);
 }

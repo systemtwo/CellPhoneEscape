@@ -6,16 +6,16 @@ using namespace std;
 
 Tile::Tile(int x, int y, ResourceManager * _rm) {
 	//Note x, y are grid coordinates NOT Global game screen coords
-	bounds.x = x;
-	bounds.y = y;
+	bounds.x = x*SIZE;
+	bounds.y = y*SIZE;
 	bounds.h = SIZE;
 	bounds.w = SIZE;
 	
 	setZOrder(40);
 	
 	sprite.SetImage(*_rm->getImage("tile")); //Tile manager shuold handle this
-	sprite.SetX((int)bounds.x*SIZE);
-	sprite.SetY((int)bounds.y*SIZE);
+	sprite.SetX((int)bounds.x);
+	sprite.SetY((int)bounds.y);
 	return;
 }
 
@@ -41,7 +41,7 @@ void TileManager::generateTiles(Engine * eng) {
 	int width  = 0;
 	int tileType = 0;
 	
-	in.open("leveldata/lv1.txt");
+	in.open("leveldata/lv0.txt");
 	in >> width >> height;
 	for (int i = 0; i < height; i++) {
 		for (int j = 0; j < width; j++) {

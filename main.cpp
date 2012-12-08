@@ -61,9 +61,10 @@ int main(void) {
 				exit(0); // Strange... I didn't need this before (this is to prevent crash after closing)
 				//return 0;
 				//std::cout << "Nothing here!" << std::endl;
-			} else if (Event.Type == sf::Event::MouseMoved) {
-				std::cout << "The mouse moved!" << std::endl;
-			}
+			} 
+			//else if (Event.Type == sf::Event::MouseMoved) {
+			//	std::cout << "The mouse moved!" << std::endl;
+			//}
 		}
 		App.Clear(); //Clear screen
 		//App.Draw(s);

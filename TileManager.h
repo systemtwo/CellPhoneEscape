@@ -12,7 +12,7 @@ class Tile : public GenericObj {
 		void update(float dt);
 		void draw(sf::RenderWindow * _ap);
 		
-		BoundingBox bounds;
+		//BoundingBox bounds;
 		//int zorder;
 	private:
 		sf::Sprite sprite;

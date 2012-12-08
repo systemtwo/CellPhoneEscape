@@ -3,10 +3,34 @@
 
 #include <vector>
 #include <SFML/graphics.hpp>
+#include <string>
+
+enum direction {NONE, TOP, BOTTOM, LEFT, RIGHT};
 
 
 
+class BoundingContainer {
+	public: 
+		float x, y;
+};
 
+class BoundingBox: public BoundingContainer {
+	public: 
+		BoundingBox();
+		float w, h;
+};
+
+class BoundingCircle: public BoundingContainer {
+	public:
+		float r;
+};
+
+class CollisionObj {
+	public:
+		CollisionObj(int ctype, BoundingBox b);
+		BoundingBox bounds;
+		int collType; //Collision type as determined by enum
+};
 
 struct DrawObj {
 	sf::Sprite * sprite;
@@ -22,16 +46,20 @@ class GenericObj {
 		int getZOrder();
 		virtual void draw(sf::RenderWindow * _AP);
 		virtual void update(float dt);
-		virtual void onMousemove(int x, int y);
-		virtual void onKeypress(char);
 		void selfDestruct();
+		BoundingBox getBounds();
 		
-		
+		std::string name;
 		bool destroy;
 		bool subscribeInput; //If the object want inputs called
+		
 	private:
 		int zorder;
+		
+	protected:
+		BoundingBox bounds;
 };
+
 
 class FPSDisplay : public GenericObj {
 	public:
@@ -54,20 +82,7 @@ class MemTester : public GenericObj {
 		char a[10000000];
 };
 
-class BoundingContainer {
-	public: 
-		float x, y;
-};
 
-class BoundingBox: public BoundingContainer {
-	public: 
-		float w, h;
-};
-
-class BoundingCircle: public BoundingContainer {
-	public:
-		float r;
-};
 
 bool compareDrawObjZOrder(DrawObj * i, DrawObj * j);
 bool compareGenObjZOrder(GenericObj * i, GenericObj * j);
@@ -82,7 +97,7 @@ class Engine {
 		void addGenObj(GenericObj * genobj);
 		void drawAllGenObj();
 		void updateAllGenObj(float dt);
-		int detectCollisions(BoundingBox bb);
+		CollisionObj detectCollisions(BoundingBox bb, GenericObj * _origin);
 		
 	private:
 		std::vector<DrawObj*> objList;
