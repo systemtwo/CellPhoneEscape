@@ -101,7 +101,7 @@ void TitleState::update(float dt) {
 
 void TitleState::draw() {
 	AppPointer->Draw(titleSprite);
-	eng.drawAll();
+	//eng.drawAll();
 	eng.drawAllGenObj();
 	return;
 }

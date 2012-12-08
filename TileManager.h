@@ -28,6 +28,7 @@ class TileManager {
 	private:
 		sf::RenderWindow * AppPointer;
 		ResourceManager * RMPointer;
+		int level;
 };
 
 

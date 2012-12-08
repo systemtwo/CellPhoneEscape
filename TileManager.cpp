@@ -46,7 +46,6 @@ void TileManager::generateTiles(Engine * eng) {
 	for (int i = 0; i < height; i++) {
 		for (int j = 0; j < width; j++) {
 			in >> tileType;
-			//cout << tileType;
 			if (tileType != 0) {
 				eng->addGenObj(new Tile(j,i,RMPointer));
 			}

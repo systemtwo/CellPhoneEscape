@@ -82,6 +82,7 @@ class Engine {
 		void addGenObj(GenericObj * genobj);
 		void drawAllGenObj();
 		void updateAllGenObj(float dt);
+		int detectCollisions(BoundingBox bb);
 		
 	private:
 		std::vector<DrawObj*> objList;

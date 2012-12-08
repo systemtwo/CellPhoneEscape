@@ -13,7 +13,7 @@ FPSDisplay::FPSDisplay() {
 	text.SetSize(50);
 	counter = 0;
 	
-	setZOrder(1);
+	setZOrder(100);
 	return;
 }
 
@@ -184,4 +184,9 @@ void Engine::updateAllGenObj(float dt) {
 		genObjList[i]->update(dt);
 	}
 	return;
+}
+
+int Engine::detectCollisions(BoundingBox bb) {
+	//Returns 1-4 for each side
+	return 0;
 }

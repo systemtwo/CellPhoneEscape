@@ -11,7 +11,7 @@ void LoaderState::init() {
 	RMPointer->storeImage(i1, "title");
 
 	sf::Image * i2 = new sf::Image;
-	i2->LoadFromFile("images/player.jpg");
+	i2->LoadFromFile("images/icon.png");
 	RMPointer->storeImage(i2, "player");
 	
 	sf::Image * i5 = new sf::Image;

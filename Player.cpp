@@ -5,27 +5,41 @@
 Player::Player(sf::RenderWindow * _ap, ResourceManager * _rm) : input(_ap->GetInput()) {
 	AppPointer = _ap;
 	sprite.SetImage(*_rm->getImage("player"));
-	sprite.SetX(0);
-	sprite.SetY(0);
-	
+
 	setZOrder(10);
+	//Set bounds
+	bounds.x = 100;
+	bounds.y = 100;
+	bounds.w = sprite.GetSize().x;
+	bounds.h = sprite.GetSize().y;
+
+	sprite.SetX(bounds.x);
+	sprite.SetY(bounds.y);
+		
 	return;
 }
 
 void Player::update(float dt) {
 	int speed = 40;
 	if (input.IsKeyDown(sf::Key::Left)) {
-		sprite.Move(-dt*speed, 0);
+		bounds.x -= dt*speed;
+		//sprite.Move(-dt*speed, 0);
 	}
 	if (input.IsKeyDown(sf::Key::Right)) {
-		sprite.Move(dt*speed, 0);
+		bounds.x += dt*speed;
+		//sprite.Move(dt*speed, 0);
 	}
 	if (input.IsKeyDown(sf::Key::Up)) {
-		sprite.Move(0, -dt*speed);
+		bounds.y -= dt*speed;
+		//sprite.Move(0, -dt*speed);
 	}
 	if (input.IsKeyDown(sf::Key::Down)) {
-		sprite.Move(0, dt*speed);
+		bounds.y += dt*speed;
+		//sprite.Move(0, dt*speed);
 	}
+	sprite.SetX(bounds.x);
+	sprite.SetY(bounds.y);
+	//sprite.Move(0,1);
 	return;
 }
 
