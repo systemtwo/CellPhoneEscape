@@ -22,6 +22,9 @@ class Player : public GenericObj {
 		const sf::Input & input;
 		sf::Sprite sprite;
 		Engine * eng;
+		bool jumping, jumpReady;
+		int jumpHeight;
+		static const int maxJumpHeight = 200;
 };
 
 #endif

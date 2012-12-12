@@ -17,7 +17,9 @@ Player::Player(sf::RenderWindow * _ap, ResourceManager * _rm, Engine * _eng) : i
 
 	sprite.SetX(bounds.x);
 	sprite.SetY(bounds.y);
-	
+	jumping = false;
+	jumpReady = true;
+	jumpHeight = 0;
 	
 	return;
 }
@@ -30,6 +32,8 @@ void Player::update(float dt) {
 	std::cout << co.collType;
 	if (co.collType != BOTTOM) {
 		bounds.y += dt* 100;
+	}else{
+		jumpReady=true;
 	}
 	
 	if (input.IsKeyDown(sf::Key::Left)) {
@@ -42,11 +46,27 @@ void Player::update(float dt) {
 	}
 	
 	if (input.IsKeyDown(sf::Key::Up)) {
-		if (co.collType != TOP) {
-			bounds.y -= 10;
+		if (jumpReady==true) {
+		std::cout<<std::endl<<jumpReady<<std::endl<<jumping<<std::endl;
+			jumping=true;
+			jumpHeight=0;
+			jumpReady=false;
+		std::cout<<std::endl<<jumpReady<<std::endl<<jumping<<std::endl;
 		}
 		//sprite.Move(0, -dt*speed);
+	} else {
+		jumping=false;
 	}
+	if(jumping==true)
+	{
+		if ((co.collType != TOP)&&(jumpHeight<maxJumpHeight)) {
+			bounds.y -= 10;
+			jumpHeight += 10;
+		} else {
+			jumping=false;
+		}
+	}
+	
 	
 	if (input.IsKeyDown(sf::Key::Down)) {
 		bounds.y += dt*speed;
