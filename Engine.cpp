@@ -217,14 +217,30 @@ CollisionObj Engine::detectCollisions(BoundingBox bb, GenericObj * _origin) {
 		aa = genObjList[i]->getBounds();
 		
 		if(aa.h == 0 && aa.w == 0) {
+			//These objects are set to not have a bounding box
 			cout << "Passing" << endl;
 			continue;
 		}
+		
+		if (((bb.x+bb.w) > (aa.x)) && ((bb.x) < (aa.x)) && (bb.y < (aa.y+aa.h)) && ((bb.y+bb.h) > (aa.y))) {
+			cout << "Right" << endl;
+		}
+		//cout << "Rd: " << ((bb.x) < (aa.x)) << endl;
+		if ((bb.x < (aa.x+aa.w)) && ((bb.x+bb.w) > (aa.x+aa.w)) && (bb.y < (aa.y+aa.h)) && ((bb.y+bb.h) > (aa.y))) {
+			cout << "LEFT" << ((bb.x+bb.w) > (aa.x+aa.w)) <<  endl;
+		}
+		
 		if (((bb.y+bb.h) > aa.y) && (bb.y < aa.y) && (bb.x < (aa.x+aa.w)) && ((bb.x+bb.w)> (aa.x))) {
-			return CollisionObj(BOTTOM, aa);
+			//return CollisionObj(BOTTOM, aa);
+			cout << "BOTTOM" << endl;
 		} else if (((bb.y) < (aa.y+aa.h)) && ((bb.y+bb.h) > aa.y) && (bb.x < (aa.x+aa.w)) && ((bb.x+bb.w)> (aa.x))) {
-			return CollisionObj(TOP, aa);
-		} 
+			//return CollisionObj(TOP, aa);
+			cout << "UP" << endl;
+		} else {
+			//Return CollisionObj with side set and top/bottom set to none
+		}
+		
+		
 	}
 	return CollisionObj(NONE);
 }

@@ -30,6 +30,10 @@ class CollisionObj {
 		CollisionObj(int ctype, BoundingBox b);
 		BoundingBox bounds;
 		int collType; //Collision type as determined by enum
+		bool collL; //Collision for sides
+		bool collR;
+		bool coolU;
+		bool coolD;
 };
 
 struct DrawObj {
