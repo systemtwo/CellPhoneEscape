@@ -27,13 +27,13 @@ class BoundingCircle: public BoundingContainer {
 
 class CollisionObj {
 	public:
-		CollisionObj(int ctype, BoundingBox b);
+		CollisionObj(bool u, bool d, bool l, bool r, BoundingBox b);
 		BoundingBox bounds;
-		int collType; //Collision type as determined by enum
+		//int collType; //Collision type as determined by enum
 		bool collL; //Collision for sides
 		bool collR;
-		bool coolU;
-		bool coolD;
+		bool collU;
+		bool collD;
 };
 
 struct DrawObj {

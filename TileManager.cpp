@@ -16,6 +16,8 @@ Tile::Tile(int x, int y, ResourceManager * _rm) {
 	sprite.SetImage(*_rm->getImage("tile")); //Tile manager shuold handle this
 	sprite.SetX((int)bounds.x);
 	sprite.SetY((int)bounds.y);
+	
+	name = "tile";
 	return;
 }
 
