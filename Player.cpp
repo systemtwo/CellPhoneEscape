@@ -17,9 +17,14 @@ Player::Player(sf::RenderWindow * _ap, ResourceManager * _rm, Engine * _eng) : i
 
 	sprite.SetX(bounds.x);
 	sprite.SetY(bounds.y);
+
 	jumping = false;
 	jumpReady = true;
 	jumpHeight = 0;
+
+	
+	name = "player";
+
 	
 	return;
 }
@@ -29,8 +34,8 @@ void Player::update(float dt) {
 	
 	
 	CollisionObj co = eng->detectCollisions(bounds, this);
-	std::cout << co.collType;
-	if (co.collType != BOTTOM) {
+	std::cout << co.collD;
+	if (co.collD == false) {
 		bounds.y += dt* 100;
 	}else{
 		jumpReady=true;
@@ -47,6 +52,7 @@ void Player::update(float dt) {
 	}
 	
 	if (input.IsKeyDown(sf::Key::Up)) {
+<<<<<<< HEAD
 		if (jumpReady==true) {
 		std::cout<<std::endl<<jumpReady<<std::endl<<jumping<<std::endl;
 			jumping=true;
@@ -54,6 +60,10 @@ void Player::update(float dt) {
 			jumpSpeed=20;
 			jumpReady=false;
 		std::cout<<std::endl<<jumpReady<<std::endl<<jumping<<std::endl;
+=======
+		if (co.collU != TOP) {
+			bounds.y -= 10;
+>>>>>>> 273ca5fe6ded150fcfa3a1628279df435250a21f
 		}
 		//sprite.Move(0, -dt*speed);
 	} else {

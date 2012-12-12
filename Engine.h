@@ -27,9 +27,13 @@ class BoundingCircle: public BoundingContainer {
 
 class CollisionObj {
 	public:
-		CollisionObj(int ctype, BoundingBox b);
+		CollisionObj(bool u, bool d, bool l, bool r, BoundingBox b);
 		BoundingBox bounds;
-		int collType; //Collision type as determined by enum
+		//int collType; //Collision type as determined by enum
+		bool collL; //Collision for sides
+		bool collR;
+		bool collU;
+		bool collD;
 };
 
 struct DrawObj {
@@ -84,15 +88,14 @@ class MemTester : public GenericObj {
 
 
 
-bool compareDrawObjZOrder(DrawObj * i, DrawObj * j);
+
 bool compareGenObjZOrder(GenericObj * i, GenericObj * j);
 
 class Engine {
 	public:
-		void addDrawObj(DrawObj *obj);
-		void drawAll();
+		
 		void setAppPointer (sf::RenderWindow * _ap);
-		DrawObj * makeAndAddObj(sf::Sprite * _sprite, int _zorder);
+		
 		
 		void addGenObj(GenericObj * genobj);
 		void drawAllGenObj();
@@ -102,8 +105,6 @@ class Engine {
 	private:
 		std::vector<DrawObj*> objList;
 		std::vector<GenericObj *> genObjList;
-		void sortZOrder();
-		void cleanObjList();
 		sf::RenderWindow * AppPointer;		
 };
 

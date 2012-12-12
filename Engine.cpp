@@ -7,8 +7,11 @@
 
 using namespace std;
 
-CollisionObj::CollisionObj(int _ctype, BoundingBox b = BoundingBox()) {
-	collType = _ctype;
+CollisionObj::CollisionObj(bool u = false, bool d = false, bool l = false, bool r = false, BoundingBox b = BoundingBox()) {
+	collU = u;
+	collD = d;
+	collL = l;
+	collR = r;
 	bounds = b;
 	return;
 }
@@ -98,55 +101,14 @@ BoundingBox GenericObj::getBounds() {
 	return bounds;
 }
 
+
 bool compareGenObjZOrder(GenericObj * i, GenericObj * j) {
 	return (i->getZOrder()) < (j->getZOrder());
 }
 
 
 
-bool compareDrawObjZOrder(DrawObj * i, DrawObj * j) {
-	return (i->zorder) < (j->zorder);
-}
 
-void Engine::addDrawObj(DrawObj *obj) {
-	objList.push_back (obj);
-	return;
-}
-
-DrawObj * Engine::makeAndAddObj(sf::Sprite * _sprite, int _zorder) {
-	//Does addDrawObj, but first wraps it for the user
-	DrawObj * tempobj = new DrawObj;
-	tempobj->sprite = _sprite;
-	tempobj->zorder = _zorder;
-	tempobj->destroy = false;
-	addDrawObj(tempobj);
-	return tempobj;
-}
-
-void Engine::drawAll() {
-	cout << "Tracking " << objList.size() << endl;
-	cleanObjList();
-	sortZOrder();
-	for (int i = 0; i < objList.size(); i++) {
-		typeid(objList[i]->sprite).name();
-		AppPointer->Draw(*(objList[i]->sprite));
-	}
-	return;
-}
-
-void Engine::sortZOrder() {
-	sort(objList.begin(), objList.end(), compareDrawObjZOrder);
-	return;
-}
-
-void Engine::cleanObjList() {
-	for (int i = 0; i < objList.size(); i++) {
-		if (objList[i]->destroy == true) {
-			delete objList[i];
-			objList.erase(objList.begin() + i);
-		}
-	}
-}
 
 void Engine::setAppPointer(sf::RenderWindow * _ap) {
 	AppPointer = _ap;
@@ -208,23 +170,59 @@ CollisionObj Engine::detectCollisions(BoundingBox bb, GenericObj * _origin) {
 		 << "4 (" << bb.x+bb.w << ", " << bb.y+bb.h << endl;
 		 */
 	BoundingBox aa; //Temp storage for the items in list
+	
+	bool colU = false;
+	bool colD = false;
+	bool colR = false;
+	bool colL = false;
+	
 	for (int i = 0; i < genObjList.size(); i++) {
+		//Reset colision values
+		/*
+		colU = false;
+		colD = false;
+		colR = false;
+		colL = false;
+		*/
+		
 		if (_origin == genObjList[i]) {
 			//Object is being compared with itself
-			cout << "Self hit" << endl;
+			//cout << "Self hit" << endl;
 			continue;
 		}
 		aa = genObjList[i]->getBounds();
 		
 		if(aa.h == 0 && aa.w == 0) {
-			cout << "Passing" << endl;
+			//These objects are set to not have a bounding box
+			//cout << "Passing" << endl;
 			continue;
 		}
+		
+		if (((bb.x+bb.w) > (aa.x)) && ((bb.x) < (aa.x)) && (bb.y < (aa.y+aa.h)) && ((bb.y+bb.h) > (aa.y))) {
+			cout << "Right" << endl;
+			colR = true;
+		}
+		//cout << "Rd: " << ((bb.x) < (aa.x)) << endl;
+		if ((bb.x < (aa.x+aa.w)) && ((bb.x+bb.w) > (aa.x+aa.w)) && (bb.y < (aa.y+aa.h)) && ((bb.y+bb.h) > (aa.y))) {
+			cout << "LEFT" << ((bb.x+bb.w) > (aa.x+aa.w)) <<  endl;
+			colL = true;
+		}
+		
 		if (((bb.y+bb.h) > aa.y) && (bb.y < aa.y) && (bb.x < (aa.x+aa.w)) && ((bb.x+bb.w)> (aa.x))) {
-			return CollisionObj(BOTTOM, aa);
+			//return CollisionObj(BOTTOM, aa);
+			cout << "BOTTOM" << endl;
+			colD = true;
 		} else if (((bb.y) < (aa.y+aa.h)) && ((bb.y+bb.h) > aa.y) && (bb.x < (aa.x+aa.w)) && ((bb.x+bb.w)> (aa.x))) {
-			return CollisionObj(TOP, aa);
-		} 
+			//This else if may cause some later problems
+			//return CollisionObj(TOP, aa);
+			cout << "UP" << endl;
+			colU = true;
+		} else {
+			//Return CollisionObj with side set and top/bottom set to none
+		}
+		
+		
 	}
+	return CollisionObj(colU, colD, colL, colR, aa);
 	return CollisionObj(NONE);
 }
