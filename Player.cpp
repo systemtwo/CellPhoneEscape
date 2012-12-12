@@ -27,8 +27,15 @@ void Player::update(float dt) {
 	int speed = 40;
 	
 	
+	
 	CollisionObj co = eng->detectCollisions(bounds, this);
 	std::cout << co.collD;
+	
+	std::cout << "COLLIDING WITH: " << std::endl;
+	for (int i = 0; i < co.nameD.size(); i++)  {
+		std::cout << "-" << co.nameD[i] << std::endl;
+	}
+	
 	if (co.collD == false) {
 		bounds.y += dt* 100;
 	}
