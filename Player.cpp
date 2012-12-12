@@ -34,6 +34,7 @@ void Player::update(float dt) {
 		bounds.y += dt* 100;
 	}else{
 		jumpReady=true;
+		jumping = false;
 	}
 	
 	if (input.IsKeyDown(sf::Key::Left)) {
@@ -50,20 +51,23 @@ void Player::update(float dt) {
 		std::cout<<std::endl<<jumpReady<<std::endl<<jumping<<std::endl;
 			jumping=true;
 			jumpHeight=0;
+			jumpSpeed=20;
 			jumpReady=false;
 		std::cout<<std::endl<<jumpReady<<std::endl<<jumping<<std::endl;
 		}
 		//sprite.Move(0, -dt*speed);
 	} else {
-		jumping=false;
+		if(jumpSpeed>0)
+		{
+			jumpSpeed = 0;
+		}
 	}
 	if(jumping==true)
 	{
 		if ((co.collType != TOP)&&(jumpHeight<maxJumpHeight)) {
-			bounds.y -= 10;
-			jumpHeight += 10;
-		} else {
-			jumping=false;
+			jumpSpeed-=1;
+			bounds.y -= jumpSpeed;
+			jumpHeight += jumpSpeed;
 		}
 	}
 	
