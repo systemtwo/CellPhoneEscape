@@ -8,6 +8,16 @@
 using namespace std;
 
 CollisionObj::CollisionObj(BoundingBox b = BoundingBox()) {
+	collL = false;
+	collR = false;
+	collU = false;
+	collD = false;
+	
+	distL = 0;
+	distR = 0;
+	distU = 0;
+	distD = 0;
+	
 	bounds = b;
 	return;
 }
@@ -197,12 +207,14 @@ CollisionObj Engine::detectCollisions(BoundingBox bb, GenericObj * _origin) {
 		if (((bb.x+bb.w) > (aa.x)) && ((bb.x) < (aa.x)) && (bb.y < (aa.y+aa.h)) && ((bb.y+bb.h) > (aa.y))) {
 			cout << "Right" << endl;
 			co.collR = true;
+			co.distR = (bb.x+bb.w)-aa.x;
 			co.nameR.push_back(genObjList[i]->name);
 		}
 		//cout << "Rd: " << ((bb.x) < (aa.x)) << endl;
 		if ((bb.x < (aa.x+aa.w)) && ((bb.x+bb.w) > (aa.x+aa.w)) && (bb.y < (aa.y+aa.h)) && ((bb.y+bb.h) > (aa.y))) {
 			cout << "LEFT" << ((bb.x+bb.w) > (aa.x+aa.w)) <<  endl;
 			co.collL = true;
+			co.distL = (aa.x+aa.w)-bb.x;
 			co.nameL.push_back(genObjList[i]->name);
 		}
 		
@@ -210,12 +222,14 @@ CollisionObj Engine::detectCollisions(BoundingBox bb, GenericObj * _origin) {
 			//return CollisionObj(BOTTOM, aa);
 			cout << "BOTTOM" << endl;
 			co.collD = true;
+			co.distD = (bb.y+bb.h)-aa.y;
 			co.nameD.push_back(genObjList[i]->name);
 		} else if (((bb.y) < (aa.y+aa.h)) && ((bb.y+bb.h) > aa.y) && (bb.x < (aa.x+aa.w)) && ((bb.x+bb.w)> (aa.x))) {
 			//This else if may cause some later problems
 			//return CollisionObj(TOP, aa);
 			cout << "UP" << endl;
 			co.collU = true;
+			co.distU = (aa.y+aa.h)-bb.y;
 			co.nameU.push_back(genObjList[i]->name);
 		} else {
 			//Return CollisionObj with side set and top/bottom set to none
