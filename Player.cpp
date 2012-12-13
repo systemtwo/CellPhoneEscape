@@ -29,23 +29,54 @@ Player::Player(sf::RenderWindow * _ap, ResourceManager * _rm, Engine * _eng) : i
 	return;
 }
 
-void resolveCollisions(CollisionObj co)
+void Player::resolveCollisions(CollisionObj co)
 {
+	co = eng->detectCollisions(bounds, this);
 	if (co.collD == true ) {
 		jumpReady=true;
 		jumping = false;
+	} else if(jumping==false){
+		jumping=true;
+		jumpSpeed=0;
 	}
-	if((co.collD == true)&&(co.collU == true)){
-		bounds.x+=co.ovL;
-		bounds.x-=co.ovR;
-	}
+	/*if((co.collD == true)&&(co.collU == true)){
+		bounds.x+=co.distL;
+		bounds.x-=co.distR;
+	} else if((co.collL == true)&&(co.collR == true)){
+		bounds.y-=co.distD;
+		bounds.y+=co.distU;
+	} else {
+		bounds.y-=co.distD;
+		bounds.y+=co.distU;
+		bounds.x-=co.distL;
+		bounds.x+=co.distR;
+	}*/
+	if(co.collD==true) {
+		bounds.y-=co.distD;
+		///bounds.y+=co.distU;
+	} else {
+		bounds.x+=co.distL;
+		bounds.x-=co.distR;
+	}	
+	
+	return;
 }
 
 void Player::update(float dt) {
 	int speed = 100;
-	
 	CollisionObj co = eng->detectCollisions(bounds, this);
-	resolveCollisions();
+	resolveCollisions(co);
+	
+	std::cout << co.collD;
+	
+	/*
+	std::cout << "COLLIDING WITH: " << std::endl;
+	for (int i = 0; i < co.nameD.size(); i++)  {
+		std::cout << "-" << co.nameD[i] << std::endl;
+	}*/
+	
+	std::cout << co.distD;
+	
 	
 	if (input.IsKeyDown(sf::Key::Left)) {
 		bounds.x -= dt*speed;
@@ -86,8 +117,12 @@ void Player::update(float dt) {
 		bounds.y += dt*speed;
 		//sprite.Move(0, dt*speed);
 	}
+	
+	resolveCollisions(co);
+	
 	sprite.SetX(bounds.x);
 	sprite.SetY(bounds.y);
+	
 	
 	
 	return;

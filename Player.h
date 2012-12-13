@@ -18,7 +18,7 @@ class Player : public GenericObj {
 		BoundingBox bounds;
 		//int zorder;
 	private:
-		void resolveCollisions();
+		void resolveCollisions(CollisionObj co);
 		sf::RenderWindow * AppPointer;
 		const sf::Input & input;
 		sf::Sprite sprite;

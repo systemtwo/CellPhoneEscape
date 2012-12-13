@@ -27,7 +27,7 @@ class BoundingCircle: public BoundingContainer {
 
 class CollisionObj {
 	public:
-		CollisionObj(bool u, bool d, bool l, bool r, BoundingBox b);
+		CollisionObj(BoundingBox b);
 		BoundingBox bounds;
 		//int collType; //Collision type as determined by enum
 		bool collL; //Collision for sides
@@ -35,6 +35,18 @@ class CollisionObj {
 		bool collU;
 		bool collD;
 		
+
+		//Distance of overlap (Should replace bool versions)
+		int distL;
+		int distR;
+		int distU;
+		int distD;
+		
+		//Names of things collided with (Organized by sizes)
+		std::vector<std::string> nameL;
+		std::vector<std::string> nameR;
+		std::vector<std::string> nameD;
+		std::vector<std::string> nameU;
 };
 
 struct DrawObj {
