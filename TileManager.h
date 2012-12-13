@@ -8,7 +8,7 @@
 
 class Tile : public GenericObj {
 	public:
-		Tile(int x, int y, ResourceManager * _rm);
+		Tile(int x, int y, ResourceManager * _rm, int type);
 		void update(float dt);
 		void draw(sf::RenderWindow * _ap);
 		

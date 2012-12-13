@@ -207,7 +207,7 @@ CollisionObj Engine::detectCollisions(BoundingBox bb, GenericObj * _origin) {
 		if (((bb.x+bb.w) > (aa.x)) && ((bb.x) < (aa.x)) && (bb.y < (aa.y+aa.h)) && ((bb.y+bb.h) > (aa.y))) {
 			//cout << "Right" << endl;
 			co.collR = true;
-			if (((bb.x+bb.w)-aa.x)>co.distR) {
+			if (((bb.x+bb.w)-aa.x)>co.distR) { //Find out if the overlap dist is bigger
 				co.distR = (bb.x+bb.w)-aa.x;
 			}
 			co.nameR.push_back(genObjList[i]->name);
