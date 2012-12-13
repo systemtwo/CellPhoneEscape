@@ -39,25 +39,49 @@ void Player::resolveCollisions(CollisionObj co)
 		jumping=true;
 		jumpSpeed=0;
 	}
-	/*if((co.collD == true)&&(co.collU == true)){
-		bounds.x+=co.distL;
-		bounds.x-=co.distR;
-	} else if((co.collL == true)&&(co.collR == true)){
-		bounds.y-=co.distD;
-		bounds.y+=co.distU;
-	} else {
-		bounds.y-=co.distD;
-		bounds.y+=co.distU;
-		bounds.x-=co.distL;
-		bounds.x+=co.distR;
-	}*/
-	if(co.collD==true) {
-		bounds.y-=co.distD;
-		//bounds.y+=co.distU;
-	} else {
-		bounds.x+=co.distL;
-		bounds.x-=co.distR;
-	}	
+	float temp = 600;
+	int Dir_id = 0;
+	if((co.distD<temp)&&(co.distD!=0)) {
+		temp = co.distD;
+		Dir_id = 1;
+	}
+	if((co.distU<temp)&&(co.distU!=0)) {
+		temp = co.distU;
+		Dir_id = 2;
+	}
+	if((co.distL<temp)&&(co.distL!=0)) {
+		temp = co.distL;
+		Dir_id = 3;
+	}
+	if((co.distR<temp)&&(co.distR!=0)) {
+		temp = co.distR;
+		Dir_id = 4;
+	}
+	using namespace std;
+	switch (Dir_id) {
+	case 1:
+		cout<<endl<<"Moved it Up "<<temp<<" units"<<endl;
+		bounds.y-=temp;
+		break;
+	case 2:
+		cout<<endl<<"Moved it down "<<temp<<" units"<<endl
+			<<"co.distD = "<<co.distD<<endl
+			<<"co.collU = "<<co.collU<<endl;
+		
+		bounds.y+=temp;
+		break;
+	case 3:
+		cout<<endl<<"Moved it right "<<temp<<" units"<<endl;
+		bounds.x+=temp;
+		break;
+	case 4:
+		cout<<endl<<"Moved it left "<<temp<<" units"<<endl;
+		bounds.x-=temp;
+		break;
+	default:
+		std::cout<<"NO COLLISION"<<endl;
+	}
+		
 	
 	return;
 }
@@ -65,7 +89,8 @@ void Player::resolveCollisions(CollisionObj co)
 void Player::update(float dt) {
 	int speed = 100;
 	CollisionObj co = eng->detectCollisions(bounds, this);
-	resolveCollisions(co);
+	
+	
 	
 	std::cout << co.collD;
 	
@@ -114,11 +139,16 @@ void Player::update(float dt) {
 	
 	
 	if (input.IsKeyDown(sf::Key::Down)) {
-		bounds.y += dt*speed;
+		if(jumping==true) {
+			std::cout<<"SPAM";
+			jumpSpeed-=1;
+		}
 		//sprite.Move(0, dt*speed);
 	}
 	
-	resolveCollisions(co);
+	for(int i = 0; i<4 ; i++) {
+		resolveCollisions(co);
+	}
 	
 	sprite.SetX(bounds.x);
 	sprite.SetY(bounds.y);

@@ -230,7 +230,7 @@ CollisionObj Engine::detectCollisions(BoundingBox bb, GenericObj * _origin) {
 				co.distD = (bb.y+bb.h)-aa.y;
 			}
 			co.nameD.push_back(genObjList[i]->name);
-		} else if (((bb.y) < (aa.y+aa.h)) && ((bb.y+bb.h) > aa.y) && (bb.x < (aa.x+aa.w)) && ((bb.x+bb.w)> (aa.x))) {
+		} else if (((bb.y) < (aa.y+aa.h)) && ((bb.y+bb.h) > (aa.y+aa.h)) && (bb.x < (aa.x+aa.w)) && ((bb.x+bb.w)> (aa.x))) {
 			//This else if may cause some later problems
 			//return CollisionObj(TOP, aa);
 			cout << "UP" << endl;
@@ -238,6 +238,7 @@ CollisionObj Engine::detectCollisions(BoundingBox bb, GenericObj * _origin) {
 			if (((aa.y+aa.h)-bb.y)> co.distU) {
 				co.distU = (aa.y+aa.h)-bb.y;
 			}
+			cout<< endl<<"Distance is: "<<co.distU<<endl;
 			co.nameU.push_back(genObjList[i]->name);
 		} else {
 			//Return CollisionObj with side set and top/bottom set to none
