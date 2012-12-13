@@ -1,10 +1,11 @@
 #include "TileManager.h"
 #include <fstream>
 #include <iostream>
+#include <cstring>
 
 using namespace std;
 
-Tile::Tile(int x, int y, ResourceManager * _rm) {
+Tile::Tile(int x, int y, ResourceManager * _rm, int type) {
 	//Note x, y are grid coordinates NOT Global game screen coords
 	bounds.x = x*SIZE;
 	bounds.y = y*SIZE;
@@ -13,7 +14,12 @@ Tile::Tile(int x, int y, ResourceManager * _rm) {
 	
 	setZOrder(40);
 	
-	sprite.SetImage(*_rm->getImage("tile")); //Tile manager shuold handle this
+	char fname[100];
+	char tilenum[25];
+	itoa(type, tilenum, 10);
+	strcpy(fname, "tile");
+	strcat(fname, tilenum);
+	sprite.SetImage(*_rm->getImage(fname)); //Tile manager shuold handle this
 	sprite.SetX((int)bounds.x);
 	sprite.SetY((int)bounds.y);
 	
@@ -49,7 +55,7 @@ void TileManager::generateTiles(Engine * eng) {
 		for (int j = 0; j < width; j++) {
 			in >> tileType;
 			if (tileType != 0) {
-				eng->addGenObj(new Tile(j,i,RMPointer));
+				eng->addGenObj(new Tile(j,i,RMPointer, tileType));
 			}
 		}
 	}
@@ -59,7 +65,7 @@ void TileManager::generateTiles(Engine * eng) {
 }
 
 Tile * TileManager::makeATile(int i, int j) {
-	return new Tile(i,j, RMPointer);
+	return new Tile(i,j, RMPointer, 1);
 }
 
 

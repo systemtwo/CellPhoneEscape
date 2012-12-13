@@ -14,13 +14,17 @@ void LoaderState::init() {
 	i2->LoadFromFile("images/icon.png");
 	RMPointer->storeImage(i2, "player");
 	
+	sf::Image * i3 = new sf::Image;
+	i3->LoadFromFile("images/tile2.png");
+	RMPointer->storeImage(i3, "tile2");
+	
 	sf::Image * i5 = new sf::Image;
 	i5->LoadFromFile("images/binary.png");
 	RMPointer->storeImage(i5, "binary");
 	
 	sf::Image * i6 = new sf::Image;
 	i6->LoadFromFile("images/tile.png");
-	RMPointer->storeImage(i6, "tile");
+	RMPointer->storeImage(i6, "tile1");
 }
 
 void LoaderState::update() {
