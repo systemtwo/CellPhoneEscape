@@ -54,7 +54,7 @@ void TileManager::generateTiles(Engine * eng) {
 			}
 		}
 	}
-	
+	cout << "CALLed";
 	
 	return;
 }

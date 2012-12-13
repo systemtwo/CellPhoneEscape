@@ -34,6 +34,7 @@ class CollisionObj {
 		bool collR;
 		bool collU;
 		bool collD;
+		
 };
 
 struct DrawObj {

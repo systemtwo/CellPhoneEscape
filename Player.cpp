@@ -29,18 +29,23 @@ Player::Player(sf::RenderWindow * _ap, ResourceManager * _rm, Engine * _eng) : i
 	return;
 }
 
-void Player::update(float dt) {
-	int speed = 40;
-	
-	
-	CollisionObj co = eng->detectCollisions(bounds, this);
-	std::cout << co.collD;
-	if (co.collD == false) {
-		bounds.y += dt* 100;
-	}else{
+void resolveCollisions(CollisionObj co)
+{
+	if (co.collD == true ) {
 		jumpReady=true;
 		jumping = false;
 	}
+	if((co.collD == true)&&(co.collU == true)){
+		bounds.x+=co.ovL;
+		bounds.x-=co.ovR;
+	}
+}
+
+void Player::update(float dt) {
+	int speed = 100;
+	
+	CollisionObj co = eng->detectCollisions(bounds, this);
+	resolveCollisions();
 	
 	if (input.IsKeyDown(sf::Key::Left)) {
 		bounds.x -= dt*speed;
@@ -52,32 +57,27 @@ void Player::update(float dt) {
 	}
 	
 	if (input.IsKeyDown(sf::Key::Up)) {
-<<<<<<< HEAD
+
 		if (jumpReady==true) {
-		std::cout<<std::endl<<jumpReady<<std::endl<<jumping<<std::endl;
 			jumping=true;
 			jumpHeight=0;
 			jumpSpeed=20;
 			jumpReady=false;
-		std::cout<<std::endl<<jumpReady<<std::endl<<jumping<<std::endl;
-=======
-		if (co.collU != TOP) {
-			bounds.y -= 10;
->>>>>>> 273ca5fe6ded150fcfa3a1628279df435250a21f
 		}
-		//sprite.Move(0, -dt*speed);
 	} else {
 		if(jumpSpeed>0)
 		{
 			jumpSpeed = 0;
 		}
 	}
-	if(jumping==true)
-	{
-		if ((co.collType != TOP)&&(jumpHeight<maxJumpHeight)) {
+	if(jumping==true){
+		if ((co.collU != true)&&(jumpHeight<maxJumpHeight)) {
 			jumpSpeed-=1;
 			bounds.y -= jumpSpeed;
 			jumpHeight += jumpSpeed;
+		}
+		if(co.collU==true){
+			jumpSpeed=0;
 		}
 	}
 	
