@@ -53,7 +53,7 @@ void Player::resolveCollisions(CollisionObj co)
 	}*/
 	if(co.collD==true) {
 		bounds.y-=co.distD;
-		///bounds.y+=co.distU;
+		//bounds.y+=co.distU;
 	} else {
 		bounds.x+=co.distL;
 		bounds.x-=co.distR;

@@ -199,7 +199,6 @@ CollisionObj Engine::detectCollisions(BoundingBox bb, GenericObj * _origin) {
 		aa = genObjList[i]->getBounds();
 		
 		if(aa.h == 0 && aa.w == 0) {
-		}
 			//These objects are set to not have a bounding box
 			//cout << "Passing" << endl;
 			continue;
