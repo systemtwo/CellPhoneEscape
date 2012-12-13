@@ -37,10 +37,10 @@ class CollisionObj {
 		
 
 		//Distance of overlap (Should replace bool versions)
-		int distL;
-		int distR;
-		int distU;
-		int distD;
+		float distL;
+		float distR;
+		float distU;
+		float distD;
 		
 		//Names of things collided with (Organized by sizes)
 		std::vector<std::string> nameL;

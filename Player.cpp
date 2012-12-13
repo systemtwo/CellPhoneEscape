@@ -18,7 +18,6 @@ Player::Player(sf::RenderWindow * _ap, ResourceManager * _rm, Engine * _eng) : i
 	sprite.SetX(bounds.x);
 	sprite.SetY(bounds.y);
 
-	jumping = false;
 	jumpReady = true;
 	jumpHeight = 0;
 
@@ -32,28 +31,39 @@ Player::Player(sf::RenderWindow * _ap, ResourceManager * _rm, Engine * _eng) : i
 void Player::resolveCollisions(CollisionObj co)
 {
 	co = eng->detectCollisions(bounds, this);
-	if (co.collD == true ) {
-		jumpReady=true;
-		jumping = false;
-	} else if(jumping==false){
-		jumping=true;
-		jumpSpeed=0;
-	}
-	float temp = 600;
+	float temp = 600; //Arbitrarily large
 	int Dir_id = 0;
-	if((co.distD<temp)&&(co.distD!=0)) {
+	if(((co.distD<temp)&&(co.distD!=0))
+		&&  (!((co.collD)&&(co.collU))	
+		         ||
+			((co.collL)&&(co.collR)))) 
+	{
+			
 		temp = co.distD;
 		Dir_id = 1;
 	}
-	if((co.distU<temp)&&(co.distU!=0)) {
+	if(((co.distU<temp)&&(co.distU!=0))
+		&&  (!((co.collD)&&(co.collU))	
+		         ||
+			((co.collL)&&(co.collR))))
+	{
+			
 		temp = co.distU;
 		Dir_id = 2;
 	}
-	if((co.distL<temp)&&(co.distL!=0)) {
+	if(((co.distL<temp)&&(co.distL!=0))
+		&&  (!((co.collL)&&(co.collR))	
+		         ||
+			((co.collD)&&(co.collU))))
+	{
 		temp = co.distL;
 		Dir_id = 3;
 	}
-	if((co.distR<temp)&&(co.distR!=0)) {
+	if(((co.distR<temp)&&(co.distR!=0))
+		&&  (!((co.collL)&&(co.collR))	
+		         ||
+			((co.collD)&&(co.collU))))
+	{
 		temp = co.distR;
 		Dir_id = 4;
 	}
@@ -62,12 +72,16 @@ void Player::resolveCollisions(CollisionObj co)
 	case 1:
 		cout<<endl<<"Moved it Up "<<temp<<" units"<<endl;
 		bounds.y-=temp;
+		jumpSpeed=0;
+		jumpReady=true;
 		break;
 	case 2:
 		cout<<endl<<"Moved it down "<<temp<<" units"<<endl
 			<<"co.distD = "<<co.distD<<endl
 			<<"co.collU = "<<co.collU<<endl;
-		
+		if(jumpSpeed>0){
+			jumpSpeed=0;
+		}
 		bounds.y+=temp;
 		break;
 	case 3:
@@ -78,8 +92,7 @@ void Player::resolveCollisions(CollisionObj co)
 		cout<<endl<<"Moved it left "<<temp<<" units"<<endl;
 		bounds.x-=temp;
 		break;
-	default:
-		std::cout<<"NO COLLISION"<<endl;
+	default:;
 	}
 		
 	
@@ -87,7 +100,7 @@ void Player::resolveCollisions(CollisionObj co)
 }
 
 void Player::update(float dt) {
-	int speed = 100;
+	int speed = 200;
 	CollisionObj co = eng->detectCollisions(bounds, this);
 	
 	
@@ -115,9 +128,8 @@ void Player::update(float dt) {
 	if (input.IsKeyDown(sf::Key::Up)) {
 
 		if (jumpReady==true) {
-			jumping=true;
 			jumpHeight=0;
-			jumpSpeed=20;
+			jumpSpeed=initSpeed;
 			jumpReady=false;
 		}
 	} else {
@@ -126,32 +138,23 @@ void Player::update(float dt) {
 			jumpSpeed = 0;
 		}
 	}
-	if(jumping==true){
-		if ((co.collU != true)&&(jumpHeight<maxJumpHeight)) {
-			jumpSpeed-=1;
-			bounds.y -= jumpSpeed;
-			jumpHeight += jumpSpeed;
-		}
-		if(co.collU==true){
-			jumpSpeed=0;
-		}
-	}
-	
 	
 	if (input.IsKeyDown(sf::Key::Down)) {
-		if(jumping==true) {
-			std::cout<<"SPAM";
-			jumpSpeed-=1;
-		}
+		jumpSpeed-=ACCELERATION;
 		//sprite.Move(0, dt*speed);
 	}
+	
+	//Code for falling, and acceleration.
+	jumpSpeed -= ACCELERATION;
+	bounds.y -= jumpSpeed;
+	jumpHeight += jumpSpeed;
 	
 	for(int i = 0; i<4 ; i++) {
 		resolveCollisions(co);
 	}
 	
-	sprite.SetX(bounds.x);
-	sprite.SetY(bounds.y);
+	sprite.SetX(bounds.x+1);
+	sprite.SetY(bounds.y+1);
 	
 	
 	

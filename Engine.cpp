@@ -205,7 +205,7 @@ CollisionObj Engine::detectCollisions(BoundingBox bb, GenericObj * _origin) {
 		}
 		
 		if (((bb.x+bb.w) > (aa.x)) && ((bb.x) < (aa.x)) && (bb.y < (aa.y+aa.h)) && ((bb.y+bb.h) > (aa.y))) {
-			cout << "Right" << endl;
+			//cout << "Right" << endl;
 			co.collR = true;
 			if (((bb.x+bb.w)-aa.x)>co.distR) {
 				co.distR = (bb.x+bb.w)-aa.x;
@@ -214,7 +214,7 @@ CollisionObj Engine::detectCollisions(BoundingBox bb, GenericObj * _origin) {
 		}
 		//cout << "Rd: " << ((bb.x) < (aa.x)) << endl;
 		else if ((bb.x < (aa.x+aa.w)) && ((bb.x+bb.w) > (aa.x+aa.w)) && (bb.y < (aa.y+aa.h)) && ((bb.y+bb.h) > (aa.y))) {
-			cout << "LEFT" << ((bb.x+bb.w) > (aa.x+aa.w)) <<  endl;
+			//cout << "LEFT" << ((bb.x+bb.w) > (aa.x+aa.w)) <<  endl;
 			co.collL = true;
 			if (((aa.x+aa.w)-bb.x)>co.distL) {
 				co.distL = (aa.x+aa.w)-bb.x;
@@ -224,7 +224,7 @@ CollisionObj Engine::detectCollisions(BoundingBox bb, GenericObj * _origin) {
 		
 		if (((bb.y+bb.h) > aa.y) && (bb.y < aa.y) && (bb.x < (aa.x+aa.w)) && ((bb.x+bb.w)> (aa.x))) {
 			//return CollisionObj(BOTTOM, aa);
-			cout << "BOTTOM" << endl;
+			//cout << "BOTTOM" << endl;
 			co.collD = true;
 			if (((bb.y+bb.h)-aa.y) > co.distD) {
 				co.distD = (bb.y+bb.h)-aa.y;
@@ -233,7 +233,7 @@ CollisionObj Engine::detectCollisions(BoundingBox bb, GenericObj * _origin) {
 		} else if (((bb.y) < (aa.y+aa.h)) && ((bb.y+bb.h) > (aa.y+aa.h)) && (bb.x < (aa.x+aa.w)) && ((bb.x+bb.w)> (aa.x))) {
 			//This else if may cause some later problems
 			//return CollisionObj(TOP, aa);
-			cout << "UP" << endl;
+			//cout << "UP" << endl;
 			co.collU = true;
 			if (((aa.y+aa.h)-bb.y)> co.distU) {
 				co.distU = (aa.y+aa.h)-bb.y;
