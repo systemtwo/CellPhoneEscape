@@ -32,8 +32,9 @@ void FallingBlock::resolveCollisions(CollisionObj co){
 	if((co.collD)) { 
 		//Iterate thru objs it colides with on bottom
 		for (int i= 0; i < co.nameD.size(); i++) {
+			cout << co.nameD[i];
 			if((co.nameD[i]=="player")) {
-				//cout<<"Destroy Down";
+				cout<<"Destroy Down";
 				selfDestruct();    //Add extra effects later, in a private member function.
 			} else if ((co.nameD[i]=="tile")) {
 				fallSpeed = 0;
@@ -50,7 +51,7 @@ void FallingBlock::resolveCollisions(CollisionObj co){
 	if ((co.collL)) {
 		for (int i= 0; i < co.nameL.size(); i++) {
 			if(co.nameL[i]=="player"){
-				//cout<<"Destroy Left";
+				cout<<"Destroy Left";
 				selfDestruct();
 			}
 		}

@@ -6,9 +6,15 @@
 #include "LoaderState.h"
 #include "GameState.h"
 #include <typeinfo>
+#include <cstdio>
 
 //If you see a white pixel that is supposed to be an image, try looking to see if sprite has image linked
 int main(void) {
+	//Buffer for output stream
+	//This makes output faster at a cost of being unsure when it is output
+	//Because the flush to OS function is expensive
+	char buf[1024];
+	setvbuf(stdout, buf, _IOLBF, 1024);
 	//Main function
 	
 	
