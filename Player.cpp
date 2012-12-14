@@ -1,6 +1,8 @@
 #include "Player.h"
 #include <cmath>
 #include <iostream>
+#include "Enemies.h"
+
 
 Player::Player(sf::RenderWindow * _ap, ResourceManager * _rm, Engine * _eng) : input(_ap->GetInput()) {
 	AppPointer = _ap;
@@ -19,7 +21,6 @@ Player::Player(sf::RenderWindow * _ap, ResourceManager * _rm, Engine * _eng) : i
 	sprite.SetY(bounds.y);
 
 	jumpReady = true;
-	jumpHeight = 0;
 
 	
 	name = "player";
@@ -27,6 +28,7 @@ Player::Player(sf::RenderWindow * _ap, ResourceManager * _rm, Engine * _eng) : i
 	
 	return;
 }
+
 
 void Player::resolveCollisions(CollisionObj co)
 {
@@ -67,29 +69,26 @@ void Player::resolveCollisions(CollisionObj co)
 		temp = co.distR;
 		Dir_id = 4;
 	}
-	using namespace std;
 	switch (Dir_id) {
 	case 1:
-		cout<<endl<<"Moved it Up "<<temp<<" units"<<endl;
+		//cout<<endl<<"Moved it Up "<<temp<<" units"<<endl;
 		bounds.y-=temp;
 		jumpSpeed=0;
 		jumpReady=true;
 		break;
 	case 2:
-		cout<<endl<<"Moved it down "<<temp<<" units"<<endl
-			<<"co.distD = "<<co.distD<<endl
-			<<"co.collU = "<<co.collU<<endl;
+		//cout<<endl<<"Moved it down "<<temp<<" units"<<endl;
 		if(jumpSpeed>0){
 			jumpSpeed=0;
 		}
 		bounds.y+=temp;
 		break;
 	case 3:
-		cout<<endl<<"Moved it right "<<temp<<" units"<<endl;
+		//cout<<endl<<"Moved it right "<<temp<<" units"<<endl;
 		bounds.x+=temp;
 		break;
 	case 4:
-		cout<<endl<<"Moved it left "<<temp<<" units"<<endl;
+		//cout<<endl<<"Moved it left "<<temp<<" units"<<endl;
 		bounds.x-=temp;
 		break;
 	default:;
@@ -104,16 +103,11 @@ void Player::update(float dt) {
 	CollisionObj co = eng->detectCollisions(bounds, this);
 	
 	
-	
-	std::cout << co.collD;
-	
 	/*
 	std::cout << "COLLIDING WITH: " << std::endl;
 	for (int i = 0; i < co.nameD.size(); i++)  {
 		std::cout << "-" << co.nameD[i] << std::endl;
 	}*/
-	
-	std::cout << co.distD;
 	
 	
 	if (input.IsKeyDown(sf::Key::Left)) {
@@ -128,7 +122,6 @@ void Player::update(float dt) {
 	if (input.IsKeyDown(sf::Key::Up)) {
 
 		if (jumpReady==true) {
-			jumpHeight=0;
 			jumpSpeed=initSpeed;
 			jumpReady=false;
 		}
@@ -147,7 +140,6 @@ void Player::update(float dt) {
 	//Code for falling, and acceleration.
 	jumpSpeed -= ACCELERATION;
 	bounds.y -= jumpSpeed;
-	jumpHeight += jumpSpeed;
 	
 	for(int i = 0; i<4 ; i++) {
 		resolveCollisions(co);

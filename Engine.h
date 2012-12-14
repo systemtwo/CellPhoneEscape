@@ -47,6 +47,8 @@ class CollisionObj {
 		std::vector<std::string> nameR;
 		std::vector<std::string> nameD;
 		std::vector<std::string> nameU;
+		
+		int maxNameVectorSize;
 };
 
 struct DrawObj {

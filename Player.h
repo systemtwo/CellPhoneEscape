@@ -5,7 +5,7 @@
 
 #include "Engine.h"
 #include "ResourceManager.h"
-
+using namespace std;
 
 
 
@@ -15,9 +15,9 @@ class Player : public GenericObj {
 		void update(float dt);
 		void draw(sf::RenderWindow * _ap);
 		
-		BoundingBox bounds;
 		//int zorder;
 	private:
+		
 		void resolveCollisions(CollisionObj co);
 		sf::RenderWindow * AppPointer;
 		const sf::Input & input;

@@ -43,7 +43,7 @@ FPSDisplay::FPSDisplay() {
 
 void FPSDisplay::update(float dt) {
 	fps = 1/dt;
-	cout << "FPS" << fps  << "  dt: " << dt << endl;;
+	//cout << "FPS" << fps  << "  dt: " << dt << endl;
 	char buffer [1000];
 	itoa(fps, buffer, 10);
 	if (counter % 10 == 0) {
@@ -159,7 +159,7 @@ void Engine::updateAllGenObj(float dt) {
 	
 
 	
-	cout << "Tracking GenObj: " << genObjList.size() << endl;
+//	cout << "Tracking GenObj: " << genObjList.size() << endl;
 	for (int i = 0; i < genObjList.size(); i++) {
 		genObjList[i]->update(dt);
 	}
@@ -181,6 +181,9 @@ CollisionObj Engine::detectCollisions(BoundingBox bb, GenericObj * _origin) {
 	bool colD = false;
 	bool colR = false;
 	bool colL = false;
+	
+	int temp = 0;
+	
 	CollisionObj co = CollisionObj(aa);
 	for (int i = 0; i < genObjList.size(); i++) {
 		//Reset colision values
@@ -194,9 +197,12 @@ CollisionObj Engine::detectCollisions(BoundingBox bb, GenericObj * _origin) {
 		if (_origin == genObjList[i]) {
 			//Object is being compared with itself
 			//cout << "Self hit" << endl;
+			
 			continue;
 		}
 		aa = genObjList[i]->getBounds();
+		
+		
 		
 		if(aa.h == 0 && aa.w == 0) {
 			//These objects are set to not have a bounding box
@@ -211,6 +217,11 @@ CollisionObj Engine::detectCollisions(BoundingBox bb, GenericObj * _origin) {
 				co.distR = (bb.x+bb.w)-aa.x;
 			}
 			co.nameR.push_back(genObjList[i]->name);
+			if((genObjList[i]->name.compare("tile")))
+			cout<<"Name is "<<genObjList[i]->name<<endl<<endl;
+			if(co.nameR.size()>temp) {
+				temp=co.nameR.size();
+			}
 		}
 		//cout << "Rd: " << ((bb.x) < (aa.x)) << endl;
 		else if ((bb.x < (aa.x+aa.w)) && ((bb.x+bb.w) > (aa.x+aa.w)) && (bb.y < (aa.y+aa.h)) && ((bb.y+bb.h) > (aa.y))) {
@@ -220,6 +231,11 @@ CollisionObj Engine::detectCollisions(BoundingBox bb, GenericObj * _origin) {
 				co.distL = (aa.x+aa.w)-bb.x;
 			}
 			co.nameL.push_back(genObjList[i]->name);
+			if((genObjList[i]->name.compare("tile")))
+			cout<<"Name is "<<genObjList[i]->name<<endl<<endl;
+			if(co.nameL.size()>temp) {
+				temp=co.nameL.size();
+			}
 		}
 		
 		if (((bb.y+bb.h) > aa.y) && (bb.y < aa.y) && (bb.x < (aa.x+aa.w)) && ((bb.x+bb.w)> (aa.x))) {
@@ -230,6 +246,11 @@ CollisionObj Engine::detectCollisions(BoundingBox bb, GenericObj * _origin) {
 				co.distD = (bb.y+bb.h)-aa.y;
 			}
 			co.nameD.push_back(genObjList[i]->name);
+			if((genObjList[i]->name.compare("tile")))
+			cout<<"Name is "<<genObjList[i]->name<<endl<<endl;
+			if(co.nameD.size()>temp) {
+				temp=co.nameD.size();
+			}
 		} else if (((bb.y) < (aa.y+aa.h)) && ((bb.y+bb.h) > (aa.y+aa.h)) && (bb.x < (aa.x+aa.w)) && ((bb.x+bb.w)> (aa.x))) {
 			//This else if may cause some later problems
 			//return CollisionObj(TOP, aa);
@@ -238,15 +259,19 @@ CollisionObj Engine::detectCollisions(BoundingBox bb, GenericObj * _origin) {
 			if (((aa.y+aa.h)-bb.y)> co.distU) {
 				co.distU = (aa.y+aa.h)-bb.y;
 			}
-			cout<< endl<<"Distance is: "<<co.distU<<endl;
 			co.nameU.push_back(genObjList[i]->name);
+			if((genObjList[i]->name.compare("tile")))
+			cout<<"Name is "<<genObjList[i]->name<<endl<<endl;
+			if(co.nameU.size()>temp) {
+				temp=co.nameU.size();
+			}
 		} else {
 			//Return CollisionObj with side set and top/bottom set to none
 		}
 		
 		
 	}
-	
+	co.maxNameVectorSize = temp; //Sets it to the size of the name vector with the largest size
 	
 	return co;
 	//return CollisionObj(NONE);
