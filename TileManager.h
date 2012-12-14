@@ -11,7 +11,7 @@ class Tile : public GenericObj {
 		Tile(int x, int y, ResourceManager * _rm, int type);
 		void update(float dt);
 		void draw(sf::RenderWindow * _ap);
-		
+		int type;
 		//BoundingBox bounds;
 		//int zorder;
 	private:

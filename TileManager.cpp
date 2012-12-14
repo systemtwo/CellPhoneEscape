@@ -5,7 +5,7 @@
 
 using namespace std;
 
-Tile::Tile(int x, int y, ResourceManager * _rm, int type) {
+Tile::Tile(int x, int y, ResourceManager * _rm, int _type) {
 	//Note x, y are grid coordinates NOT Global game screen coords
 	bounds.x = x*SIZE;
 	bounds.y = y*SIZE;
@@ -16,7 +16,7 @@ Tile::Tile(int x, int y, ResourceManager * _rm, int type) {
 	
 	char fname[100];
 	char tilenum[25];
-	itoa(type, tilenum, 10);
+	itoa(_type, tilenum, 10);
 	strcpy(fname, "tile");
 	strcat(fname, tilenum);
 	sprite.SetImage(*_rm->getImage(fname)); //Tile manager shuold handle this
@@ -24,6 +24,7 @@ Tile::Tile(int x, int y, ResourceManager * _rm, int type) {
 	sprite.SetY((int)bounds.y);
 	
 	name = "tile";
+	type = _type;
 	return;
 }
 

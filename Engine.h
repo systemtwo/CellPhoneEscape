@@ -87,7 +87,7 @@ class FPSDisplay : public GenericObj {
 		void draw(sf::RenderWindow * _ap);
 		
 	private:
-		int fps;
+		float fps;
 		sf::Font font;
 		sf::String text;
 		int counter;

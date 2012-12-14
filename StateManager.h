@@ -30,6 +30,7 @@ class StateManager {
 		ResourceManager * RMPointer;
 		const sf::Input & Input; //Does SM really need this?
 		sf::Clock clock;
+		float time;
 	public:
 		StateManager(sf::RenderWindow *, ResourceManager *, const sf::Input &);
 		void storeState(State *);

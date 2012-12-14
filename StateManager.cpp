@@ -7,6 +7,7 @@ StateManager::StateManager(sf::RenderWindow * _app, ResourceManager * _RM, const
 	AppPointer = _app;	
 	RMPointer = _RM;
 	std::cout << "RMPointer Address at SM constructor: " << RMPointer << std::endl;
+	time = 0;
 }
 
 void StateManager::storeState(State * _state) {
@@ -46,12 +47,15 @@ void StateManager::checkSwitchState() {
 }
 
 void StateManager::updateState() {
-	states[currState]->update(clock.GetElapsedTime());
-	clock.Reset();
+	
+	states[currState]->update(time);
+	
 }
 
 void StateManager::drawState() {
 	states[currState]->draw();
+	time = clock.GetElapsedTime();
+	clock.Reset();
 }
 
 //State Class members

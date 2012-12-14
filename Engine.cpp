@@ -4,6 +4,7 @@
 #include <iostream>
 #include <algorithm>
 #include <typeinfo>
+#include <sstream>
 
 using namespace std;
 
@@ -43,11 +44,14 @@ FPSDisplay::FPSDisplay() {
 
 void FPSDisplay::update(float dt) {
 	fps = 1/dt;
-	//cout << "FPS" << fps  << "  dt: " << dt << endl;
-	char buffer [1000];
-	itoa(fps, buffer, 10);
+	cout << "FPS" << fps  << "  dt: " << dt << endl;
+	/*char buffer [1000];
+	itoa(fps, buffer, 10);*/
+	
+	stringstream ss;
+	ss << (int)fps;
 	if (counter % 10 == 0) {
-		text.SetText(buffer);
+		text.SetText(ss.str());
 		counter = 1;
 	}
 	
@@ -218,7 +222,7 @@ CollisionObj Engine::detectCollisions(BoundingBox bb, GenericObj * _origin) {
 			}
 			co.nameR.push_back(genObjList[i]->name);
 			if((genObjList[i]->name.compare("tile")))
-			cout<<"Name is "<<genObjList[i]->name<<endl<<endl;
+			//cout<<"Name is "<<genObjList[i]->name<<endl<<endl;
 			if(co.nameR.size()>temp) {
 				temp=co.nameR.size();
 			}
@@ -232,7 +236,7 @@ CollisionObj Engine::detectCollisions(BoundingBox bb, GenericObj * _origin) {
 			}
 			co.nameL.push_back(genObjList[i]->name);
 			if((genObjList[i]->name.compare("tile")))
-			cout<<"Name is "<<genObjList[i]->name<<endl<<endl;
+			//cout<<"Name is "<<genObjList[i]->name<<endl<<endl;
 			if(co.nameL.size()>temp) {
 				temp=co.nameL.size();
 			}
@@ -247,7 +251,7 @@ CollisionObj Engine::detectCollisions(BoundingBox bb, GenericObj * _origin) {
 			}
 			co.nameD.push_back(genObjList[i]->name);
 			if((genObjList[i]->name.compare("tile")))
-			cout<<"Name is "<<genObjList[i]->name<<endl<<endl;
+			//cout<<"Name is "<<genObjList[i]->name<<endl<<endl;
 			if(co.nameD.size()>temp) {
 				temp=co.nameD.size();
 			}
@@ -261,7 +265,7 @@ CollisionObj Engine::detectCollisions(BoundingBox bb, GenericObj * _origin) {
 			}
 			co.nameU.push_back(genObjList[i]->name);
 			if((genObjList[i]->name.compare("tile")))
-			cout<<"Name is "<<genObjList[i]->name<<endl<<endl;
+			//cout<<"Name is "<<genObjList[i]->name<<endl<<endl;
 			if(co.nameU.size()>temp) {
 				temp=co.nameU.size();
 			}
