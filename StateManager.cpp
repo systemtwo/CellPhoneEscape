@@ -23,6 +23,7 @@ void StateManager::switchState(std::string _name) {
 		if (states[i]->name.compare(_name) == 0) {
 			std::cout << "Found it!" << std::endl;
 			currState = i;
+			states[i]->onSwitch();
 			return;
 		}
 	}
@@ -69,6 +70,10 @@ void State::update(float dt) {
 
 void State::draw() {
 	//Virtual function to draw gamestate
+	return;
+}
+
+void State::onSwitch() {
 	return;
 }
 

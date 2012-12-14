@@ -17,11 +17,14 @@ class GameState: public State {
 
 		Engine eng;
 		TileManager tm;
+		sf::View view;
+		Player * playerptr;
 	public:
 		GameState(sf::RenderWindow *, ResourceManager *);
 		void init();
 		void draw();
 		void update(float dt);
+		void onSwitch();
 		//directions dirs;
 };
 
