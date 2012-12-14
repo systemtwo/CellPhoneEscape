@@ -17,6 +17,7 @@ class GameState: public State {
 
 		Engine eng;
 		TileManager tm;
+		ResourceManager * RMPointer;
 		sf::View view;
 		Player * playerptr;
 	public:
