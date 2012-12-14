@@ -55,7 +55,7 @@ int main(void) {
 		//Get events
 		sf::Event Event;
 		while (App.GetEvent(Event)) { //Iterate thru event queue, store events in Event and process
-			if (Event.Type == sf::Event::Closed) {
+			if (Event.Type == sf::Event::Closed || (Event.Type == sf::Event::KeyPressed && Event.Key.Code == sf::Key::Escape)) {
 				App.Close();
 				//std::cout << "I died here?" << std::endl;
 				exit(0); // Strange... I didn't need this before (this is to prevent crash after closing)

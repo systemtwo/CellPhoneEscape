@@ -16,7 +16,7 @@ GameState::GameState(sf::RenderWindow * _ap, ResourceManager * _rm) : Input(_ap-
 	name = "Game";
 	
 	//Set view things
-	view.SetFromRect(sf::FloatRect(0, 0, 400, 300));
+	view.SetFromRect(sf::FloatRect(0, 0, 500, 400));
 	srand(time(NULL));
 	
 	eng.addGenObj(new FPSDisplay);
@@ -47,9 +47,11 @@ void GameState::update(float dt) {
 	}
 	eng.updateAllGenObj(dt);
 	
-	if(rand()%10==0) {
+	//if(rand()%10==0) {
+		if (Input.IsKeyDown(sf::Key::E)) {
 		eng.addGenObj(new FallingBlock(AppPointer, RMPointer, &eng));
-	}
+		}
+	//}
 	
 	return;
 }

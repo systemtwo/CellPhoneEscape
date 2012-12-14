@@ -18,6 +18,10 @@ void LoaderState::init() {
 	i3->LoadFromFile("images/tile2.png");
 	RMPointer->storeImage(i3, "tile2");
 	
+	sf::Image * i4 = new sf::Image;
+	i4->LoadFromFile("images/enemy.jpg");
+	RMPointer->storeImage(i4, "enemy");
+	
 	sf::Image * i5 = new sf::Image;
 	i5->LoadFromFile("images/binary.png");
 	RMPointer->storeImage(i5, "binary");

@@ -24,6 +24,7 @@ class FallingBlock : public GenericObj {
 		sf::Sprite sprite;
 		Engine * eng;
 		float fallSpeed;
+		float moveSpeed;
 };
 
 #endif
