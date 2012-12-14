@@ -46,6 +46,7 @@ void FallingBlock::resolveCollisions(CollisionObj co){
 		fallSpeed = 2;
 		moveSpeed = 0;
 	}
+	
 	if ((co.collL)) {
 		for (int i= 0; i < co.nameL.size(); i++) {
 			if(co.nameL[i]=="player"){
@@ -54,37 +55,25 @@ void FallingBlock::resolveCollisions(CollisionObj co){
 			}
 		}
 	}
-	if ((co.collU)||(co.collR)) {
-		for(int i = 0; i < co.maxNameVectorSize; i++) {
-			if(co.nameU.size()>i) {
-				if((co.nameU[i]=="player")&&(i<co.nameU.size())) {
-					selfDestruct();
-					cout<<"Destroy Up";
-				}
+	if (co.collU) {
+		for(int i= 0; i < co.nameU.size(); i++) {
+			if((co.nameU[i]=="player")&&(i<co.nameU.size())) {
+				selfDestruct();
+				cout<<"Destroy Up";
 			}
-			if(co.nameR.size()>i) {
-				if((co.nameR[i]=="player")&&(i<co.nameR.size())) {
-					selfDestruct();
-					cout<<"Destroy Right";
-				}
-			}
-			if(co.nameD.size()>i) {
-				/*
-				if((co.nameD[i]=="player")&&(i<co.nameD.size())) {
-					cout<<"Destroy Down";
-					selfDestruct();    //Add extra effects later, in a private member function.
-				} else if ((co.nameD[i]=="tile")&&(i<co.nameD.size())) {
-					fallSpeed = 0;
-					moveSpeed = -1;
-				} else {
-					cout << "HERE";
-					fallSpeed = 2;
-					moveSpeed = 0;
-				}*/
+		}
+	}
+			
+	if (co.collR) {
+		for (int i= 0; i < co.nameR.size(); i++) {
+			if((co.nameR[i]=="player")&&(i<co.nameR.size())) {
+				selfDestruct();
+				cout<<"Destroy Right";
 			}
 		}
 	}
 }
+
 void FallingBlock::update(float dt) {
 	CollisionObj co = eng->detectCollisions(bounds, this);
 	
