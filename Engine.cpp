@@ -44,7 +44,7 @@ FPSDisplay::FPSDisplay() {
 
 void FPSDisplay::update(float dt) {
 	fps = 1/dt;
-	cout << "FPS" << fps  << "  dt: " << dt << endl;
+	//cout << "FPS" << fps  << "  dt: " << dt << endl;
 	/*char buffer [1000];
 	itoa(fps, buffer, 10);*/
 	

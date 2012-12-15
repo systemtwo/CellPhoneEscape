@@ -21,7 +21,7 @@ FallingBlock::FallingBlock(sf::RenderWindow * _ap, ResourceManager * _rm, Engine
 	sprite.SetY(bounds.y);
 
 	fallSpeed = 2;
-	moveSpeed = 0;
+	moveSpeed = rand()%10-5;
 	
 	name = "fallBlock";
 
@@ -32,20 +32,32 @@ void FallingBlock::resolveCollisions(CollisionObj co){
 	if((co.collD)) { 
 		//Iterate thru objs it colides with on bottom
 		for (int i= 0; i < co.nameD.size(); i++) {
-			cout << co.nameD[i];
+			cout<<"fallSpeed = " << fallSpeed;
 			if((co.nameD[i]=="player")) {
-				cout<<"Destroy Down";
 				selfDestruct();    //Add extra effects later, in a private member function.
 			} else if ((co.nameD[i]=="tile")) {
-				fallSpeed = 0;
-				moveSpeed = -1;
+				if((fallSpeed>0) && !(co.collU)){
+					bounds.y-=fallSpeed;
+					fallSpeed *= -.5;
+					moveSpeed *= 0.8;
+				}
 			}
 				
 		}
-	} else {
-		//When it is not hitting things
-		fallSpeed = 2;
-		moveSpeed = 0;
+	} else if (co.collU) {
+		for(int i= 0; i < co.nameU.size(); i++) {
+			if(co.nameU[i]=="player") {
+				selfDestruct();
+				//cout<<"Destroy Up";
+				
+			} else if ((co.nameU[i]=="tile")) {
+				if(fallSpeed<0) {
+					bounds.y-=fallSpeed;
+					fallSpeed *= -.5;
+					moveSpeed *= 0.8;
+				}
+			}
+		}
 	}
 	
 	if ((co.collL)) {
@@ -57,14 +69,7 @@ void FallingBlock::resolveCollisions(CollisionObj co){
 		}
 	}
 	
-	if (co.collU) {
-		for(int i= 0; i < co.nameU.size(); i++) {
-			if((co.nameU[i]=="player")&&(i<co.nameU.size())) {
-				selfDestruct();
-				//cout<<"Destroy Up";
-			}
-		}
-	}
+	
 			
 	if (co.collR) {
 		for (int i= 0; i < co.nameR.size(); i++) {
@@ -79,7 +84,9 @@ void FallingBlock::resolveCollisions(CollisionObj co){
 void FallingBlock::update(float dt) {
 	CollisionObj co = eng->detectCollisions(bounds, this);
 	
+	
 	bounds.y += fallSpeed;
+	fallSpeed++;
 	if(bounds.y>500) {
 		selfDestruct();
 	}
