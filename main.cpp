@@ -10,6 +10,7 @@
 
 //If you see a white pixel that is supposed to be an image, try looking to see if sprite has image linked
 int main(void) {
+	
 	//Buffer for output stream
 	//This makes output faster at a cost of being unsure when it is output
 	//Because the flush to OS function is expensive
@@ -22,7 +23,7 @@ int main(void) {
 	sf::RenderWindow App(sf::VideoMode(800,600,32), "Satellite Game"); //Make the window
 	//App.ShowMouseCursor(false); //Hide the cursor 
 	ResourceManager RM; //Make RM
-	
+
 	//Make a pointer to the window and RM to pass to StateManager
 	sf::RenderWindow *AppPointer = &App;
 	ResourceManager * RMPointer = &RM;

@@ -50,7 +50,7 @@ void TileManager::generateTiles(Engine * eng) {
 	int width  = 0;
 	int tileType = 0;
 	
-	in.open("leveldata/lv2.txt");
+	in.open("leveldata/lv1.txt");
 	in >> width >> height;
 	for (int i = 0; i < height; i++) {
 		for (int j = 0; j < width; j++) {
