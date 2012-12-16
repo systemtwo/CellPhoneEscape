@@ -20,8 +20,9 @@ GameState::GameState(sf::RenderWindow * _ap, ResourceManager * _rm) : Input(_ap-
 	srand(time(NULL));
 	
 	eng.addGenObj(new FPSDisplay);
-	playerptr = new Player(AppPointer, _rm, &eng);
-	eng.addGenObj(playerptr);
+	playerptr = tm.generateMap(&eng);
+	//You can add objects twice to have them doubly updated (BAD!)
+	//eng.addGenObj(playerptr);
 }
 
 void GameState::init() {
@@ -35,12 +36,11 @@ void GameState::onSwitch() {
 
 void GameState::update(float dt) {
 	//sf::Vector2 pos = sf::Vector2<int>(playerptr->bounds.x, playerptr->bounds.y);
-	BoundingBox temp_bb = playerptr->getBounds();
-	view.SetCenter(sf::Vector2<float>(temp_bb.x, temp_bb.y));
+	/*
 	if (Input.IsKeyDown(sf::Key::Space)) {
 		tm.generateTiles(&eng);
 		//eng.addGenObj(tm.makeATile(2, 2));
-	}
+	}*/
 	
 	if (Input.IsKeyDown(sf::Key::Return)) {
 		view.Move(rand()%10, rand()%10);
@@ -52,7 +52,12 @@ void GameState::update(float dt) {
 		eng.addGenObj(new FallingBlock(AppPointer, RMPointer, &eng));
 		}
 	//}
-	
+	if (Input.IsKeyDown(sf::Key::S)) {
+		eng.addGenObj(new SecBot(AppPointer, RMPointer, &eng, playerptr));
+	}
+	//This needs to be below updateAllGenObj so that it gets the latest player coords
+	BoundingBox temp_bb = playerptr->getBounds();
+	view.SetCenter(sf::Vector2<float>(temp_bb.x, temp_bb.y));
 	return;
 }
 

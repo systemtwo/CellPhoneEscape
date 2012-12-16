@@ -19,7 +19,7 @@ void LoaderState::init() {
 	RMPointer->storeImage(i3, "tile2");
 	
 	sf::Image * i4 = new sf::Image;
-	i4->LoadFromFile("images/enemy.jpg");
+	i4->LoadFromFile("images/sms_cat.png");
 	RMPointer->storeImage(i4, "enemy");
 	
 	sf::Image * i5 = new sf::Image;
@@ -29,6 +29,10 @@ void LoaderState::init() {
 	sf::Image * i6 = new sf::Image;
 	i6->LoadFromFile("images/tile.png");
 	RMPointer->storeImage(i6, "tile1");
+	
+	sf::Image * i7 = new sf::Image;
+	i7->LoadFromFile("images/arrgav.png");
+	RMPointer->storeImage(i7, "arrgav");
 }
 
 void LoaderState::update() {

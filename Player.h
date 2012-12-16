@@ -11,7 +11,7 @@ using namespace std;
 
 class Player : public GenericObj {
 	public:
-		Player(sf::RenderWindow * _ap, ResourceManager * _rm, Engine * _eng);
+		Player(sf::RenderWindow * _ap, ResourceManager * _rm, Engine * _eng, int x = 100, int y = 100);
 		void update(float dt);
 		void draw(sf::RenderWindow * _ap);
 		
@@ -27,6 +27,8 @@ class Player : public GenericObj {
 		float jumpHeight, jumpSpeed;
 		static const int initSpeed = 15;
 		static const float ACCELERATION = 0.35;
+		
+		float health;
 };
 
 #endif

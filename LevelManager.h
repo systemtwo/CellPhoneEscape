@@ -5,6 +5,7 @@
 #include <SFML/graphics.hpp>
 #include "Engine.h"
 #include "ResourceManager.h"
+#include "Player.h"
 
 class Tile : public GenericObj {
 	public:
@@ -20,10 +21,10 @@ class Tile : public GenericObj {
 };
 
 
-class TileManager {
+class LevelManager {
 	public:
-		TileManager(sf::RenderWindow * _ap, ResourceManager * _rm);
-		void generateTiles(Engine * eng);
+		LevelManager(sf::RenderWindow * _ap, ResourceManager * _rm);
+		Player * generateMap(Engine * eng);
 		Tile * makeATile(int i, int j);
 	private:
 		sf::RenderWindow * AppPointer;

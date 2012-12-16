@@ -1,9 +1,12 @@
-#include "TileManager.h"
+#include "LevelManager.h"
 #include <fstream>
 #include <iostream>
 #include <cstring>
+//#include "Player.h"
 
 using namespace std;
+
+const int TILE_SIZE = 32;
 
 Tile::Tile(int x, int y, ResourceManager * _rm, int _type) {
 	//Note x, y are grid coordinates NOT Global game screen coords
@@ -38,34 +41,40 @@ void Tile::draw(sf::RenderWindow * _ap) {
 }
 
 
-TileManager::TileManager(sf::RenderWindow * _ap, ResourceManager * _rm) {
+LevelManager::LevelManager(sf::RenderWindow * _ap, ResourceManager * _rm) {
 	AppPointer = _ap;
 	RMPointer = _rm;
 	return;
 }
 
-void TileManager::generateTiles(Engine * eng) {
+Player * LevelManager::generateMap(Engine * eng) {
 	ifstream in;
 	int height = 0;
 	int width  = 0;
 	int tileType = 0;
 	
 	in.open("leveldata/lv1.txt");
+	Player * player;
+	
 	in >> width >> height;
 	for (int i = 0; i < height; i++) {
 		for (int j = 0; j < width; j++) {
 			in >> tileType;
-			if (tileType != 0) {
+			if (tileType == -1) {
+				cout << "Hit -1" << endl;
+				player = new Player(AppPointer, RMPointer, eng, j*TILE_SIZE, i*TILE_SIZE);
+				eng->addGenObj(player);
+			}else if (tileType != 0) {
 				eng->addGenObj(new Tile(j,i,RMPointer, tileType));
 			}
 		}
 	}
 	cout << "CALLed";
 	
-	return;
+	return player;
 }
 
-Tile * TileManager::makeATile(int i, int j) {
+Tile * LevelManager::makeATile(int i, int j) {
 	return new Tile(i,j, RMPointer, 1);
 }
 
