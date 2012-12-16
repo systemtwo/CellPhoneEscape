@@ -197,7 +197,6 @@ CollisionObj Engine::detectCollisions(BoundingBox bb, GenericObj * _origin) {
 		colR = false;
 		colL = false;
 		*/
-		
 		if (_origin == genObjList[i]) {
 			//Object is being compared with itself
 			//cout << "Self hit" << endl;
@@ -205,7 +204,6 @@ CollisionObj Engine::detectCollisions(BoundingBox bb, GenericObj * _origin) {
 			continue;
 		}
 		aa = genObjList[i]->getBounds();
-		
 		
 		
 		if(aa.h == 0 && aa.w == 0) {

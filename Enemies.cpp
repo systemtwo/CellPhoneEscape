@@ -113,16 +113,17 @@ void FallingBlock::draw(sf::RenderWindow * _ap) {
 SecBot::SecBot(sf::RenderWindow * _ap, ResourceManager * _rm, Engine * _eng, Player * _player) {
 	playptr = _player;
 	AppPointer = _ap;
+	eng = _eng;
 	//RMPointer = _rm;
-	speed = 10;
+	speed = 50;
 	
+	sprite.SetImage(*_rm->getImage("arrgav"));
 	//Set bounds
 	bounds.x = 100; //rand()%1000;
 	bounds.y = rand()%10;
 	bounds.w = sprite.GetSize().x;
 	bounds.h = sprite.GetSize().y;
 	
-	sprite.SetImage(*_rm->getImage("arrgav"));
 	setZOrder(10);
 	
 	name = "secbot";
@@ -135,35 +136,35 @@ void SecBot::resolveCollisions(CollisionObj co){
 	if((co.collD)) { 
 		//Iterate thru objs it colides with on bottom
 		for (int i= 0; i < co.nameD.size(); i++) {
-			cout << co.nameD[i];
 			if((co.nameD[i]=="player")) {
-				cout<<"Destroy Down";
 				selfDestruct();    //Add extra effects later, in a private member function.
-			} 				
+			} 
+				
 		}
-	} 
+	} else if (co.collU) {
+		for(int i= 0; i < co.nameU.size(); i++) {
+			if(co.nameU[i]=="player") {
+				selfDestruct();
+				//cout<<"Destroy Up";
+				
+			} 
+		}
+	}
 	
 	if ((co.collL)) {
 		for (int i= 0; i < co.nameL.size(); i++) {
 			if(co.nameL[i]=="player"){
-				cout<<"Destroy Left";
+				
 				selfDestruct();
 			}
 		}
 	}
 	
-	if (co.collU) {
-		for(int i= 0; i < co.nameU.size(); i++) {
-			if((co.nameU[i]=="player")&&(i<co.nameU.size())) {
-				selfDestruct();
-				//cout<<"Destroy Up";
-			}
-		}
-	}
+	
 			
 	if (co.collR) {
 		for (int i= 0; i < co.nameR.size(); i++) {
-			if((co.nameR[i]=="player")&&(i<co.nameR.size())) {
+			if(co.nameR[i]=="player") {
 				selfDestruct();
 				//cout<<"Destroy Right";
 			}
@@ -183,9 +184,8 @@ void SecBot::update(float dt) {
 	} else if (playptr->getBounds().y < bounds.y)  {
 		bounds.y -= speed * dt;
 	}
-	
-	//CollisionObj co = eng->detectCollisions(bounds, this);
-	//resolveCollisions(co);
+	CollisionObj co = eng->detectCollisions(bounds, this);
+	resolveCollisions(co);
 	
 	sprite.SetX(bounds.x);
 	sprite.SetY(bounds.y);

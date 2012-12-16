@@ -33,6 +33,8 @@ class SecBot : public GenericObj {
 		SecBot(sf::RenderWindow * _ap, ResourceManager * _rm, Engine * _eng, Player * _player);
 		void update(float dt);
 		void draw(sf::RenderWindow * _ap);
+		
+		BoundingBox bounds;
 	private:
 		void resolveCollisions(CollisionObj co);
 		sf::RenderWindow * AppPointer;
