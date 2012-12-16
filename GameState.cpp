@@ -33,6 +33,11 @@ void GameState::init() {
 
 void GameState::onSwitch() {
 	AppPointer->SetView(view);
+	playerptr->health = 100;
+}
+
+void GameState::onSwitchOut() {
+	return;
 }
 
 void GameState::update(float dt) {

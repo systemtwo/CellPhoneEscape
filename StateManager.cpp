@@ -36,9 +36,11 @@ void StateManager::checkSwitchState() {
 	if (!states[currState]->switchName.empty()) {
 		std::cout << "Request to change to: " << states[currState]->switchName << std::endl;
 		try {
+			std::string temp = states[currState]->switchName;
 			states[currState]->onSwitchOut();
-			switchState(states[currState]->switchName);
 			states[currState]->switchName = "";
+			switchState(temp);
+			
 		} catch (int e) {
 			std::cout << "State not found!" << std::endl;
 			system("pause");

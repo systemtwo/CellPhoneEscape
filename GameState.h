@@ -26,6 +26,7 @@ class GameState: public State {
 		void draw();
 		void update(float dt);
 		void onSwitch();
+		void onSwitchOut();
 		//directions dirs;
 };
 
