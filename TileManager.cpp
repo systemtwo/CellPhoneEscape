@@ -2,6 +2,7 @@
 #include <fstream>
 #include <iostream>
 #include <cstring>
+#include "Player.h"
 
 using namespace std;
 
@@ -55,7 +56,9 @@ void TileManager::generateTiles(Engine * eng) {
 	for (int i = 0; i < height; i++) {
 		for (int j = 0; j < width; j++) {
 			in >> tileType;
-			if (tileType != 0) {
+			if (tileType == -1) {
+				eng->addGenObj(new Player(AppPointer, RMPointer, eng));
+			}else if (tileType != 0) {
 				eng->addGenObj(new Tile(j,i,RMPointer, tileType));
 			}
 		}
