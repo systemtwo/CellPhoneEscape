@@ -5,6 +5,8 @@ LoaderState::LoaderState() {
 }
 
 void LoaderState::init() {
+	//Now this should only be used for assets that are used in multiple states
+	
 	sf::Image * i1 = new sf::Image;
 	//Don't reuse these to load other images (they are the actual image resource sprites link to)
 	i1->LoadFromFile("images/newtitle.png");
@@ -42,9 +44,7 @@ void LoaderState::init() {
 	i9->LoadFromFile("images/background.png");
 	RMPointer->storeImage(i9, "background");
 	
-	sf::Image * i10 = new sf::Image;
-	i10->LoadFromFile("images/GameOver.png");
-	RMPointer->storeImage(i10, "gameover");
+
 }
 
 void LoaderState::update() {

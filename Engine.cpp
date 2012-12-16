@@ -171,6 +171,14 @@ void Engine::drawAllGenObj() {
 	return;
 }
 
+void Engine::deleteAllGenObj() {
+	std::cout << "Attempting to delete " << genObjList.size() << " objects" << std::endl;
+	for (int i = 0; i < genObjList.size(); i++) {
+		delete genObjList[i];
+		genObjList.erase(genObjList.begin() + i);
+	}
+}
+
 void Engine::updateAllGenObj(float dt) {
 	
 	//Debug

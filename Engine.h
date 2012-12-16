@@ -126,6 +126,7 @@ class Engine {
 		void addGenObj(GenericObj * genobj);
 		void drawAllGenObj();
 		void updateAllGenObj(float dt);
+		void deleteAllGenObj();
 		CollisionObj detectCollisions(BoundingBox bb, GenericObj * _origin);
 		
 	private:

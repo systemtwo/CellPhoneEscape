@@ -25,7 +25,7 @@ GameOverState::GameOverState(sf::RenderWindow * _ap, ResourceManager * _rm) : In
 	AppPointer = _ap;
 	eng.setAppPointer(_ap);
 	name = "GameOver";
-	eng.addGenObj(new GameOverBackdrop(_ap, _rm));
+	
 	return;
 }
 
@@ -35,8 +35,20 @@ void GameOverState::init() {
 
 void GameOverState::onSwitch() {
 	AppPointer->SetView(AppPointer->GetDefaultView());
+	
+	sf::Image * i10 = new sf::Image;
+	i10->LoadFromFile("images/GameOver.png");
+	RMPointer->storeImage(i10, "gameover");
+	eng.addGenObj(new GameOverBackdrop(AppPointer, RMPointer));
 	return;
 }
+
+void GameOverState::onSwitchOut() {
+	RMPointer->deleteImage("gameover");
+	eng.deleteAllGenObj();
+	return;
+}
+
 
 void GameOverState::update(float dt){
 	eng.updateAllGenObj(dt);
