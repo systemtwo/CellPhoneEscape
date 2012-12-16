@@ -59,6 +59,10 @@ void GameState::update(float dt) {
 	if (Input.IsKeyDown(sf::Key::S)) {
 		eng.addGenObj(new SecBot(AppPointer, RMPointer, &eng, playerptr));
 	}
+	 
+	if (Input.IsKeyDown(sf::Key::K)) {
+		playerptr->health = 0;
+	}
 	//This needs to be below updateAllGenObj so that it gets the latest player coords
 	BoundingBox temp_bb = playerptr->getBounds();
 	view.SetCenter(sf::Vector2<float>(temp_bb.x, temp_bb.y));
