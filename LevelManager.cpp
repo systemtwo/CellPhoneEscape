@@ -53,7 +53,7 @@ Player * LevelManager::generateMap(Engine * eng) {
 	int width  = 0;
 	int tileType = 0;
 	
-	in.open("leveldata/lv0.txt");
+	in.open("leveldata/lv1.txt");
 	Player * player;
 	
 	in >> width >> height;

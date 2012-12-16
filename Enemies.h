@@ -26,8 +26,6 @@ class FallingBlock : public GenericObj {
 		Engine * eng;
 		float fallSpeed;
 		float moveSpeed;
-		bool bounce;
-		bool secbounce;
 };
 
 class SecBot : public GenericObj {
@@ -35,8 +33,6 @@ class SecBot : public GenericObj {
 		SecBot(sf::RenderWindow * _ap, ResourceManager * _rm, Engine * _eng, Player * _player);
 		void update(float dt);
 		void draw(sf::RenderWindow * _ap);
-		
-		BoundingBox bounds;
 	private:
 		void resolveCollisions(CollisionObj co);
 		sf::RenderWindow * AppPointer;
@@ -47,6 +43,21 @@ class SecBot : public GenericObj {
 		float speed;
 		
 	
+};
+
+class Laser : public GenericObj {
+	public:
+		Laser(sf::RenderWindow * _ap, ResourceManager * _rm, Engine * _eng, Player * _player, int start_x, int end_x, int top_y, int bot_y);
+		void update(float dt);
+		void draw(sf::RenderWindow * _ap);
+	private:
+		void resolveCollisions(CollisionObj co);
+		sf::RenderWindow * AppPointer;
+		sf::Sprite sprite;
+		Engine * eng;
+		Player * playptr;
+		
+		float length;
 };
 
 #endif
