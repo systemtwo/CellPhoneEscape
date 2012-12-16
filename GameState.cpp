@@ -14,12 +14,11 @@ GameState::GameState(sf::RenderWindow * _ap, ResourceManager * _rm) : Input(_ap-
 	AppPointer = _ap;
 	eng.setAppPointer(_ap);
 	name = "Game";
-	
+	std::cout << "HKDJFSK";
 	//Set view things
 	view.SetFromRect(sf::FloatRect(0, 0, 500, 400));
 	srand(time(NULL));
 	
-	eng.addGenObj(new Background(AppPointer, RMPointer));
 	eng.addGenObj(new FPSDisplay);
 	playerptr = tm.generateMap(&eng);
 	//You can add objects twice to have them doubly updated (BAD!)
@@ -33,7 +32,6 @@ void GameState::init() {
 
 void GameState::onSwitch() {
 	AppPointer->SetView(view);
-	playerptr->health = 100;
 }
 
 void GameState::onSwitchOut() {
@@ -61,16 +59,9 @@ void GameState::update(float dt) {
 	if (Input.IsKeyDown(sf::Key::S)) {
 		eng.addGenObj(new SecBot(AppPointer, RMPointer, &eng, playerptr));
 	}
-	
-	if (Input.IsKeyDown(sf::Key::K)) {
-		playerptr->health = 0;
-	}
 	//This needs to be below updateAllGenObj so that it gets the latest player coords
 	BoundingBox temp_bb = playerptr->getBounds();
 	view.SetCenter(sf::Vector2<float>(temp_bb.x, temp_bb.y));
-	if (playerptr->health <= 0) {
-		switchName = "GameOver";
-	}
 	return;
 }
 
