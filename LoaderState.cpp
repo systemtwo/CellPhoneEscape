@@ -27,7 +27,7 @@ void LoaderState::init() {
 	RMPointer->storeImage(i5, "binary");
 	
 	sf::Image * i6 = new sf::Image;
-	i6->LoadFromFile("images/tile.png");
+	i6->LoadFromFile("images/circuit.png");
 	RMPointer->storeImage(i6, "tile1");
 	
 	sf::Image * i7 = new sf::Image;

@@ -17,7 +17,7 @@ class Tile : public GenericObj {
 		//int zorder;
 	private:
 		sf::Sprite sprite;
-		const static int SIZE = 33;
+		const static int SIZE = 32; //33 if you want a tiny gap
 };
 
 
