@@ -35,4 +35,22 @@ void ResourceManager::storeImage(sf::Image * _image, std::string _name) {
 	storage.push_back(r);
 }
 
+void ResourceManager::deleteImage(std::string _name ) {
+	int i = 0;
+	for (i = 0; i < storage.size(); i++) {
+		//std::cout << "I'm in loop at" << i << std::endl;
+		//std::cout << "Address: " << &storage << std::endl;
+		//std::cout << typeid(storage[i]->name).name() << std::endl;
+		
+		if ((storage[i]->name).compare(_name) == 0) {
+			//Strings are the same
+			delete storage[i];
+			storage.erase(storage.begin() + i);
+		}
+		
+	}
+	throw 1;
+	return;
+}
+
 

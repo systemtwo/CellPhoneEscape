@@ -38,6 +38,7 @@ void StateManager::checkSwitchState() {
 		try {
 			states[currState]->onSwitchOut();
 			switchState(states[currState]->switchName);
+			states[currState]->switchName = "";
 		} catch (int e) {
 			std::cout << "State not found!" << std::endl;
 			system("pause");

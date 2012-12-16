@@ -40,6 +40,10 @@ void GameOverState::onSwitch() {
 
 void GameOverState::update(float dt){
 	eng.updateAllGenObj(dt);
+	//if(Input.IsKeyDown(sf::Key::Space)) {
+	if(Input.IsKeyDown(sf::Key::Return)) {
+		switchName = "Title";
+	}
 	return;
 }
 

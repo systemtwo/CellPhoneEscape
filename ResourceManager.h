@@ -20,6 +20,7 @@ class ResourceManager {
 		ResourceManager();
 		sf::Image * getImage(std::string); //NOTE: This will return a pointer to the image
 		void storeImage(sf::Image *, std::string);
+		void deleteImage(std::string);
 };
 
 #endif
