@@ -19,12 +19,10 @@ GameState::GameState(sf::RenderWindow * _ap, ResourceManager * _rm) : Input(_ap-
 	view.SetFromRect(sf::FloatRect(0, 0, 500, 400));
 	srand(time(NULL));
 	
-	
 	eng.addGenObj(new FPSDisplay);
 	playerptr = tm.generateMap(&eng);
 	//You can add objects twice to have them doubly updated (BAD!)
 	//eng.addGenObj(playerptr);
-	
 }
 
 void GameState::init() {
