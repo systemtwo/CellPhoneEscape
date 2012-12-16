@@ -26,6 +26,8 @@ class FallingBlock : public GenericObj {
 		Engine * eng;
 		float fallSpeed;
 		float moveSpeed;
+		bool bounce;
+		bool secbounce;
 };
 
 class SecBot : public GenericObj {

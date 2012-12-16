@@ -22,6 +22,8 @@ FallingBlock::FallingBlock(sf::RenderWindow * _ap, ResourceManager * _rm, Engine
 
 	fallSpeed = 2;
 	moveSpeed = rand()%10-5;
+	bounce = false;
+	secbounce = false;
 	
 	name = "fallBlock";
 
@@ -36,13 +38,18 @@ void FallingBlock::resolveCollisions(CollisionObj co){
 			if((co.nameD[i]=="player")) {
 				selfDestruct();    //Add extra effects later, in a private member function.
 			} else if ((co.nameD[i]=="tile")) {
-				if((fallSpeed>0) && !(co.collU)){
+				if((fallSpeed>0) && !(co.collU) && bounce == false){
+					//First bounce
 					bounds.y-=fallSpeed;
 					fallSpeed *= -.5;
 					moveSpeed *= 0.8;
+					bounce = true;
+					secbounce = false;
+				} else if ((fallSpeed>0) && !(co.collU) && bounce == true) {
+					//second bounce
+					secbounce = true;
 				}
-			}
-				
+			}	
 		}
 	} else if (co.collU) {
 		for(int i= 0; i < co.nameU.size(); i++) {
@@ -58,6 +65,10 @@ void FallingBlock::resolveCollisions(CollisionObj co){
 				}
 			}
 		}
+	} 
+	if (!co.collD && secbounce == true) {
+		bounce = false;
+		//secbounce = false;
 	}
 	
 	if ((co.collL)) {
@@ -87,7 +98,7 @@ void FallingBlock::update(float dt) {
 	
 	bounds.y += fallSpeed;
 	fallSpeed++;
-	if(bounds.y>500) {
+	if(bounds.y>700) {
 		selfDestruct();
 	}
 	bounds.x += moveSpeed;

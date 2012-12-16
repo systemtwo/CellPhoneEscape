@@ -33,6 +33,10 @@ void LoaderState::init() {
 	sf::Image * i7 = new sf::Image;
 	i7->LoadFromFile("images/arrgav.png");
 	RMPointer->storeImage(i7, "arrgav");
+	
+	sf::Image * i8 = new sf::Image;
+	i8->LoadFromFile("images/uparrow.png");
+	RMPointer->storeImage(i8, "uparrow");
 }
 
 void LoaderState::update() {
