@@ -11,7 +11,7 @@ using namespace std;
 
 class Player : public GenericObj {
 	public:
-		Player(sf::RenderWindow * _ap, ResourceManager * _rm, Engine * _eng);
+		Player(sf::RenderWindow * _ap, ResourceManager * _rm, Engine * _eng, int x = 100, int y = 100);
 		void update(float dt);
 		void draw(sf::RenderWindow * _ap);
 		

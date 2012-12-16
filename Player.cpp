@@ -4,7 +4,7 @@
 #include "Enemies.h"
 
 
-Player::Player(sf::RenderWindow * _ap, ResourceManager * _rm, Engine * _eng) : input(_ap->GetInput()) {
+Player::Player(sf::RenderWindow * _ap, ResourceManager * _rm, Engine * _eng, int x, int y) : input(_ap->GetInput()) {
 	AppPointer = _ap;
 	sprite.SetImage(*_rm->getImage("player"));
 
@@ -12,8 +12,8 @@ Player::Player(sf::RenderWindow * _ap, ResourceManager * _rm, Engine * _eng) : i
 	
 	eng = _eng;
 	//Set bounds
-	bounds.x = 100;
-	bounds.y = 100;
+	bounds.x = x;
+	bounds.y = y;
 	bounds.w = sprite.GetSize().x;
 	bounds.h = sprite.GetSize().y;
 
