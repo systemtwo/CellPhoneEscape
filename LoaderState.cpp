@@ -19,7 +19,7 @@ void LoaderState::init() {
 	RMPointer->storeImage(i3, "tile2");
 	
 	sf::Image * i4 = new sf::Image;
-	i4->LoadFromFile("images/sms.png");
+	i4->LoadFromFile("images/sms_cat.png");
 	RMPointer->storeImage(i4, "enemy");
 	
 	sf::Image * i5 = new sf::Image;
