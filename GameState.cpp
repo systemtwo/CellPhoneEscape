@@ -61,7 +61,7 @@ void GameState::update(float dt) {
 	if (Input.IsKeyDown(sf::Key::S)) {
 		eng.addGenObj(new SecBot(AppPointer, RMPointer, &eng, playerptr));
 	}
-	
+	 
 	if (Input.IsKeyDown(sf::Key::K)) {
 		playerptr->health = 0;
 	}
