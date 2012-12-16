@@ -52,6 +52,9 @@ void GameState::update(float dt) {
 		eng.addGenObj(new FallingBlock(AppPointer, RMPointer, &eng));
 		}
 	//}
+	if (Input.IsKeyDown(sf::Key::S)) {
+		eng.addGenObj(new SecBot(AppPointer, RMPointer, &eng, playerptr));
+	}
 	//This needs to be below updateAllGenObj so that it gets the latest player coords
 	BoundingBox temp_bb = playerptr->getBounds();
 	view.SetCenter(sf::Vector2<float>(temp_bb.x, temp_bb.y));

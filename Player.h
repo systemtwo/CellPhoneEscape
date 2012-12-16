@@ -27,6 +27,8 @@ class Player : public GenericObj {
 		float jumpHeight, jumpSpeed;
 		static const int initSpeed = 15;
 		static const float ACCELERATION = 0.35;
+		
+		float health;
 };
 
 #endif

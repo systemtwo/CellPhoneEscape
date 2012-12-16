@@ -97,3 +97,45 @@ void FallingBlock::draw(sf::RenderWindow * _ap) {
 	_ap->Draw(sprite);
 	return;
 }
+
+
+//////////////////////
+//Begin SecBot Code //
+//////////////////////
+
+SecBot::SecBot(sf::RenderWindow * _ap, ResourceManager * _rm, Engine * _eng, Player * _player) {
+	playptr = _player;
+	AppPointer = _ap;
+	//RMPointer = _rm;
+	speed = 10;
+	
+	sprite.SetImage(*_rm->getImage("arrgav"));
+	setZOrder(10);
+	
+	name = "secbot";
+	
+	return;
+}
+
+void SecBot::update(float dt) {
+	if (playptr->getBounds().x > bounds.x) {
+		bounds.x += speed * dt;
+	} else if (playptr->getBounds().x < bounds.x) {
+		bounds.x -= speed * dt;
+	} 
+	
+	if (playptr->getBounds().y > bounds.y) {
+		bounds.y += speed * dt;
+	} else if (playptr->getBounds().y < bounds.y)  {
+		bounds.y -= speed * dt;
+	}
+	
+	sprite.SetX(bounds.x);
+	sprite.SetY(bounds.y);
+	return;
+}
+
+void SecBot::draw(sf::RenderWindow * _ap) {
+	AppPointer->Draw(sprite);
+	return;
+}
