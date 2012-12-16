@@ -42,6 +42,7 @@ class TitleState: public State {
 	public:
 		TitleState(sf::RenderWindow *);
 		void init();
+		void onSwitchOut();
 		void draw();
 		void update(float dt);
 };

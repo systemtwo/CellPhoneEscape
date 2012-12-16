@@ -82,6 +82,10 @@ void TitleState::init() {
 	eng.addGenObj(new FPSDisplay);
 }
 
+void TitleState::onSwitchOut() {
+	return;
+}
+
 void TitleState::update(float dt) {
 	/* Mouse is removed for this game
 	int mouseXShift = mouse->sprite->GetSize().x;

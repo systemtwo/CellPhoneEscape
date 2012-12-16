@@ -6,6 +6,7 @@
 #include <typeinfo>
 #include <sstream>
 
+
 using namespace std;
 
 CollisionObj::CollisionObj(BoundingBox b = BoundingBox()) {
@@ -79,6 +80,37 @@ void MemTester::update(float dt) {
 }
 
 /////MEMTESTER End
+
+
+Background::Background(sf::RenderWindow * _ap, ResourceManager * _rm) {
+	AppPointer = _ap;
+	sprite.SetImage(*_rm->getImage("background"));
+	
+	//Set bounds
+	bounds.x = -50;
+	bounds.y = -50;
+	bounds.w = sprite.GetSize().x;
+	bounds.h = sprite.GetSize().y;
+
+	setZOrder(0);
+	name = "background";
+	return;
+}
+
+void Background::update(float dt) {
+	const sf::Input & input = AppPointer->GetInput();
+	if (input.IsKeyDown(sf::Key::Left)) {
+		bounds.x += 0;
+	}
+	sprite.SetX(bounds.x);
+	sprite.SetY(bounds.y);
+	return;
+}
+
+void Background::draw(sf::RenderWindow * _ap) {
+	AppPointer->Draw(sprite);
+	return;
+}
 
 GenericObj::GenericObj() {
 	destroy = false;

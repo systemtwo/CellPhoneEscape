@@ -14,7 +14,8 @@ class State {
 		virtual void init(); //REMEMBER: it is important to have these functions declared as State::Function (even if it is only "return;" and they will be redeclared)
 		virtual void update(float dt);
 		virtual void draw();
-		virtual void onSwitch();
+		virtual void onSwitch(); //Called when state is being switched to
+		virtual void onSwitchOut(); //Called when state is begin switched from
 		void setWindowPointer(sf::RenderWindow *); //Set the pointer to the RenderWindow for draw()
 		void setRMPointer(ResourceManager *); //Set pointer to ResourceManager 
 		

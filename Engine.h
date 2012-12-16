@@ -4,6 +4,7 @@
 #include <vector>
 #include <SFML/graphics.hpp>
 #include <string>
+#include "ResourceManager.h"
 
 enum direction {NONE, TOP, BOTTOM, LEFT, RIGHT};
 
@@ -101,6 +102,16 @@ class MemTester : public GenericObj {
 		char a[10000000];
 };
 
+class Background : public GenericObj {
+	public:
+		Background(sf::RenderWindow * _ap, ResourceManager * _rm);
+		void update(float dt);
+		void draw(sf::RenderWindow * _ap);
+	private:
+		sf::Sprite sprite;
+		sf::RenderWindow * AppPointer;
+		
+};
 
 
 

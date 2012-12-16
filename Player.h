@@ -15,6 +15,7 @@ class Player : public GenericObj {
 		void update(float dt);
 		void draw(sf::RenderWindow * _ap);
 		
+		float health;
 		//int zorder;
 	private:
 		
@@ -28,7 +29,7 @@ class Player : public GenericObj {
 		static const int initSpeed = 15;
 		static const float ACCELERATION = 0.35;
 		
-		float health;
+		
 };
 
 #endif

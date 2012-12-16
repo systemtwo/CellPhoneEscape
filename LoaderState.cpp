@@ -37,6 +37,14 @@ void LoaderState::init() {
 	sf::Image * i8 = new sf::Image;
 	i8->LoadFromFile("images/uparrow.png");
 	RMPointer->storeImage(i8, "uparrow");
+	
+	sf::Image * i9 = new sf::Image;
+	i9->LoadFromFile("images/background.png");
+	RMPointer->storeImage(i9, "background");
+	
+	sf::Image * i10 = new sf::Image;
+	i10->LoadFromFile("images/GameOver.png");
+	RMPointer->storeImage(i10, "gameover");
 }
 
 void LoaderState::update() {

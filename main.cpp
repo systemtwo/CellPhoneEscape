@@ -5,6 +5,7 @@
 #include "TitleState.h"
 #include "LoaderState.h"
 #include "GameState.h"
+#include "GameOverState.h"
 #include <typeinfo>
 #include <cstdio>
 
@@ -48,6 +49,10 @@ int main(void) {
 	//Make GameState
 	GameState GS(AppPointer, RMPointer);
 	SM.storeState(&GS);
+	
+	//Make GameOverState
+	GameOverState GOS(AppPointer, RMPointer);
+	SM.storeState(&GOS);
 	
 	try {
 		SM.switchState("Title");
