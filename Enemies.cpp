@@ -136,6 +136,9 @@ SecBot::SecBot(sf::RenderWindow * _ap, ResourceManager * _rm, Engine * _eng, Pla
 	bounds.w = sprite.GetSize().x;
 	bounds.h = sprite.GetSize().y;
 	
+	sprite.SetX(bounds.x);
+	sprite.SetY(bounds.y);
+	
 	setZOrder(10);
 	
 	name = "secbot";
