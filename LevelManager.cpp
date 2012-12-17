@@ -6,7 +6,6 @@
 
 using namespace std;
 
-const int TILE_SIZE = 32;
 
 Tile::Tile(int x, int y, ResourceManager * _rm, int _type) {
 	//Note x, y are grid coordinates NOT Global game screen coords
@@ -57,6 +56,7 @@ Player * LevelManager::generateMap(Engine * eng) {
 	Player * player;
 	
 	in >> width >> height;
+	
 	for (int i = 0; i < height; i++) {
 		for (int j = 0; j < width; j++) {
 			in >> tileType;
