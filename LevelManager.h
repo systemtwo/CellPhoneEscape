@@ -7,6 +7,8 @@
 #include "ResourceManager.h"
 #include "Player.h"
 
+const int TILE_SIZE = 32;
+
 class Tile : public GenericObj {
 	public:
 		Tile(int x, int y, ResourceManager * _rm, int type);
@@ -17,7 +19,7 @@ class Tile : public GenericObj {
 		//int zorder;
 	private:
 		sf::Sprite sprite;
-		const static int SIZE = 32; //33 if you want a tiny gap
+		const static int SIZE = 33;
 };
 
 
