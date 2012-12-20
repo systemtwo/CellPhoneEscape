@@ -128,6 +128,7 @@ class Engine {
 		void updateAllGenObj(float dt);
 		void deleteAllGenObj();
 		CollisionObj detectCollisions(BoundingBox bb, GenericObj * _origin);
+		int detectPointCollision(float _x, float _y, std::string& _name); //Returns index of obj at point (_x,_y). If no object, returns -1
 		
 	private:
 		std::vector<DrawObj*> objList;

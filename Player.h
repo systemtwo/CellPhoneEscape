@@ -3,6 +3,8 @@
 
 #include <SFML/graphics.hpp>
 
+#include <cstdlib>
+
 #include "Engine.h"
 #include "ResourceManager.h"
 using namespace std;
@@ -28,6 +30,7 @@ class Player : public GenericObj {
 		float jumpHeight, jumpSpeed;
 		static const int initSpeed = 15;
 		static const float ACCELERATION = 0.35;
+		static const float safeFallSpeed = 14;
 		
 		
 };

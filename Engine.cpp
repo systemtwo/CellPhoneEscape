@@ -210,6 +210,25 @@ void Engine::updateAllGenObj(float dt) {
 	return;
 }
 
+int Engine::detectPointCollision(float _x, float _y, string& _name) {
+	
+	BoundingBox aa; //Temp storage for the items in list
+	for (int i = 0; i < genObjList.size(); i++) {
+		aa = genObjList[i]->getBounds();
+		if(aa.h == 0 && aa.w == 0) {
+			//These objects are set to not have a bounding box
+			//cout << "Passing" << endl;
+			continue;
+		}
+		
+		if((_x >= aa.x) && (_x <= aa.x + aa.w) && (_y >= aa.y) && (_y <= aa.y + aa.h) && (genObjList[i] -> name!="background")) {
+				_name = genObjList[i] -> name;
+				return i;
+		}
+	}
+	return -1;
+}
+
 CollisionObj Engine::detectCollisions(BoundingBox bb, GenericObj * _origin) {
 	//Returns 1-4 for each side(enum-ed)
 	

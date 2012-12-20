@@ -14,7 +14,7 @@ GameState::GameState(sf::RenderWindow * _ap, ResourceManager * _rm) : Input(_ap-
 	AppPointer = _ap;
 	eng.setAppPointer(_ap);
 	name = "Game";
-	
+	laser = false;
 	//Set view things
 	view.SetFromRect(sf::FloatRect(0, 0, 500, 400));
 	srand(time(NULL));
@@ -66,11 +66,18 @@ void GameState::update(float dt) {
 	}
 	eng.updateAllGenObj(dt);
 	
-	//if(rand()%10==0) {
-		if (Input.IsKeyDown(sf::Key::E)) {
-		eng.addGenObj(new FallingBlock(AppPointer, RMPointer, &eng));
+	if(Input.IsKeyDown(sf::Key::L)) {
+		if( laser == false) {
+			eng.addGenObj(new Laser(AppPointer, RMPointer, &eng, playerptr, 400, 1000, 200, 800));
+			laser = true;
 		}
-	//}
+	}
+	
+	
+	if (Input.IsKeyDown(sf::Key::E)) {
+		laser = false;
+		eng.addGenObj(new FallingBlock(AppPointer, RMPointer, &eng, playerptr));
+	}
 	if (Input.IsKeyDown(sf::Key::S)) {
 		eng.addGenObj(new SecBot(AppPointer, RMPointer, &eng, playerptr));
 	}

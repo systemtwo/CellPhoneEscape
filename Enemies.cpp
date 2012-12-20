@@ -3,10 +3,11 @@
 #include "Enemies.h"
 #include "LevelManager.h"
 #include <cstdlib>
-
+#include "Vector2.hpp"
 const int HEIGHT = 30, WIDTH = 25;
 
-FallingBlock::FallingBlock(sf::RenderWindow * _ap, ResourceManager * _rm, Engine * _eng) {
+FallingBlock::FallingBlock(sf::RenderWindow * _ap, ResourceManager * _rm, Engine * _eng, Player * _player) {
+	playerptr = _player;
 	AppPointer = _ap;
 	sprite.SetImage(*_rm->getImage("enemy"));
 
@@ -209,5 +210,69 @@ void SecBot::update(float dt) {
 
 void SecBot::draw(sf::RenderWindow * _ap) {
 	AppPointer->Draw(sprite);
+	return;
+}
+
+
+
+
+
+Laser::Laser(sf::RenderWindow * _ap, ResourceManager * _rm, Engine * _eng, Player * _player, int start_x, int end_x, int top_y, int bot_y) {
+	AppPointer = _ap;
+	topSprite.SetImage(*_rm -> getImage("laserV"));
+	botSprite.SetImage(*_rm -> getImage("laserV"));
+	botSprite.FlipY(true);
+	botSprite.SetY(bot_y);
+	topSprite.SetY(top_y);
+	topSprite.SetScaleX(0.2);
+	botSprite.SetScaleX(0.2);
+	
+	
+	eng = _eng;
+	playerptr = _player;
+	
+	curX = start_x;
+	endX = end_x;
+	topY = top_y;
+	botY = bot_y;
+	origY = botSprite.GetSize().y;
+}
+
+void Laser::update(float dt) {
+	curTopY = topY;
+	curBotY = botY - 1;
+	while((eng -> detectPointCollision(curX, curTopY, name) == -1) && (curTopY < botY)) {
+		curTopY ++;
+	}
+	if(name == "player") {
+		cout << "Hit player"<<endl;
+		playerptr -> health -= 5;
+	}
+	
+	topSprite.SetScaleY((curTopY - topY)/origY);
+	topSprite.SetX(curX);
+	
+	while((eng -> detectPointCollision(curX, curBotY, name) == -1)&&(curBotY > curTopY)) {
+		curBotY --;
+	}
+	if(name == "player") {
+		cout << "Hit player"<<endl;
+		playerptr -> health -= 5;
+	}
+	
+	botSprite.SetScaleY((botY - curBotY)/origY);
+	botSprite.SetX(curX);
+	botSprite.SetY(curBotY);
+	
+	curX++;
+	if(curX >= endX) {
+		selfDestruct();
+	}
+	
+}
+
+void Laser::draw(sf::RenderWindow * _ap) {
+	_ap->Draw(topSprite);
+	_ap->Draw(botSprite);
 	return;
 }

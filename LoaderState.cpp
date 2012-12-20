@@ -44,6 +44,9 @@ void LoaderState::init() {
 	i9->LoadFromFile("images/background.png");
 	RMPointer->storeImage(i9, "background");
 	
+	sf::Image * i10 = new sf::Image;
+	i10->LoadFromFile("images/VertLaser.png");
+	RMPointer->storeImage(i10, "laserV");
 
 }
 

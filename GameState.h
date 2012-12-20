@@ -20,6 +20,7 @@ class GameState: public State {
 		ResourceManager * RMPointer;
 		sf::View view;
 		Player * playerptr;
+		bool laser;
 	public:
 		GameState(sf::RenderWindow *, ResourceManager *);
 		void init();

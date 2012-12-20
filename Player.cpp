@@ -35,14 +35,17 @@ void Player::resolveCollisions(CollisionObj co)
 	co = eng->detectCollisions(bounds, this);
 	float temp = 600; //Arbitrarily large
 	int Dir_id = 0;
-	if(((co.distD<temp)&&(co.distD!=0))
-		&&  (!((co.collD)&&(co.collU))	
+	enum overlapDir {DOWN = 1, UP, LEFT, RIGHT};
+	
+	//Finds the smallest overlap distance, and pushes the player back that amount
+	if(((co.distD<temp)&&(co.distD!=0)) //If it is overlapping on the bottom, and the overlap distance is the smallest so far
+		&&  (!((co.collD)&&(co.collU))	//If player is touching above and below, assume it's "in" a wall Do not push up or down
 		         ||
-			((co.collL)&&(co.collR)))) 
+			((co.collL)&&(co.collR)))) //If it is touching left, right, top, and bottom, then player is in a corner. Could be pushed
 	{
 			
 		temp = co.distD;
-		Dir_id = 1;
+		Dir_id = DOWN;
 	}
 	if(((co.distU<temp)&&(co.distU!=0))
 		&&  (!((co.collD)&&(co.collU))	
@@ -51,7 +54,7 @@ void Player::resolveCollisions(CollisionObj co)
 	{
 			
 		temp = co.distU;
-		Dir_id = 2;
+		Dir_id = UP;
 	}
 	if(((co.distL<temp)&&(co.distL!=0))
 		&&  (!((co.collL)&&(co.collR))	
@@ -59,7 +62,7 @@ void Player::resolveCollisions(CollisionObj co)
 			((co.collD)&&(co.collU))))
 	{
 		temp = co.distL;
-		Dir_id = 3;
+		Dir_id = LEFT;
 	}
 	if(((co.distR<temp)&&(co.distR!=0))
 		&&  (!((co.collL)&&(co.collR))	
@@ -67,27 +70,32 @@ void Player::resolveCollisions(CollisionObj co)
 			((co.collD)&&(co.collU))))
 	{
 		temp = co.distR;
-		Dir_id = 4;
+		Dir_id = RIGHT;
 	}
 	switch (Dir_id) {
-	case 1:
+	case DOWN:
 		//cout<<endl<<"Moved it Up "<<temp<<" units"<<endl;
 		bounds.y-=temp;
+		if(abs(jumpSpeed) - safeFallSpeed > 0) {
+			health -= abs(jumpSpeed) - safeFallSpeed;
+			cout << health << "hp and jumpSpeed: " << jumpSpeed << endl;;
+		}
+		
 		jumpSpeed=0;
 		jumpReady=true;
 		break;
-	case 2:
+	case UP:
 		//cout<<endl<<"Moved it down "<<temp<<" units"<<endl;
 		if(jumpSpeed>0){
 			jumpSpeed=0;
 		}
 		bounds.y+=temp;
 		break;
-	case 3:
+	case LEFT:
 		//cout<<endl<<"Moved it right "<<temp<<" units"<<endl;
 		bounds.x+=temp;
 		break;
-	case 4:
+	case RIGHT:
 		//cout<<endl<<"Moved it left "<<temp<<" units"<<endl;
 		bounds.x-=temp;
 		break;

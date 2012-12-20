@@ -4,6 +4,7 @@
 
 #include <SFML/graphics.hpp>
 #include <iostream>
+#include <string>
 #include "Engine.h"
 #include "ResourceManager.h"
 #include "Player.h"
@@ -13,7 +14,7 @@ using namespace std;
 class FallingBlock : public GenericObj {
 	public:
 		//FallingBlock(){}
-		FallingBlock(sf::RenderWindow * _ap, ResourceManager * _rm, Engine * _eng);
+		FallingBlock(sf::RenderWindow * _ap, ResourceManager * _rm, Engine * _eng, Player * _player);
 		void update(float dt);
 		void draw(sf::RenderWindow * _ap);
 		
@@ -23,6 +24,7 @@ class FallingBlock : public GenericObj {
 		void resolveCollisions(CollisionObj co);
 		sf::RenderWindow * AppPointer;
 		sf::Sprite sprite;
+		Player * playerptr;
 		Engine * eng;
 		float fallSpeed;
 		float moveSpeed;
@@ -47,6 +49,21 @@ class SecBot : public GenericObj {
 		float speed;
 		
 	
+};
+class Laser : public GenericObj {
+	public:
+		Laser(sf::RenderWindow * _ap, ResourceManager * _rm, Engine * _eng, Player * _player, int start_x, int end_x, int top_y, int bot_y);
+		void update(float dt);
+		void draw(sf::RenderWindow * _ap);
+	private:
+		sf::RenderWindow * AppPointer;
+		sf::Sprite topSprite, botSprite;
+		Engine * eng;
+		Player * playerptr;
+		
+		float length;
+		string name;
+		float curX, endX, topY, botY, curTopY, curBotY, origY;
 };
 
 #endif
