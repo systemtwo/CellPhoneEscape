@@ -46,10 +46,13 @@ class SecBot : public GenericObj {
 		Engine * eng;
 		Player * playptr;
 		
-		const static int extraDist = 600; //Distance at which sbot is a lot more likely to come towards player
-		const static int moveBiasL = 5, moveBiasS = 3, moveDist = 200, minMove = 200;
+		const static int extraDist = 400*400; //Distance at which sbot is a lot more likely to come towards player
+		const static int moveBiasL = 4, moveBiasS = 3, swC_init = 600, favor_init = 2;
+		int switchChance;
+		enum moveDirections {LEFT, RIGHT, UP, DOWN};
+		int moveDir;
 		
-		int moveH, moveV;
+		//int moveH, moveV;
 		
 		float speed;
 		

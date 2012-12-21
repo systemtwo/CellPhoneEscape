@@ -142,8 +142,11 @@ SecBot::SecBot(sf::RenderWindow * _ap, ResourceManager * _rm, Engine * _eng, Pla
 	
 	setZOrder(10);
 	
-	moveV = 15;
-	moveH = 15;
+	//moveV = 15;
+	//moveH = 15;
+	moveDir = rand()%4;
+	switchChance = 10;
+	
 	
 	name = "secbot";
 	
@@ -152,15 +155,33 @@ SecBot::SecBot(sf::RenderWindow * _ap, ResourceManager * _rm, Engine * _eng, Pla
 
 void SecBot::resolveCollisions(CollisionObj co){
 	//"Ghost" enemy, allowed to go thru tiles/walls
+	int temp = rand()%2;
 	if((co.collD)) { 
 		//Iterate thru objs it colides with on bottom
+		if(!( ((co.distD > co.distR) && (co.collR)) || ((co.distD > co.distL) && (co.collL)) || ((co.distD > co.distU) && (co.collU)) )) {
+			bounds.y -= co.distD;
+			if(temp) {
+				moveDir = LEFT;
+			} else {
+				moveDir = RIGHT;
+			}
+		}
 		for (int i= 0; i < co.nameD.size(); i++) {
 			if((co.nameD[i]=="player")) {
 				selfDestruct();    //Add extra effects later, in a private member function.
 			} 
 				
 		}
-	} else if (co.collU) {
+	}
+	if (co.collU) {
+		if(!( ((co.distU > co.distD) && (co.collD)) || ((co.distU > co.distL) && (co.collL)) || ((co.distU > co.distR) && (co.collR)) )) {
+			bounds.y += co.distU;
+			if(temp) {
+				moveDir = LEFT;
+			} else {
+				moveDir = RIGHT;
+			}
+		}
 		for(int i= 0; i < co.nameU.size(); i++) {
 			if(co.nameU[i]=="player") {
 				selfDestruct();
@@ -171,6 +192,14 @@ void SecBot::resolveCollisions(CollisionObj co){
 	}
 	
 	if ((co.collL)) {
+		if(!( ((co.distL > co.distD) && (co.collD)) || ((co.distL > co.distR) && (co.collR)) || ((co.distL > co.distU) && (co.collU)) )) {
+			bounds.x += co.distL;
+			if(temp) {
+				moveDir = UP;
+			} else {
+				moveDir = DOWN;
+			}
+		}
 		for (int i= 0; i < co.nameL.size(); i++) {
 			if(co.nameL[i]=="player"){
 				
@@ -182,6 +211,14 @@ void SecBot::resolveCollisions(CollisionObj co){
 	
 			
 	if (co.collR) {
+		if(!( ((co.distR > co.distD) && (co.collD)) || ((co.distR > co.distL) && (co.collL)) || ((co.distR > co.distU) && (co.collU)) )) {
+			bounds.x -= co.distR;
+			if(temp) {
+				moveDir = UP;
+			} else {
+				moveDir = DOWN;
+			}
+		}
 		for (int i= 0; i < co.nameR.size(); i++) {
 			if(co.nameR[i]=="player") {
 				selfDestruct();
@@ -192,9 +229,78 @@ void SecBot::resolveCollisions(CollisionObj co){
 }
 
 void SecBot::update(float dt) {
-	int favorH = 0;
-	int favorV = 0;
-	if (playptr->getBounds().x > bounds.x) {
+	//int favorH = 0;
+	//int favorV = 0;
+	
+	int xDif = playptr->getBounds().x - bounds.x; //Positive if player is on right of sec bot
+	int yDif = playptr->getBounds().y - bounds.y; //Positive if player is below sec bot
+	int totalDif = xDif*xDif + yDif*yDif; //Don't bother sqrt, wasted time
+	int favor = favor_init;
+	
+	
+	if((yDif>=0) && (xDif>=0)) {
+		if((moveDir == LEFT) || (moveDir == UP)) {
+			if(totalDif > extraDist) {
+				favor = moveBiasL;
+			} else {
+				favor = moveBiasS;
+			}
+		}
+	} else if((yDif>=0) && (xDif<0)) {
+		if((moveDir == RIGHT) || (moveDir == UP)) {
+			if(totalDif > extraDist) {
+				favor = moveBiasL;
+			} else {
+				favor = moveBiasS;
+			}
+		}
+	} else if((yDif<0) && (xDif>=0)) {
+		if((moveDir == LEFT) || (moveDir == DOWN)) {
+			if(totalDif > extraDist) {
+				favor = moveBiasL;
+			} else {
+				favor = moveBiasS;
+			}
+		}
+	} else if((yDif<0) && (xDif<0)) {
+		if((moveDir == RIGHT) || (moveDir == DOWN)) {
+			if(totalDif > extraDist) {
+				favor = moveBiasL;
+			} else {
+				favor = moveBiasS;
+			}
+		}
+	}
+	
+	if(rand()%abs(switchChance) <= favor) {//Smaller switchChance gets, more likely to switch direction
+		moveDir += rand()%3 + 1;
+		if(moveDir > 3) {
+			moveDir -= 4;
+		}
+		switchChance = swC_init;
+	}
+	if(switchChance>1) {
+		switchChance--;
+	}
+	switch(moveDir) {
+		case LEFT:
+			bounds.x -= speed * dt;
+			break;
+		case RIGHT:
+			bounds.x += speed *dt;
+			break;
+		case UP:
+			bounds.y -= speed *dt;
+			break;
+		case DOWN:
+			bounds.y += speed * dt;
+			break;
+		default:
+			cout<<"ERROR in moveDir"<<endl;
+			break;
+	}
+	
+	/*if (playptr->getBounds().x > bounds.x) {
 		if (playptr->getBounds().x > bounds.x + extraDist) {
 			if(moveH > 0) {
 				favorH = 0;
@@ -283,7 +389,7 @@ void SecBot::update(float dt) {
 			moveV++;
 		}
 		bounds.y -=speed*dt;
-	}
+	}*/
 	
 	
 	
