@@ -25,6 +25,7 @@ Player::Player(sf::RenderWindow * _ap, ResourceManager * _rm, Engine * _eng, int
 	
 	name = "player";
 	health = 100;
+	type = VIRUS;
 	
 	return;
 }

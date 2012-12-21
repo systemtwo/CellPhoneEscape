@@ -32,7 +32,6 @@ class Player : public GenericObj {
 		static const float ACCELERATION = 0.35;
 		static const float safeFallSpeed = 14;
 		
-		
 };
 
 #endif

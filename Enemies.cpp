@@ -132,8 +132,8 @@ SecBot::SecBot(sf::RenderWindow * _ap, ResourceManager * _rm, Engine * _eng, Pla
 	
 	sprite.SetImage(*_rm->getImage("arrgav"));
 	//Set bounds
-	bounds.x = 100; //rand()%1000;
-	bounds.y = rand()%10;
+	bounds.x = rand()%100 + 400;
+	bounds.y = rand()%10 + 300;
 	bounds.w = sprite.GetSize().x;
 	bounds.h = sprite.GetSize().y;
 	
@@ -141,6 +141,9 @@ SecBot::SecBot(sf::RenderWindow * _ap, ResourceManager * _rm, Engine * _eng, Pla
 	sprite.SetY(bounds.y);
 	
 	setZOrder(10);
+	
+	moveV = 15;
+	moveH = 15;
 	
 	name = "secbot";
 	
@@ -189,17 +192,102 @@ void SecBot::resolveCollisions(CollisionObj co){
 }
 
 void SecBot::update(float dt) {
+	int favorH = 0;
+	int favorV = 0;
 	if (playptr->getBounds().x > bounds.x) {
-		bounds.x += speed * dt;
+		if (playptr->getBounds().x > bounds.x + extraDist) {
+			if(moveH > 0) {
+				favorH = 0;
+			} else {
+				favorH = moveBiasL;
+			}
+		} else {
+			if(moveH > 0) {
+				favorH = 0;
+			} else {
+				favorH = moveBiasS;
+			}
+		}
 	} else if (playptr->getBounds().x < bounds.x) {
-		bounds.x -= speed * dt;
-	} 
-	
-	if (playptr->getBounds().y > bounds.y) {
-		bounds.y += speed * dt;
-	} else if (playptr->getBounds().y < bounds.y)  {
-		bounds.y -= speed * dt;
+		if (playptr->getBounds().x < bounds.x - extraDist) {
+			if(moveH < 0) {
+				favorH = 0;
+			} else {
+				favorH = moveBiasL;
+			}
+		} else {
+			if(moveH < 0) {
+				favorH = 0;
+			} else {
+				favorH = moveBiasS;
+			}
+		}
 	}
+	if (playptr->getBounds().y > bounds.y) {
+		if (playptr->getBounds().y > bounds.y + extraDist) {
+			if(moveV > 0) {
+				favorV = 0;
+			} else {
+				favorV = moveBiasL;
+			}
+		} else {
+			if(moveV > 0) {
+				favorV = 0;
+			} else {
+				favorV = moveBiasS;
+			}
+		}
+	} else if (playptr->getBounds().y < bounds.y) {
+		if (playptr->getBounds().y < bounds.y - extraDist) {
+			if(moveV < 0) {
+				favorV = 0;
+			} else {
+				favorV = moveBiasL;
+			}
+		} else {
+			if(moveV < 0) {
+				favorV = 0;
+			} else {
+				favorV = moveBiasS;
+			}
+		}
+	}
+	if(rand()%abs(moveH) <= favorH) {//Smaller moveH gets, more likely to switch direction
+		moveH *= -1;
+		moveH = (rand()%moveDist + minMove) * moveH / abs(moveH);
+	}
+	if(rand()%abs(moveV) <= favorV) {
+		moveV *= -1;
+		moveV = (rand()%moveDist + minMove) * moveV / abs(moveV);
+	}
+	
+	if(moveH >= 0) {
+		if(moveH > 1) {
+			moveH--;
+		}
+		bounds.x += speed*dt;
+	} else if(moveH < 0) {
+		if(moveH < -1) {
+			moveH++;
+		}
+		bounds.x -=speed*dt;
+	}
+	
+	if(moveV >= 0) {
+		if(moveV > 1) {
+			moveV--;
+		}
+		bounds.y += speed*dt;
+	} else if(moveV < 0) {
+		if(moveV < -1) {
+			moveV++;
+		}
+		bounds.y -=speed*dt;
+	}
+	
+	
+	
+	
 	CollisionObj co = eng->detectCollisions(bounds, this);
 	resolveCollisions(co);
 	

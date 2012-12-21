@@ -73,6 +73,9 @@ class GenericObj {
 		bool destroy;
 		bool subscribeInput; //If the object want inputs called
 		
+		enum typeEnum {VIRUS, EPUB, TXT, MP3, JPEG, EXE, ZIP, MOV, DAT, BIN, LOG, BAT, SMS, WAV}; //WAV is for voicemail, SMS for txt msg
+		typeEnum type;
+		
 	private:
 		int zorder;
 		
