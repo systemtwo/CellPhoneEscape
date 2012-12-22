@@ -413,6 +413,7 @@ void SecBot::draw(sf::RenderWindow * _ap) {
 
 Laser::Laser(sf::RenderWindow * _ap, ResourceManager * _rm, Engine * _eng, Player * _player, int start_x, int end_x, int top_y, int bot_y) {
 	AppPointer = _ap;
+	resourceM = _rm;
 	topSprite.SetImage(*_rm -> getImage("laserV"));
 	botSprite.SetImage(*_rm -> getImage("laserV"));
 	botSprite.FlipY(true);
@@ -433,6 +434,7 @@ Laser::Laser(sf::RenderWindow * _ap, ResourceManager * _rm, Engine * _eng, Playe
 }
 
 void Laser::update(float dt) {
+	bool hitPlayer = false;
 	curTopY = topY;
 	curBotY = botY - 1;
 	while((eng -> detectPointCollision(curX, curTopY, name) == -1) && (curTopY < botY)) {
@@ -440,7 +442,8 @@ void Laser::update(float dt) {
 	}
 	if(name == "player") {
 		cout << "Hit player"<<endl;
-		playerptr -> health -= 5;
+		hitPlayer = true;
+		eng->addGenObj(new SecBot(AppPointer, resourceM, eng, playerptr));
 	}
 	
 	topSprite.SetScaleY((curTopY - topY)/origY);
@@ -451,7 +454,9 @@ void Laser::update(float dt) {
 	}
 	if(name == "player") {
 		cout << "Hit player"<<endl;
-		playerptr -> health -= 5;
+		if(hitPlayer == false) {
+			eng->addGenObj(new SecBot(AppPointer, resourceM, eng, playerptr));
+		}
 	}
 	
 	botSprite.SetScaleY((botY - curBotY)/origY);

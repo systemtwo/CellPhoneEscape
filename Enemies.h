@@ -68,6 +68,7 @@ class Laser : public GenericObj {
 		sf::Sprite topSprite, botSprite;
 		Engine * eng;
 		Player * playerptr;
+		ResourceManager * resourceM;
 		
 		float length;
 		string name;

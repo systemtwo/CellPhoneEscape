@@ -19,8 +19,8 @@ class Player : public GenericObj {
 		
 		float health;
 		//int zorder;
+		//BoundingBox abilityRange;
 	private:
-		
 		void resolveCollisions(CollisionObj co);
 		sf::RenderWindow * AppPointer;
 		const sf::Input & input;
@@ -31,6 +31,8 @@ class Player : public GenericObj {
 		static const int initSpeed = 15;
 		static const float ACCELERATION = 0.35;
 		static const float safeFallSpeed = 14;
+		static const float RANGE = 5;
+		BoundingBox abilityRange; 
 		
 };
 

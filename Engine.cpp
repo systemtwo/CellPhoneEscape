@@ -232,12 +232,7 @@ int Engine::detectPointCollision(float _x, float _y, string& _name) {
 CollisionObj Engine::detectCollisions(BoundingBox bb, GenericObj * _origin) {
 	//Returns 1-4 for each side(enum-ed)
 	
-	/*
-	cout << "1 (" << bb.x << ", " << bb.y << endl
-	     << "2 (" << bb.x+bb.w << ", " << bb.y << endl
-		 << "3 (" << bb.x << ", " << bb.y+bb.h << endl
-		 << "4 (" << bb.x+bb.w << ", " << bb.y+bb.h << endl;
-		 */
+	
 	BoundingBox aa; //Temp storage for the items in list
 	
 	bool colU = false;
@@ -249,13 +244,7 @@ CollisionObj Engine::detectCollisions(BoundingBox bb, GenericObj * _origin) {
 	
 	CollisionObj co = CollisionObj(aa);
 	for (int i = 0; i < genObjList.size(); i++) {
-		//Reset colision values
-		/*
-		colU = false;
-		colD = false;
-		colR = false;
-		colL = false;
-		*/
+		
 		if (_origin == genObjList[i]) {
 			//Object is being compared with itself
 			//cout << "Self hit" << endl;
@@ -267,7 +256,6 @@ CollisionObj Engine::detectCollisions(BoundingBox bb, GenericObj * _origin) {
 		
 		if(aa.h == 0 && aa.w == 0) {
 			//These objects are set to not have a bounding box
-			//cout << "Passing" << endl;
 			continue;
 		}
 		
@@ -278,49 +266,43 @@ CollisionObj Engine::detectCollisions(BoundingBox bb, GenericObj * _origin) {
 				co.distR = (bb.x+bb.w)-aa.x;
 			}
 			co.nameR.push_back(genObjList[i]->name);
+			co.objPtrR.push_back(genObjList[i]); //Can cause an object to give two pointers (overlap on side and top/bottom)
 			if((genObjList[i]->name.compare("tile")))
-			//cout<<"Name is "<<genObjList[i]->name<<endl<<endl;
 			if(co.nameR.size()>temp) {
 				temp=co.nameR.size();
 			}
-		}
-		//cout << "Rd: " << ((bb.x) < (aa.x)) << endl;
-		else if ((bb.x < (aa.x+aa.w)) && ((bb.x+bb.w) > (aa.x+aa.w)) && (bb.y < (aa.y+aa.h)) && ((bb.y+bb.h) > (aa.y))) {
-			//cout << "LEFT" << ((bb.x+bb.w) > (aa.x+aa.w)) <<  endl;
+		} else if ((bb.x < (aa.x+aa.w)) && ((bb.x+bb.w) > (aa.x+aa.w)) && (bb.y < (aa.y+aa.h)) && ((bb.y+bb.h) > (aa.y))) {
 			co.collL = true;
 			if (((aa.x+aa.w)-bb.x)>co.distL) {
 				co.distL = (aa.x+aa.w)-bb.x;
 			}
 			co.nameL.push_back(genObjList[i]->name);
+			co.objPtrL.push_back(genObjList[i]);
 			if((genObjList[i]->name.compare("tile")))
-			//cout<<"Name is "<<genObjList[i]->name<<endl<<endl;
 			if(co.nameL.size()>temp) {
 				temp=co.nameL.size();
 			}
 		}
 		
 		if (((bb.y+bb.h) > aa.y) && (bb.y < aa.y) && (bb.x < (aa.x+aa.w)) && ((bb.x+bb.w)> (aa.x))) {
-			//return CollisionObj(BOTTOM, aa);
-			//cout << "BOTTOM" << endl;
 			co.collD = true;
 			if (((bb.y+bb.h)-aa.y) > co.distD) {
 				co.distD = (bb.y+bb.h)-aa.y;
 			}
 			co.nameD.push_back(genObjList[i]->name);
+			co.objPtrD.push_back(genObjList[i]);
 			if((genObjList[i]->name.compare("tile")))
-			//cout<<"Name is "<<genObjList[i]->name<<endl<<endl;
 			if(co.nameD.size()>temp) {
 				temp=co.nameD.size();
 			}
 		} else if (((bb.y) < (aa.y+aa.h)) && ((bb.y+bb.h) > (aa.y+aa.h)) && (bb.x < (aa.x+aa.w)) && ((bb.x+bb.w)> (aa.x))) {
 			//This else if may cause some later problems
-			//return CollisionObj(TOP, aa);
-			//cout << "UP" << endl;
 			co.collU = true;
 			if (((aa.y+aa.h)-bb.y)> co.distU) {
 				co.distU = (aa.y+aa.h)-bb.y;
 			}
 			co.nameU.push_back(genObjList[i]->name);
+			co.objPtrU.push_back(genObjList[i]);
 			if((genObjList[i]->name.compare("tile")))
 			//cout<<"Name is "<<genObjList[i]->name<<endl<<endl;
 			if(co.nameU.size()>temp) {
@@ -329,8 +311,6 @@ CollisionObj Engine::detectCollisions(BoundingBox bb, GenericObj * _origin) {
 		} else {
 			//Return CollisionObj with side set and top/bottom set to none
 		}
-		
-		
 	}
 	co.maxNameVectorSize = temp; //Sets it to the size of the name vector with the largest size
 	

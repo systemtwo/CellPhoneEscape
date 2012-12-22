@@ -26,31 +26,6 @@ class BoundingCircle: public BoundingContainer {
 		float r;
 };
 
-class CollisionObj {
-	public:
-		CollisionObj(BoundingBox b);
-		BoundingBox bounds;
-		//int collType; //Collision type as determined by enum
-		bool collL; //Collision for sides
-		bool collR;
-		bool collU;
-		bool collD;
-		
-
-		//Distance of overlap (Should replace bool versions)
-		float distL;
-		float distR;
-		float distU;
-		float distD;
-		
-		//Names of things collided with (Organized by sizes)
-		std::vector<std::string> nameL;
-		std::vector<std::string> nameR;
-		std::vector<std::string> nameD;
-		std::vector<std::string> nameU;
-		
-		int maxNameVectorSize;
-};
 
 struct DrawObj {
 	sf::Sprite * sprite;
@@ -83,6 +58,36 @@ class GenericObj {
 		BoundingBox bounds;
 };
 
+class CollisionObj {
+	public:
+		CollisionObj(BoundingBox b);
+		BoundingBox bounds;
+		//int collType; //Collision type as determined by enum
+		bool collL; //Collision for sides
+		bool collR;
+		bool collU;
+		bool collD;
+		
+
+		//Distance of overlap (Should replace bool versions)
+		float distL;
+		float distR;
+		float distU;
+		float distD;
+		
+		//Names of things collided with (Organized by sizes)
+		std::vector<std::string> nameL;
+		std::vector<std::string> nameR;
+		std::vector<std::string> nameD;
+		std::vector<std::string> nameU;
+		
+		std::vector<GenericObj*> objPtrL;
+		std::vector<GenericObj*> objPtrR;
+		std::vector<GenericObj*> objPtrD;
+		std::vector<GenericObj*> objPtrU;
+		
+		int maxNameVectorSize;
+};
 
 class FPSDisplay : public GenericObj {
 	public:

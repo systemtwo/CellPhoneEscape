@@ -5,23 +5,29 @@
 
 
 Player::Player(sf::RenderWindow * _ap, ResourceManager * _rm, Engine * _eng, int x, int y) : input(_ap->GetInput()) {
+	cout<<endl<<"Created Player!!"<<endl;
 	AppPointer = _ap;
 	sprite.SetImage(*_rm->getImage("player"));
 
 	setZOrder(10);
 	
-	eng = _eng;
 	//Set bounds
 	bounds.x = x;
 	bounds.y = y;
 	bounds.w = sprite.GetSize().x;
 	bounds.h = sprite.GetSize().y;
-
+	
+	eng = _eng;
+	abilityRange.x = x-RANGE;
+	abilityRange.y = y-RANGE;
+	abilityRange.w = RANGE*2 + bounds.w;
+	abilityRange.h = RANGE*2 + bounds.h;
+	
 	sprite.SetX(bounds.x);
 	sprite.SetY(bounds.y);
 
 	jumpReady = true;
-
+	jumpSpeed = 0;
 	
 	name = "player";
 	health = 100;
@@ -34,6 +40,8 @@ Player::Player(sf::RenderWindow * _ap, ResourceManager * _rm, Engine * _eng, int
 void Player::resolveCollisions(CollisionObj co)
 {
 	co = eng->detectCollisions(bounds, this);
+	
+	
 	float temp = 600; //Arbitrarily large
 	int Dir_id = 0;
 	enum overlapDir {DOWN = 1, UP, LEFT, RIGHT};
@@ -109,14 +117,16 @@ void Player::resolveCollisions(CollisionObj co)
 
 void Player::update(float dt) {
 	int speed = 200;
+	bool inRange = false;
 	CollisionObj co = eng->detectCollisions(bounds, this);
+	CollisionObj aTest = eng->detectCollisions(abilityRange, this);
+	if((aTest.collD) || (aTest.collU) || (aTest.collL) || (aTest.collR)) {
+		inRange = true;	
+		cout<<"inRange!"<<endl;
+	}
 	
 	
-	/*
-	std::cout << "COLLIDING WITH: " << std::endl;
-	for (int i = 0; i < co.nameD.size(); i++)  {
-		std::cout << "-" << co.nameD[i] << std::endl;
-	}*/
+	
 	
 	
 	if (input.IsKeyDown(sf::Key::Left)) {
@@ -129,7 +139,6 @@ void Player::update(float dt) {
 	}
 	
 	if (input.IsKeyDown(sf::Key::Up)) {
-
 		if (jumpReady==true) {
 			jumpSpeed=initSpeed;
 			jumpReady=false;
@@ -140,10 +149,14 @@ void Player::update(float dt) {
 			jumpSpeed = 0;
 		}
 	}
-	
 	if (input.IsKeyDown(sf::Key::Down)) {
 		jumpSpeed-=ACCELERATION;
 		//sprite.Move(0, dt*speed);
+	}
+	if (input.IsKeyDown(sf::Key::A)) {
+		if(inRange){
+			health = 0;	
+		}
 	}
 	
 	//Code for falling, and acceleration.
@@ -154,6 +167,8 @@ void Player::update(float dt) {
 		resolveCollisions(co);
 	}
 	
+	abilityRange.x = bounds.x-RANGE;
+	abilityRange.y = bounds.y-RANGE;
 	sprite.SetX(bounds.x+1);
 	sprite.SetY(bounds.y+1);
 	
