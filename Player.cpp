@@ -2,7 +2,7 @@
 #include <cmath>
 #include <iostream>
 #include "Enemies.h"
-
+#include <sstream>
 
 Player::Player(sf::RenderWindow * _ap, ResourceManager * _rm, Engine * _eng, int x, int y) : input(_ap->GetInput()) {
 	cout<<endl<<"Created Player!!"<<endl;
@@ -32,6 +32,11 @@ Player::Player(sf::RenderWindow * _ap, ResourceManager * _rm, Engine * _eng, int
 	name = "player";
 	health = 100;
 	type = VIRUS;
+	
+	font.LoadFromFile("snr.ttf");
+	healthdisp.SetFont(font);
+	healthdisp.SetText("100");
+	healthdisp.SetSize(10);
 	
 	return;
 }
@@ -129,6 +134,7 @@ void Player::update(float dt) {
 	
 	
 	
+	
 	if (input.IsKeyDown(sf::Key::Left)) {
 		bounds.x -= dt*speed;
 		//sprite.Move(-dt*speed, 0);
@@ -172,12 +178,19 @@ void Player::update(float dt) {
 	sprite.SetX(bounds.x+1);
 	sprite.SetY(bounds.y+1);
 	
-	
+	//Health display 
+	// (if you put this before the player coords are updated, then it looks cool)
+	stringstream ss;
+	ss << (int)health;
+	healthdisp.SetText(ss.str());
+	healthdisp.SetX(bounds.x+bounds.w);
+	healthdisp.SetY(bounds.y);
 	
 	return;
 }
 
 void Player::draw(sf::RenderWindow * _ap) {
 	_ap->Draw(sprite);
+	_ap->Draw(healthdisp);
 	return;
 }

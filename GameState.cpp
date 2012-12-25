@@ -32,7 +32,7 @@ void GameState::init() {
 }
 
 void GameState::onSwitch() {
-	//AppPointer->SetView(view);
+	AppPointer->SetView(view);
 	playerptr->health = 100;
 }
 
@@ -45,8 +45,7 @@ void GameState::onSwitchOut() {
 		playerptr->health = 0;
 	}
  	//This needs to be below updateAllGenObj so that it gets the latest player coords
- 	BoundingBox temp_bb = playerptr->getBounds();
- 	//view.SetCenter(sf::Vector2<float>(temp_bb.x, temp_bb.y));
+ 	
 	if (playerptr->health <= 0) {
 		switchName = "GameOver";
 	}
@@ -54,6 +53,9 @@ void GameState::onSwitchOut() {
 }
 
 void GameState::update(float dt) {
+	BoundingBox temp_bb = playerptr->getBounds();
+ 	view.SetCenter(sf::Vector2<float>(temp_bb.x, temp_bb.y));
+	
 	//sf::Vector2 pos = sf::Vector2<int>(playerptr->bounds.x, playerptr->bounds.y);
 	/*
 	if (Input.IsKeyDown(sf::Key::Space)) {

@@ -33,6 +33,8 @@ class Player : public GenericObj {
 		static const float safeFallSpeed = 14;
 		static const float RANGE = 5;
 		BoundingBox abilityRange; 
+		sf::Font font;
+		sf::String healthdisp;
 		
 };
 
