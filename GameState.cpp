@@ -24,6 +24,17 @@ GameState::GameState(sf::RenderWindow * _ap, ResourceManager * _rm) : Input(_ap-
 	playerptr = tm.generateMap(&eng);
 	//You can add objects twice to have them doubly updated (BAD!)
 	//eng.addGenObj(playerptr);
+	
+	//Make sound
+	sf::SoundBuffer * s = new sf::SoundBuffer;
+	s->LoadFromFile("snd/explosion.wav");
+	AM.storeSoundBuffer(s, "explosion");
+	
+	//Attach sound
+	exp.SetBuffer(*AM.getSoundBuffer("explosion"));
+	//exp.SetVolume(75.0f);
+	exp.Stop();
+	
 }
 
 void GameState::init() {
@@ -65,6 +76,13 @@ void GameState::update(float dt) {
 	
 	if (Input.IsKeyDown(sf::Key::Return)) {
 		view.Move(rand()%10, rand()%10);
+		//if (exp.GetStatus() == sf::Sound::Stopped) {
+		
+		exp.SetVolume(100.0f);
+		if (exp.GetStatus() == sf::Sound::Stopped) {
+			exp.Play();
+		}
+		//}
 	}
 	eng.updateAllGenObj(dt);
 	

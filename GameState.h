@@ -8,6 +8,7 @@
 #include "Engine.h"
 #include "ResourceManager.h"
 #include "LevelManager.h"
+#include "AudioManager.h"
 
 #define PI 3.14159265
 
@@ -21,6 +22,9 @@ class GameState: public State {
 		sf::View view;
 		Player * playerptr;
 		bool laser;
+		
+		AudioManager AM;
+		sf::Sound exp;
 	public:
 		GameState(sf::RenderWindow *, ResourceManager *);
 		void init();
